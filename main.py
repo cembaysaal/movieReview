@@ -3,6 +3,16 @@ from flask_cors import CORS
 from flask_jwt_extended import  create_access_token, JWTManager, jwt_required, get_jwt_identity
 import secrets
 import pyrebase
+import requests
+
+
+def get_weather(city, country_code):
+    api_key = "3536a7b4d62e6be4384cefacde2034c8"
+    base_url = "http://api.openweathermap.org/data/2.5/weather"
+    complete_url = f"{base_url}?q={city},{country_code}&appid={api_key}&units=metric"
+    
+    response = requests.get(complete_url)
+    return response.json()
 
 
 ########################################################################################################################################################################
@@ -281,6 +291,17 @@ def user_add_star(movie_id):
     except Exception as e:
         return jsonify({"message": f"An Error Occurred: {e}"}), 500
 
+@app.route("/weather", methods=["POST"])
+def weather():
+    data = request.get_json()
+    city = data.get('city')
+    country_code = data.get('country_code')
+
+    if not city or not country_code:
+        return jsonify({"error": "Missing city or country code"}), 400
+
+    weather_data = get_weather(city, country_code)
+    return jsonify(weather_data)
        
 
 #bbitenler
