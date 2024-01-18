@@ -6,34 +6,12 @@
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
     <link rel="stylesheet" href="./login.css">
-    <script>
-        function validateForm() {
-            var username = document.forms["loginForm"]["username"].value;
-            var password = document.forms["loginForm"]["password"].value;
-            if (username == "" || password == "") {
-                alert("Both username and password must be filled out");
-                return false;
-            }
-            document.getElementById('loginFeedback').innerText = 'Logging in...';
-            return true;
-        }
-    
-        function handleLoginResponse(success, message) {
-            var feedbackElement = document.getElementById('loginFeedback');
-            if (success) {
-                feedbackElement.innerText = 'Login successful!';
-            } else {
-                feedbackElement.innerText = message;
-            }
-        }
-    </script>
-    
 </head>
 <body>
     <div class="container">
         <div class="screen">
             <div class="screen__content">
-                <form name="loginForm" class="login" method="post" action="backend-endpoint/login" onsubmit="return validateForm()">
+                <form name="loginForm" class="login" onsubmit="validateForm(event)">
                     <div class="login__field">
                         <i class="login__icon fas fa-user"></i>
                         <input type="text" name="username" class="login__input" placeholder="User name / Email">
@@ -61,6 +39,7 @@
                     <a href="signup.html" class="social-login__link">Sign Up</a>
                 </div>
             </div>
+            <div id="loginFeedback" style="color: red; margin-top: 15px;"></div>
             <div class="screen__background">
                 <span class="screen__background__shape screen__background__shape4"></span>
                 <span class="screen__background__shape screen__background__shape3"></span>		
@@ -69,5 +48,51 @@
             </div>		
         </div>
     </div>
+    <script>
+        function validateForm(event) {
+    event.preventDefault(); 
+
+    var username = document.forms["loginForm"]["username"].value;
+    var password = document.forms["loginForm"]["password"].value;
+    var role = document.querySelector('input[name="role"]:checked').value;
+
+    if (username == "" || password == "") {
+        alert("Both username and password must be filled out");
+        return false;
+    }
+
+    document.getElementById('loginFeedback').innerText = 'Logging in...';
+    
+    var loginEndpoint = role === "admin" ? "http://127.0.0.1:5050/admin/login" : "http://127.0.0.1:5050/user/login";
+
+    var requestData = JSON.stringify({
+        email: username,
+        password: password
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", loginEndpoint, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            handleLoginResponse(true, response.message);
+        } else if (xhr.readyState === 4) {
+            handleLoginResponse(false, "Login failed. Please try again.");
+        }
+    };
+    xhr.send(requestData);
+}
+
+function handleLoginResponse(success, message) {
+    var feedbackElement = document.getElementById('loginFeedback');
+    if (success) {
+        feedbackElement.innerText = message;
+    } else {
+        feedbackElement.innerText = message;
+    }
+}
+    </script>
+
 </body>
 </html>
