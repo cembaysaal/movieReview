@@ -230,7 +230,58 @@ def user_contact():
     
     except Exception as e:
         return f"An Error Occured: {e}"
+
+@app.route("/user/movie/<string:movie_id>/add-star", methods=["POST"])
+@jwt_required()
+def user_add_star(movie_id):
+    try:
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "user":
+                return jsonify({"message": "Invalid token"}), 400
+      
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        data = request.get_json()
+        new_star_rating = data.get("star_rating")
+
         
+        if new_star_rating is None:
+            return jsonify({"message": "Please provide a star rating"}), 400
+        if not 0 <= new_star_rating <= 5:
+            return jsonify({"message": "Star rating must be between 0 and 5"}), 400
+
+        
+        movie_ref = db.child("movies").child(movie_id)
+        movie = movie_ref.get()
+        if not movie.val():
+            return jsonify({"message": "Movie not found"}), 404
+        
+        rating_count = movie.val().get("rating_count")
+        if rating_count is None:
+            rating_count = 1
+        else:
+            rating_count = rating_count + 1
+        
+        db.child("movies").child(movie_id).update({"rating_count": rating_count})
+        
+        average_rating = db.child("movies").child(movie_id).child("average_rating").get().val()
+        
+        if(average_rating is None):
+            average_rating = new_star_rating
+        else:
+            average_rating = (average_rating * (rating_count - 1) + new_star_rating) / rating_count
+        
+        db.child("movies").child(movie_id).update({"average_rating": average_rating})
+        return jsonify({"message": "Star rating added successfully", "new_average_rating": average_rating}), 200
+
+    except Exception as e:
+        return jsonify({"message": f"An Error Occurred: {e}"}), 500
+
+       
 
 #bbitenler
     """
@@ -245,6 +296,7 @@ def user_contact():
     admin gönderilen mesajları görebilir
     admin yorumları silebilir
     admin film ekleyebilir ve silebilir
+    user give a movie to star score and make average score
     """
 #eklenebilecekler
 
