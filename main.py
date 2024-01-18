@@ -198,7 +198,7 @@ def user_movie_comments(id):
         return jsonify(comments.val()), 200
     except Exception as e:
         return f"An Error Occured: {e}"
-    
+
 @app.route("/user/contact", methods=["POST"])
 @jwt_required()
 def user_contact():
@@ -211,27 +211,19 @@ def user_contact():
             return jsonify({"message": "Invalid token"}), 400
     except:
         return jsonify({"message": "Invalid token"}), 400
-     
-
-    
-    name = ""
-    surname = ""
-    email = ""
-    message = ""
     
     try:
         data = request.get_json()
         name = data["name"]
-        surname = data["surname"]
         email = data["email"]
         message = data["message"]
         
-        if name == "" or surname == "" or email == "" or message == "":
+        
+        if name == "" or email == "" or message == "":
             return jsonify({"message": "Please fill all the fields"}), 400
         
         db.child("user_messages").push({
             "name": name,
-            "surname": surname,
             "email": email,
             "message": message
         })
