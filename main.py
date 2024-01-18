@@ -124,7 +124,6 @@ def user_movie(id):
     try:
         jwt_identity = get_jwt_identity()
         user_type = jwt_identity['type']
-        print("HELLOOO",user_type)
 
         if user_type != "user":
             return jsonify({"message": "Invalid token"}), 400
@@ -231,7 +230,58 @@ def user_contact():
     
     except Exception as e:
         return f"An Error Occured: {e}"
+
+@app.route("/user/movie/<string:movie_id>/add-star", methods=["POST"])
+@jwt_required()
+def user_add_star(movie_id):
+    try:
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "user":
+                return jsonify({"message": "Invalid token"}), 400
+      
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        data = request.get_json()
+        new_star_rating = data.get("star_rating")
+
         
+        if new_star_rating is None:
+            return jsonify({"message": "Please provide a star rating"}), 400
+        if not 0 <= new_star_rating <= 5:
+            return jsonify({"message": "Star rating must be between 0 and 5"}), 400
+
+        
+        movie_ref = db.child("movies").child(movie_id)
+        movie = movie_ref.get()
+        if not movie.val():
+            return jsonify({"message": "Movie not found"}), 404
+        
+        rating_count = movie.val().get("rating_count")
+        if rating_count is None:
+            rating_count = 1
+        else:
+            rating_count = rating_count + 1
+        
+        db.child("movies").child(movie_id).update({"rating_count": rating_count})
+        
+        average_rating = db.child("movies").child(movie_id).child("average_rating").get().val()
+        
+        if(average_rating is None):
+            average_rating = new_star_rating
+        else:
+            average_rating = (average_rating * (rating_count - 1) + new_star_rating) / rating_count
+        
+        db.child("movies").child(movie_id).update({"average_rating": average_rating})
+        return jsonify({"message": "Star rating added successfully", "new_average_rating": average_rating}), 200
+
+    except Exception as e:
+        return jsonify({"message": f"An Error Occurred: {e}"}), 500
+
+       
 
 #bbitenler
     """
@@ -244,10 +294,12 @@ def user_contact():
     user websitesiiyle ilgili yorumunu gönderebilir
     admin login olabilir
     admin gönderilen mesajları görebilir
+    admin yorumları silebilir
+    admin film ekleyebilir ve silebilir
+    user give a movie to star score and make average score
     """
 #eklenebilecekler
-#admin yorumları silebilir
-#admin film ekleyebilir ve silebilir
+
 #user give a movie to star score
 
 ########################################################################################################################################################################
@@ -296,7 +348,66 @@ def admin_see_messages():
             return jsonify(messages.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
+        
+@app.route("/admin/movie/<string:movie_id>/remove-comment/<string:comment_id>", methods=["DELETE"])
+@jwt_required()
+def admin_remove_comment(movie_id, comment_id):
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+            
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+    except:
+        return jsonify({"message": "Invalid token"}), 400
+    
+    try:
+        db.child("movies").child(movie_id).child("comments").child(comment_id).remove()
+        
+        return jsonify({"message": "Comment removed successfully"}), 200
+
+    except Exception as e:
+        return jsonify({"message": f"An Error Occurred: {e}"}), 500
+
+@app.route("/admin/add-movie", methods=["POST"])
+@jwt_required()
+def admin_add_movie():
+    try: 
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "admin":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        data = request.get_json()
+        movie_name = data.get("movie_name")
+        year = data.get("movie_year")
+        photo_url = data.get("movie_image_link")
+        duration = data.get("movie_duration")
+        movie_score = data.get("movie_imdb_score")  # We can change this later with like imdb score
+
+        
+        if not all([movie_name, year, photo_url, duration]):
+            return jsonify({"message": "Please provide all movie details"}), 400
+       
+        movie_data = {
+            "movie_name": movie_name,
+            "movie_year": year,
+            "movie_image_link": photo_url,
+            "movie_duration": duration,
+            "movie_imdb_score": movie_score
+        }
+
+        db.child("movies").push(movie_data)
+
+        return jsonify({"message": "movie added successfully"}), 201
+
+    except Exception as e:
+        return jsonify({"message": f"An Error Occurred: {e}"}), 500
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=5050, debug=True)
