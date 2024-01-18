@@ -3,24 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up Form</title>
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
-    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script>
-        function validateSignupForm() {
-            var name = document.forms["signupForm"]["name"].value;
-            var email = document.forms["signupForm"]["email"].value;
-            var password = document.forms["signupForm"]["password"].value;
-            if (name == "" || email == "" || password == "") {
-                alert("All fields must be filled out");
-                return false;
-            }
-            return true;
-        }
-    </script>
+      function validateSignupForm() {
+          var name = document.forms["signupForm"]["name"].value;
+          var email = document.forms["signupForm"]["email"].value;
+          var password = document.forms["signupForm"]["password"].value;
+          if (name == "" || email == "" || password == "") {
+              alert("All fields must be filled out");
+              return false;
+          }
+  
+          // Redirect to login.html after successful validation
+          window.location.href = 'login.html';
+          return false; // Prevent form from submitting in the traditional way
+      }
+  </script>
+  
 </head>
-<body>
-    <div class="container">
+<body id="top">
+    <header class="header" data-header>
+      <div class="container">
+        <div class="overlay" data-overlay></div>
+        <a href="./index.html" class="logo">
+          <img src="./assets/images/logo.svg" alt="Filmlane logo">
+        </a>
+        <div class="header-actions">
+          <a href="login.html" class="btn btn-primary">Sign in</a>
+        </div>
+        <button class="menu-open-btn" data-menu-open-btn>
+          <ion-icon name="reorder-two"></ion-icon>
+        </button>
+        <nav class="navbar" data-navbar>
+          <div class="navbar-top">
+            <a href="./index.html" class="logo">
+              <img src="./assets/images/logo.svg" alt="Filmlane logo">
+            </a>
+            <button class="menu-close-btn" data-menu-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <div class="login-container">
         <div class="screen">
             <div class="screen__content">
                 <form name="signupForm" class="login" method="post" action="backend-endpoint.com/signup" onsubmit="return validateSignupForm()">

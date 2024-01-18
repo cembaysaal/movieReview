@@ -3,12 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Form</title>
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
-    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    
 </head>
-<body>
-    <div class="container">
+<body id="top">
+    <header class="header" data-header>
+      <div class="container">
+        <div class="overlay" data-overlay></div>
+        <a href="./index.html" class="logo">
+          <img src="./assets/images/logo.svg" alt="Filmlane logo">
+        </a>
+        <div class="header-actions">
+          <a href="login.html" class="btn btn-primary">Sign in</a>
+        </div>
+        <button class="menu-open-btn" data-menu-open-btn>
+          <ion-icon name="reorder-two"></ion-icon>
+        </button>
+        <nav class="navbar" data-navbar>
+          <div class="navbar-top">
+            <a href="./index.html" class="logo">
+              <img src="./assets/images/logo.svg" alt="Filmlane logo">
+            </a>
+            <button class="menu-close-btn" data-menu-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <div class="login-container">
         <div class="screen">
             <div class="screen__content">
                 <form name="loginForm" class="login" onsubmit="validateForm(event)">
@@ -86,8 +113,16 @@
 
 function handleLoginResponse(success, message) {
     var feedbackElement = document.getElementById('loginFeedback');
+    var role = document.querySelector('input[name="role"]:checked').value;
+
     if (success) {
         feedbackElement.innerText = message;
+        // Redirect based on role
+        if (role === "admin") {
+            window.location.href = 'admin.html';
+        } else if (role === "user") {
+            window.location.href = 'user.html';
+        }
     } else {
         feedbackElement.innerText = message;
     }

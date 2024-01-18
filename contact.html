@@ -6,12 +6,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap'>
-	<link rel="stylesheet" href="./contact.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="container d-flex justify-content-center align-items-center">
+</head>
+<body id="top">
+    <header class="header" data-header>
+      <div class="container">
+        <div class="overlay" data-overlay></div>
+        <a href="./index.html" class="logo">
+          <img src="./assets/images/logo.svg" alt="Filmlane logo">
+        </a>
+        <div class="header-actions">
+          <a href="login.html" class="btn btn-primary">Sign in</a>
+        </div>
+        <button class="menu-open-btn" data-menu-open-btn>
+          <ion-icon name="reorder-two"></ion-icon>
+        </button>
+        <nav class="navbar" data-navbar>
+          <div class="navbar-top">
+            <a href="./index.html" class="logo">
+              <img src="./assets/images/logo.svg" alt="Filmlane logo">
+            </a>
+            <button class="menu-close-btn" data-menu-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+    
+    <div class="contact-container d-flex justify-content-center align-items-center">
         <form method="post" action="/submit_form">
-            <h1 class="title text-center mb-4">Talk to Us</h1>
+            <h1 class="title text-center mb-4">Contact to Us</h1>
             <div class="form-group position-relative">
                 <label for="formName" class="d-block">
                     <i class="icon" data-feather="user"></i>
