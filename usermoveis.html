@@ -71,61 +71,135 @@
           </div>
         </div>
         <p class="storyline" id="movie-storyline">Storyline goes here</p>
-  
-        <!-- Star rating system -->
-        <div class="star-rating">
-          <input class="star" id="star-5" type="radio" name="rating" value="5"/>
-          <label class="star" for="star-5"></label>
-          <input class="star" id="star-4" type="radio" name="rating" value="4"/>
-          <label class="star" for="star-4"></label>
-          <input class="star" id="star-3" type="radio" name="rating" value="3"/>
-          <label class="star" for="star-3"></label>
-          <input class="star" id="star-2" type="radio" name="rating" value="2"/>
-          <label class="star" for="star-2"></label>
-          <input class="star" id="star-1" type="radio" name="rating" value="1"/>
-          <label class="star" for="star-1"></label>
-        </div>
+
+      <div class="star-rating">
+        <input class="star" id="star-1" type="radio" name="rating" value="1"/>
+        <label class="star" for="star-1"></label>
+        <input class="star" id="star-2" type="radio" name="rating" value="2"/>
+        <label class="star" for="star-2"></label>
+        <input class="star" id="star-3" type="radio" name="rating" value="3"/>
+        <label class="star" for="star-3"></label>
+        <input class="star" id="star-4" type="radio" name="rating" value="4"/>
+        <label class="star" for="star-4"></label>
+        <input class="star" id="star-5" type="radio" name="rating" value="5"/>
+        <label class="star" for="star-5"></label>
+      </div>
+      <br>
+      <button id="submit-rating" style="display:none;" class="btn btn-primary">Submit Rating</button>
+      <br>
+      <br>
+      <br>
+      <div class="comment-section">
+        <textarea id="user-comment" placeholder="Enter your comment here..." rows="4"></textarea>
+        <button id="submit-comment" class="btn btn-primary">Submit Comment</button>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="comments">
+    <div class="container">
+      <h2 class="h2">Comments</h2>
+      <div id="comments-container">
+        <!-- Comments will be dynamically added here -->
       </div>
     </div>
   </section>
   
-        
       
-      
-    
+  
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     
       <script>
         function fetchMovieDetails(movieId) {
-          fetch(`/api/movies/${movieId}`)
+          // Existing code to fetch movie details...
+        }
+
+        fetchMovieDetails('some-movie-id');
+
+        document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
+          input.addEventListener('change', function() {
+            let ratingValue = this.value;
+            console.log("Rated: " + ratingValue + " stars"); 
+            document.getElementById('submit-rating').style.display = 'block';
+          });
+        });
+
+        function submitRating(ratingValue) {
+          // Existing code to submit rating...
+        }
+
+        document.getElementById('submit-rating').addEventListener('click', function() {
+          const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked').value;
+          submitRating(selectedRating);
+        });
+
+        // Function to submit the comment
+        function submitComment(comment) {
+          fetch('/submit-comment', { // Replace with your actual server endpoint
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              comment: comment
+              // Include other relevant information like user ID or movie ID if necessary
+            })
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Server response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Comment submitted successfully:', data);
+            // Provide feedback to the user about the successful submission
+          })
+          .catch(error => {
+            console.error('Error submitting comment:', error);
+            // Inform the user that there was an error submitting their comment
+          });
+        }
+
+        // Event listener for the submit comment button
+        document.getElementById('submit-comment').addEventListener('click', function() {
+          const userComment = document.getElementById('user-comment').value;
+          submitComment(userComment);
+        });
+
+        function fetchAndDisplayComments() {
+          fetch('/api/comments') // Replace with your actual endpoint to get comments
             .then(response => {
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
               return response.json();
             })
-            .then(movie => {
-              document.getElementById('movie-title').textContent = movie.title;
-              document.getElementById('movie-poster').src = movie.poster;
-              document.getElementById('movie-storyline').textContent = movie.storyline;
-              document.getElementById('movie-year').textContent = movie.year;
-              document.getElementById('movie-duration').textContent = movie.duration;
+            .then(comments => {
+              const commentsContainer = document.getElementById('comments-container');
+              commentsContainer.innerHTML = ''; // Clear existing comments
+      
+              comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+                commentElement.innerHTML = `
+                  <p>${comment.user}: ${comment.text}</p>
+                `;
+                commentsContainer.appendChild(commentElement);
+              });
             })
-            .catch(error => console.error('Error fetching movie details:', error));
+            .catch(error => console.error('Error fetching comments:', error));
         }
+      
+        // Call the function to load and display comments
+        fetchAndDisplayComments();
 
-        fetchMovieDetails('some-movie-id');
-
-        // Add an event listener to each star
-document.querySelectorAll('.star-rating .star').forEach(function(star) {
-  star.addEventListener('click', function() {
-    let ratingValue = this.previousElementSibling.value;
-    console.log("Rated: " + ratingValue + " stars");
-    // Here you can handle the rated value (e.g., send it to the server)
-  });
-});
-
+        
       </script>
+
+      
+      
     </body>
     </html>
