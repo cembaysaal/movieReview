@@ -16,18 +16,18 @@
   <header class="header" data-header>
     <div class="container">
       <div class="overlay" data-overlay></div>
-      <a href="./index.html" class="logo">
+      <a href="./guest.html" class="logo">
         <img src="./assets/images/logo.svg" alt="Filmlane logo">
       </a>
       <div class="header-actions">
-        <a href="index.html" class="btn btn-primary">Log Out</a>
+        <a href="guest.html" class="btn btn-primary">Log Out</a>
       </div>
       <button class="menu-open-btn" data-menu-open-btn>
         <ion-icon name="reorder-two"></ion-icon>
       </button>
       <nav class="navbar" data-navbar>
         <div class="navbar-top">
-          <a href="./index.html" class="logo">
+          <a href="./guest.html" class="logo">
             <img src="./assets/images/logo.svg" alt="Filmlane logo">
           </a>
           <button class="menu-close-btn" data-menu-close-btn>
@@ -54,16 +54,20 @@
 
   <!-- Weather Form -->
   <section class="weather-section">
-    <div class="container">
-      <h2>Check Weather</h2>
-      <form id="weatherForm">
-        <label for="country">Country:</label>
-        <select id="country" name="country">
-          <option value="TR">Turkey</option>
-        </select>
+    <div class="weather-container">
+        <h2>Check Weather</h2>
+        <form id="weatherForm">
+            <label for="country">Country:</label>
+            <select id="country" name="country">
+                <option value="TR">Turkey</option>
+                <!-- Additional countries if needed -->
+            </select>
 
-        <label for="city">City:</label>
-<select id="city" name="city">
+                <!-- City options here -->
+            </select>
+      
+
+  <select id="city" name="city">
     <option value="Adana">Adana</option>
     <option value="Adıyaman">Adıyaman</option>
     <option value="Afyonkarahisar">Afyonkarahisar</option>
@@ -145,7 +149,7 @@
     <option value="Kilis">Kilis</option>
     <option value="Osmaniye">Osmaniye</option>
     <option value="Düzce">Düzce</option>
-</select>
+    </select>
 
         <input type="submit" value="Get Weather">
       </form>

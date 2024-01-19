@@ -2022,3 +2022,114 @@ form .icon {
 	transform: scale(1.5);	
 }
 
+.weather-section, .weather-data-section {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin: 120px 0;
+  
+  
+}
+
+.weather-section h2, .weather-data-section h2 {
+  text-align: center;
+  color: #ccc;
+}
+
+.weather-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#weatherForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #45a049;
+}
+
+#weatherForm label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#weatherForm select, #weatherForm input[type="submit"] {
+  width: 200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#weatherForm input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+#weatherForm input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+#weatherResult, #weatherData {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+#city {
+  width: 100%; /* Full-width */
+  padding: 12px 20px; /* Some padding */
+  margin: 8px 0; /* Some margin */
+  display: inline-block; /* Making sure it's inline-block */
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Box sizing to border-box */
+  background-color: white; /* White background color */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Change cursor on hover */
+}
+
+#city:focus {
+  outline: none; /* Remove outline on focus */
+  border-color: #4CAF50; /* Change border color when focused */
+}
+
+#city:hover {
+  border-color: #45a049; /* Change border color on hover */
+}
+
+/* If you want to style the dropdown options */
+#city option {
+  padding: 10px; /* Padding for options */
+  background-color: white; /* Background color for options */
+  color: black; /* Text color */
+}
+
+#country {
+  width: 100%; /* Full-width */
+  padding: 12px 20px; /* Some padding */
+  margin: 8px 0; /* Some margin */
+  display: inline-block; /* Making sure it's inline-block */
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Box sizing to border-box */
+  background-color: white; /* White background color */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Change cursor on hover */
+}
+
+#country:focus {
+  outline: none; /* Remove outline on focus */
+  border-color: #4CAF50; /* Change border color when focused */
+}
+
+#country:hover {
+  border-color: #45a049; /* Change border color on hover */
+}
+
+/* If you want to style the dropdown options */
+#country option {
+  padding: 10px; /* Padding for options */
+  background-color: white; /* Background color for options */
+  color: black; /* Text color */
+}

@@ -13,30 +13,44 @@
 </head>
 </head>
 <body id="top">
-    <header class="header" data-header>
-      <div class="container">
-        <div class="overlay" data-overlay></div>
-        <a href="./index.html" class="logo">
-          <img src="./assets/images/logo.svg" alt="Filmlane logo">
-        </a>
-        <div class="header-actions">
-          <a href="login.html" class="btn btn-primary">Sign in</a>
-        </div>
-        <button class="menu-open-btn" data-menu-open-btn>
-          <ion-icon name="reorder-two"></ion-icon>
-        </button>
-        <nav class="navbar" data-navbar>
-          <div class="navbar-top">
-            <a href="./index.html" class="logo">
-              <img src="./assets/images/logo.svg" alt="Filmlane logo">
-            </a>
-            <button class="menu-close-btn" data-menu-close-btn>
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-          </div>
-        </nav>
+  <header class="header" data-header>
+    <div class="container">
+      <div class="overlay" data-overlay></div>
+      <a href="./index.html" class="logo">
+        <img src="./assets/images/logo.svg" alt="Filmlane logo">
+      </a>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-primary">Log Out</a>
       </div>
-    </header>
+      <button class="menu-open-btn" data-menu-open-btn>
+        <ion-icon name="reorder-two"></ion-icon>
+      </button>
+      <nav class="navbar" data-navbar>
+        <div class="navbar-top">
+          <a href="./index.html" class="logo">
+            <img src="./assets/images/logo.svg" alt="Filmlane logo">
+          </a>
+          <button class="menu-close-btn" data-menu-close-btn>
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+        <ul class="navbar-list">
+          <li>
+            <a href="./user.html" class="navbar-link">Home</a>
+          </li>
+          <li>
+            <a href="./usermoveis.html" class="navbar-link">Movies</a>
+          </li>
+          <li>
+            <a href="./weather.html" class="navbar-link">Weather</a>
+          </li>
+          <li>
+            <a href="./contact.html" class="navbar-link">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
     
     <div class="contact-container d-flex justify-content-center align-items-center">
       <form id="contactForm">
@@ -45,17 +59,18 @@
                 <label for="formName" class="d-block">
                     <i class="icon" data-feather="user"></i>
                 </label>
-                <input type="text" id="formName" name="formName" class="form-control form-control-lg thick" placeholder="Name">
+                <input type="text" id="formName" name="formName" class="form-control form-control-lg" placeholder="Name">
             </div>
 
             <div class="form-group position-relative">
                 <label for="formEmail" class="d-block">
                     <i class="icon" data-feather="mail"></i>
                 </label>
-                <input type="email" id="formEmail" name="formEmail" class="form-control form-control-lg thick" placeholder="E-mail">
+                <input type="email" id="formEmail" name="formEmail" class="form-control form-control-lg" placeholder="E-mail">
             </div>
 
             <div class="form-group message">
+
                 <textarea id="formMessage" name="formMessage" class="form-control form-control-lg" rows="7" placeholder="Message"></textarea>
             </div>
 
