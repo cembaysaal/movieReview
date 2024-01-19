@@ -390,10 +390,7 @@ body.active { overflow: hidden; }
   transition: var(--transition-2);
   z-index: 4;
 }
-.header .logo img {
-  width: 250px; /* Adjust as needed */
-  height: auto; /* Maintains aspect ratio */
-}
+
 
 
 .header.active {
@@ -2247,8 +2244,20 @@ form .icon {
   position: relative;
 }
 
-@media screen and (max-width: 768px) {
-  .header .logo img, .navbar .logo img {
-    width: 150px; /* Adjust as needed */
-  }
+.logo img {
+  max-width: 100px; /* Sets the maximum width of the logo */
+  height: auto; /* Ensures the height scales proportionally */
+  display: block; /* Display as a block for proper spacing */
+  margin: 0 auto; /* Center the logo */
 }
+
+/* Additional Styling for the Header Logo */
+.header .logo img {
+  max-width: 120px; /* Slightly larger logo in the header */
+}
+
+/* Additional Styling for the Navbar Logo */
+.navbar .logo img {
+  max-width: 80px;
+ } /* Slightl
+    y smaller logo in the navbar */
