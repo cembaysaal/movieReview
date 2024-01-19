@@ -390,6 +390,11 @@ body.active { overflow: hidden; }
   transition: var(--transition-2);
   z-index: 4;
 }
+.header .logo img {
+  width: 250px; /* Adjust as needed */
+  height: auto; /* Maintains aspect ratio */
+}
+
 
 .header.active {
   background: var(--eerie-black);
@@ -2134,23 +2139,10 @@ form .icon {
   color: black; /* Text color */
 }
 
-/* Logo Image Styling */
-.logo img {
-  max-width: 100px; /* Sets the maximum width of the logo */
-  height: auto; /* Ensures the height scales proportionally */
-  display: block; /* Display as a block for proper spacing */
-  margin: 0 auto; /* Center the logo */
-}
 
-/* Additional Styling for the Header Logo */
-.header .logo img {
-  max-width: 120px; /* Slightly larger logo in the header */
-}
 
-/* Additional Styling for the Navbar Logo */
-.navbar .logo img {
-  max-width: 80px; /* Slightly smaller logo in the navbar */
-}
+
+
 
 .star-rating {
   font-size: 0; /* Remove space between inline-block elements */
@@ -2246,4 +2238,17 @@ form .icon {
   margin: 0; /* Remove default margin of <p> */
   color: #333; /* Dark text color for readability */
   line-height: 1.5; /* Line height for readability */
+}
+
+.movies-container h2 {
+  color: #c12b2b;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .header .logo img, .navbar .logo img {
+    width: 150px; /* Adjust as needed */
+  }
 }
