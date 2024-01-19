@@ -16,19 +16,19 @@
   <header class="header" data-header>
     <div class="container">
       <div class="overlay" data-overlay></div>
-      <a href="./guest.html" class="logo">
-        <img src="./assets/images/logo.svg" alt="Filmlane logo">
+      <a href="./user.html" class="logo">
+        <img src="./assets/images/logo.png" alt="Filmlane logo">
       </a>
       <div class="header-actions">
-        <a href="guest.html" class="btn btn-primary">Log Out</a>
+        <a href="user.html" class="btn btn-primary">Log Out</a>
       </div>
       <button class="menu-open-btn" data-menu-open-btn>
         <ion-icon name="reorder-two"></ion-icon>
       </button>
       <nav class="navbar" data-navbar>
         <div class="navbar-top">
-          <a href="./guest.html" class="logo">
-            <img src="./assets/images/logo.svg" alt="Filmlane logo">
+          <a href="./user.html" class="logo">
+            <img src="./assets/images/logo.png" alt="Filmlane logo">
           </a>
           <button class="menu-close-btn" data-menu-close-btn>
             <ion-icon name="close-outline"></ion-icon>
@@ -37,9 +37,6 @@
         <ul class="navbar-list">
           <li>
             <a href="./user.html" class="navbar-link">Home</a>
-          </li>
-          <li>
-            <a href="./usermoveis.html" class="navbar-link">Movies</a>
           </li>
           <li>
             <a href="./weather.html" class="navbar-link">Weather</a>
@@ -52,85 +49,83 @@
     </div>
   </header>
 
-  <main>
-    <article>
-
-      <!-- 
-        - #MOVIE DETAIL
-      -->
-
-      <section class="movie-detail">
-        <div class="container">
-
-          <figure class="movie-detail-banner">
-
-            <img src="./assets/images/movie-4.png" alt="Free guy movie poster">
-
-            <button class="play-btn">
-              <ion-icon name="play-circle-outline"></ion-icon>
-            </button>
-
-          </figure>
-
-          <div class="movie-detail-content">
-
-            <h1 class="h1 detail-title">
-              Free <strong>Guy</strong>
-            </h1>
-
-            <div class="meta-wrapper">
-
-              <div class="ganre-wrapper">
-                <a href="#">Comedy,</a>
-
-                <a href="#">Action,</a>
-
-                <a href="#">Adventure,</a>
-
-                <a href="#">Science Fiction</a>
-              </div>
-
-              <div class="date-time">
-
-                <div>
-                  <ion-icon name="calendar-outline"></ion-icon>
-
-                  <time datetime="2021">2021</time>
-                </div>
-
-                <div>
-                  <ion-icon name="time-outline"></ion-icon>
-
-                  <time datetime="PT115M">115 min</time>
-                </div>
-
-              </div>
-
+  <section class="movie-detail">
+    <div class="container">
+      <figure class="movie-detail-banner">
+        <img id="movie-poster" src="./assets/images/movie-4.png" alt="Movie poster">
+      </figure>
+  
+      <div class="movie-detail-content">
+        <h1 class="h1 detail-title" id="movie-title">Movie Title</h1>
+  
+        <div class="meta-wrapper">
+          <div class="date-time">
+            <div>
+              <ion-icon name="calendar-outline"></ion-icon>
+              <time id="movie-year">Year</time>
             </div>
-
-            <p class="storyline">
-              A bank teller called Guy realizes he is a background character in an open world video game called Free
-              City that will
-              soon go offline.
-            </p>
-
+            <div>
+              <ion-icon name="time-outline"></ion-icon>
+              <time id="movie-duration">Duration</time>
+            </div>
           </div>
-
         </div>
-      </section>
+        <p class="storyline" id="movie-storyline">Storyline goes here</p>
+  
+        <!-- Star rating system -->
+        <div class="star-rating">
+          <input class="star" id="star-5" type="radio" name="rating" value="5"/>
+          <label class="star" for="star-5"></label>
+          <input class="star" id="star-4" type="radio" name="rating" value="4"/>
+          <label class="star" for="star-4"></label>
+          <input class="star" id="star-3" type="radio" name="rating" value="3"/>
+          <label class="star" for="star-3"></label>
+          <input class="star" id="star-2" type="radio" name="rating" value="2"/>
+          <label class="star" for="star-2"></label>
+          <input class="star" id="star-1" type="radio" name="rating" value="1"/>
+          <label class="star" for="star-1"></label>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+        
+      
+      
+    
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+      <script>
+        function fetchMovieDetails(movieId) {
+          fetch(`/api/movies/${movieId}`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(movie => {
+              document.getElementById('movie-title').textContent = movie.title;
+              document.getElementById('movie-poster').src = movie.poster;
+              document.getElementById('movie-storyline').textContent = movie.storyline;
+              document.getElementById('movie-year').textContent = movie.year;
+              document.getElementById('movie-duration').textContent = movie.duration;
+            })
+            .catch(error => console.error('Error fetching movie details:', error));
+        }
 
+        fetchMovieDetails('some-movie-id');
 
-  <!-- 
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
+        // Add an event listener to each star
+document.querySelectorAll('.star-rating .star').forEach(function(star) {
+  star.addEventListener('click', function() {
+    let ratingValue = this.previousElementSibling.value;
+    console.log("Rated: " + ratingValue + " stars");
+    // Here you can handle the rated value (e.g., send it to the server)
+  });
+});
 
-  <!-- 
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-</body>
-
-</html>
+      </script>
+    </body>
+    </html>

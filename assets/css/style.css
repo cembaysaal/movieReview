@@ -821,7 +821,7 @@ body.active { overflow: hidden; }
 }
 
 .footer-brand-wrapper .logo {
-  width: max-content;
+  width: 100%;
   margin-inline: auto;
   margin-bottom: 60px;
 }
@@ -2132,4 +2132,46 @@ form .icon {
   padding: 10px; /* Padding for options */
   background-color: white; /* Background color for options */
   color: black; /* Text color */
+}
+
+/* Logo Image Styling */
+.logo img {
+  max-width: 100px; /* Sets the maximum width of the logo */
+  height: auto; /* Ensures the height scales proportionally */
+  display: block; /* Display as a block for proper spacing */
+  margin: 0 auto; /* Center the logo */
+}
+
+/* Additional Styling for the Header Logo */
+.header .logo img {
+  max-width: 120px; /* Slightly larger logo in the header */
+}
+
+/* Additional Styling for the Navbar Logo */
+.navbar .logo img {
+  max-width: 80px; /* Slightly smaller logo in the navbar */
+}
+
+.star-rating {
+  display: inline-block;
+}
+
+.star-rating .star {
+  display: inline-block;
+  width: 40px; /* Star size */
+  height: 40px; /* Star size */
+  margin: 1px;
+  background-color: #ccc; /* Default star color */
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.star-rating .star:hover,
+.star-rating .star:hover ~ .star,
+.star-rating .star:checked ~ .star {
+  background-color: #ffc107; /* Selected star color */
+}
+
+/* Hide the radio input */
+.star-rating input[type="radio"] {
+  display: none;
 }
