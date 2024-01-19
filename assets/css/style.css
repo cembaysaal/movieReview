@@ -1741,29 +1741,7 @@ svg {
   animation: float 2s ease-in-out infinite;
 }
 
-#star1, #star2, #star3, #star4, #star5, #star6 {
-  animation: blink 1s ease-in-out infinite;
-}
 
-#star2 {
-  animation-delay: 100ms;
-}
-
-#star3 {
-  animation-delay: 500ms;
-}
-
-#star4 {
-  animation-delay: 700ms;
-}
-
-#star5 {
-  animation-delay: 300ms;
-}
-
-#star6 {
-  animation-delay: 200ms;
-}
 
 @keyframes float {
   0% {
@@ -2142,8 +2120,9 @@ form .icon {
 
 
 .star-rating {
-  font-size: 0; /* Remove space between inline-block elements */
-  text-align: left; /* Align the stars to the left */
+  display: flex;
+  justify-content: flex-end;
+  direction: rtl; /* Right-to-left to flip the order */
 }
 
 .star-rating .star {
@@ -2154,13 +2133,13 @@ form .icon {
   background-color: #ccc; /* Default unfilled star color */
   -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
   clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+
 }
 
 /* The following rule will change the color of the stars to yellow when they are hovered over or selected */
 .star-rating input[type="radio"]:checked ~ label,
 .star-rating label:hover,
-.star-rating label:hover ~ label,
-.star-rating label:hover ~ input[type="radio"] ~ label {
+.star-rating label:hover ~ label {
   background-color: #ffc107; /* Filled star color */
 }
 
@@ -2177,6 +2156,8 @@ form .icon {
   height: 100%;
   display: inline-block;
   position: relative;
+  direction: ltr; /* Left-to-right to flip the labels back */
+
 }
 
 .submit-rating {

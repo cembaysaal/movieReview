@@ -72,18 +72,20 @@
         </div>
         <p class="storyline" id="movie-storyline">Storyline goes here</p>
 
-      <div class="star-rating">
-        <input class="star" id="star-1" type="radio" name="rating" value="1"/>
-        <label class="star" for="star-1"></label>
-        <input class="star" id="star-2" type="radio" name="rating" value="2"/>
-        <label class="star" for="star-2"></label>
-        <input class="star" id="star-3" type="radio" name="rating" value="3"/>
-        <label class="star" for="star-3"></label>
-        <input class="star" id="star-4" type="radio" name="rating" value="4"/>
-        <label class="star" for="star-4"></label>
-        <input class="star" id="star-5" type="radio" name="rating" value="5"/>
-        <label class="star" for="star-5"></label>
-      </div>
+        <div class="star-rating">
+          <input class="star" id="star-5" type="radio" name="rating" value="5"/>
+          <label class="star" for="star-5"></label>
+          <input class="star" id="star-4" type="radio" name="rating" value="4"/>
+          <label class="star" for="star-4"></label>
+          <input class="star" id="star-3" type="radio" name="rating" value="3"/>
+          <label class="star" for="star-3"></label>
+          <input class="star" id="star-2" type="radio" name="rating" value="2"/>
+          <label class="star" for="star-2"></label>
+          <input class="star" id="star-1" type="radio" name="rating" value="1"/>
+          <label class="star" for="star-1"></label>
+        </div>
+        
+        
       <br>
       <button id="submit-rating" style="display:none;" class="btn btn-primary">Submit Rating</button>
       <br>
@@ -130,10 +132,21 @@
           // Existing code to submit rating...
         }
 
-        document.getElementById('submit-rating').addEventListener('click', function() {
-          const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked').value;
-          submitRating(selectedRating);
-        });
+// Event listener for submitting rating
+document.getElementById('submit-rating').addEventListener('click', function() {
+  const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked');
+  
+  if (selectedRating) {
+    console.log("Rating submitted: " + selectedRating.value); // Mock submit action
+    // Here you would call submitRating(selectedRating.value) in a real scenario
+
+    // Clear the selected star rating
+    document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
+      input.checked = false;
+    });
+  }
+});
+
 
         // Function to submit the comment
         function submitComment(comment) {
@@ -164,10 +177,14 @@
         }
 
         // Event listener for the submit comment button
-        document.getElementById('submit-comment').addEventListener('click', function() {
-          const userComment = document.getElementById('user-comment').value;
-          submitComment(userComment);
-        });
+// Event listener for submitting a comment
+document.getElementById('submit-comment').addEventListener('click', function() {
+  const userCommentElement = document.getElementById('user-comment');
+  const userComment = userCommentElement.value;
+  submitComment(userComment);
+  userCommentElement.value = ''; // Clear the comment box after submission
+});
+
 
         function fetchAndDisplayComments() {
           fetch('/api/comments') // Replace with your actual endpoint to get comments
