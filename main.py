@@ -548,5 +548,22 @@ def admin_movie_comments(id):
         return f"An Error Occured: {e}"
 
 
+@app.route("/admin/movie/<string:movie_id>/remove", methods=["DELETE"])
+@jwt_required()
+def admin_remove_movie(movie_id):
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+
+        db.child("movies").child(movie_id).remove()
+        return jsonify({"message": "Movie removed successfully"}), 200
+
+    except Exception as e:
+        return jsonify({"message": f"An Error Occurred: {e}"}), 500
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5050, debug=True)

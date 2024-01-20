@@ -99,10 +99,51 @@
           <script>
             document.addEventListener('DOMContentLoaded', function() {
     const movieId = getMovieIdFromURL();
-    if(movieId) {
+    if (movieId) {
         fetchMovieDetails(movieId);
+        setupDeleteButton(movieId);
     }
 });
+
+function setupDeleteButton(movieId) {
+    const deleteButton = document.getElementById('deleteMovieButton');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', function() {
+            deleteMovie(movieId);
+        });
+    }
+}
+
+function deleteMovie(movieId) {
+    var token = localStorage.getItem('jwtToken'); // Use the appropriate token
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5050/admin/movie/${movieId}/remove`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error deleting movie');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Movie deleted successfully:', data);
+        alert('Movie deleted successfully');
+        // Optionally, redirect to another page after deletion
+         window.location.href = '/admin.html';
+    })
+    .catch(error => {
+        console.error('Error deleting movie:', error);
+        alert('Error deleting movie');
+    });
+}
 
 function displayMovieDetails(movie) {
     if (movie) {
