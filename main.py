@@ -480,6 +480,7 @@ def admin_add_movie():
 @app.route("/admin/all-movies", methods=["GET"])
 @jwt_required()
 def admin_all_movies():
+    print("sa")
     try:
         jwt_identity = get_jwt_identity()
         user_type = jwt_identity['type']
@@ -522,6 +523,27 @@ def guest_all_movies():
     try:
         movies = db.child("movies").get()
         return jsonify(movies.val()), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
+@app.route("/admin/movie/<string:id>/comments", methods=["GET"])
+@jwt_required()
+def admin_movie_comments(id):
+    print("dsahasdhasdh")
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+    except:
+        return jsonify({"message": "Invalid token"}), 400
+
+    try:
+        comments = db.child("movies").child(id).child("comments").get()
+        print(comments.val())
+        return jsonify(comments.val()), 200
     except Exception as e:
         return f"An Error Occured: {e}"
 

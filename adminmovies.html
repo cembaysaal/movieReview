@@ -56,7 +56,7 @@
       <section class="movie-detail">
         <div class="container">
           <figure class="movie-detail-banner">
-            <img id="movie-poster" src="./assets/images/movie-4.png" alt="Movie poster">
+            <img id="movie-poster" src="" alt="Movie poster">
           </figure>
       
           <div class="movie-detail-content">
@@ -104,13 +104,18 @@
     }
 });
 
-        function displayMovieDetails(movie) {
-    document.getElementById('movie-poster').src = movie.movie_image_link;
-    document.getElementById('movie-title').innerText = movie.movie_name;
-    document.getElementById('movie-year').innerText = movie.movie_year;
-    document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
-    // Add more fields as necessary
+function displayMovieDetails(movie) {
+    if (movie) {
+        document.getElementById('movie-poster').src = movie.movie_image_link;
+        document.getElementById('movie-title').innerText = movie.movie_name;
+        document.getElementById('movie-year').innerText = movie.movie_year;
+        document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
+    } else {
+        console.error('No movie details available');
+        // Handle the scenario when movie details are not available
+    }
 }
+
         function getMovieIdFromURL() {
     const queryParams = new URLSearchParams(window.location.search);
     return queryParams.get('id');
@@ -122,11 +127,13 @@ function fetchMovieDetails(movieId) {
         return;
     }
 
-    document.getElementById('deleteMovieButton').addEventListener('click', function() {
-      // Code to delete the movie
-      var movieDetailSection = document.querySelector('.movie-detail');
-      movieDetailSection.style.display = 'none';
-    });
+    if (document.getElementById('deleteMovieButton')) {
+        document.getElementById('deleteMovieButton').addEventListener('click', function() {
+            // Code to delete the movie
+            var movieDetailSection = document.querySelector('.movie-detail');
+            movieDetailSection.style.display = 'none';
+        });
+    }
 
     fetch(`http://127.0.0.1:5050/admin/movie/${movieId}`, {
         method: 'GET',
@@ -137,6 +144,7 @@ function fetchMovieDetails(movieId) {
     .then(response => response.json())
     .then(movie => {
         displayMovieDetails(movie);
+        fetchAndDisplayComments(movieId); // Fetch and display comments for the movie
     })
     .catch(error => {
         console.error('Error fetching movie details:', error);
@@ -144,117 +152,64 @@ function fetchMovieDetails(movieId) {
 }
 
 
-        fetchMovieDetails('some-movie-id');
-
-        document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
-          input.addEventListener('change', function() {
-            let ratingValue = this.value;
-            console.log("Rated: " + ratingValue + " stars"); 
-            document.getElementById('submit-rating').style.display = 'block';
-          });
-        });
-
-        function submitRating(ratingValue) {
-          // Existing code to submit rating...
+function fetchAndDisplayComments(movieId) {
+    // Use the admin token for authentication
+    var token = localStorage.getItem('jwtToken');
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+    }
+    console.log('Fetching comments for movie:', movieId);
+    fetch(`http://127.0.0.1:5050/admin/movie/${movieId}/comments`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
         }
-
-// Event listener for submitting rating
-document.getElementById('submit-rating').addEventListener('click', function() {
-  const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked');
-  
-  if (selectedRating) {
-    console.log("Rating submitted: " + selectedRating.value); // Mock submit action
-    // Here you would call submitRating(selectedRating.value) in a real scenario
-
-    // Clear the selected star rating
-    document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
-      input.checked = false;
-    });
-  }
-});
-
-
-        // Function to submit the comment
-        function submitComment(comment) {
-          fetch('/submit-comment', { // Replace with your actual server endpoint
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              comment: comment
-              // Include other relevant information like user ID or movie ID if necessary
-            })
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Server response was not ok');
+    })
+    .then(response => response.json())
+    .then(comments => {
+        const commentsContainer = document.getElementById('comments-container');
+        commentsContainer.innerHTML = ''; // Clear existing comments
+        console.log(comments);
+        for (let key in comments) {
+            if (comments.hasOwnProperty(key)) {
+                const comment = comments[key];
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+                commentElement.innerHTML = `
+                    <p><strong>${comment.name} ${comment.surname}:</strong> ${comment.comment}</p>
+                    <button type="button" class="delete-comment-btn" onclick="deleteComment('${movieId}', '${key}')">Delete Comment</button>
+                `;
+                commentsContainer.appendChild(commentElement);
             }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Comment submitted successfully:', data);
-            // Provide feedback to the user about the successful submission
-          })
-          .catch(error => {
-            console.error('Error submitting comment:', error);
-            // Inform the user that there was an error submitting their comment
-          });
         }
-
-        // Event listener for the submit comment button
-// Event listener for submitting a comment
-document.getElementById('submit-comment').addEventListener('click', function() {
-  const userCommentElement = document.getElementById('user-comment');
-  const userComment = userCommentElement.value;
-  submitComment(userComment);
-  userCommentElement.value = ''; // Clear the comment box after submission
-});
-
-
-function fetchAndDisplayComments() {
-  fetch('/api/comments') // Replace with your actual endpoint to get comments
-      .then(response => {
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          return response.json();
-      })
-      .then(comments => {
-          const commentsContainer = document.getElementById('comments-container');
-          commentsContainer.innerHTML = ''; // Clear existing comments
-
-          comments.forEach((comment, index) => {
-              const commentElement = document.createElement('div');
-              commentElement.classList.add('comment');
-              commentElement.innerHTML = `
-                  <p>${comment.user}: ${comment.text}</p>
-                  <button type="button" class="delete-comment-btn" data-comment-id="${index}">Delete Comment</button>
-              `;
-              commentsContainer.appendChild(commentElement);
-
-              // Event listener for the delete button
-              commentElement.querySelector('.delete-comment-btn').addEventListener('click', function() {
-                  deleteComment(comment, index);
-              });
-          });
-      })
-      .catch(error => console.error('Error fetching comments:', error));
+    })
+    .catch(error => console.error('Error fetching comments:', error));
 }
 
-// Function to handle comment deletion
-function deleteComment(comment, index) {
-  // Logic to delete the comment
-  // This might involve sending a request to your server to delete the comment
-  // For now, we'll just remove it from the DOM
-  const commentsContainer = document.getElementById('comments-container');
-  commentsContainer.removeChild(commentsContainer.children[index]);
 
-  // Optionally, send a request to your backend to delete the comment permanently
-  // fetch('/api/delete-comment', { method: 'POST', body: JSON.stringify({ commentId: comment.id }) })
-  // .then(response => /* handle response */)
-  // .catch(error => console.error('Error deleting comment:', error));
+function deleteComment(movieId, commentId) {
+    var token = localStorage.getItem('jwtToken');
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5050/admin/movie/${movieId}/remove-comment/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error removing comment');
+        }
+        fetchAndDisplayComments(movieId); // Refresh comments after deletion
+    })
+    .catch(error => console.error('Error deleting comment:', error));
 }
+
 
 
     
