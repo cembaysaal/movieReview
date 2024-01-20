@@ -531,6 +531,7 @@ body.active { overflow: hidden; }
 
 
 
+
 /*-----------------------------------*\
  * #UPCOMING
 \*-----------------------------------*/
@@ -2088,6 +2089,12 @@ form .icon {
   margin: 0 auto;
 }
 
+.weather-container h2 {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 #weatherForm {
   display: flex;
   flex-direction: column;
@@ -2117,13 +2124,23 @@ form .icon {
   background-color: #45a049;
 }
 
-#weatherResult, #weatherData {
+#weatherData {
+  width: 60%; /* Set the width to your preference */
+  max-width: 500px; /* Optional: Ensures the box doesn't get too wide on larger screens */
   text-align: center;
-  padding: 20px;
+  padding: 15px;
   border: 1px solid #ddd;
   border-radius: 15px;
   margin-top: 20px;
+  margin-left: auto; /* Center the box horizontally */
+  margin-right: auto; /* Center the box horizontally */
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-size: 1rem;
+  display: block; /* Ensure it's a block level element to honor width and centering */
 }
+
 #city {
   width: 100%; /* Full-width */
   padding: 12px 20px; /* Some padding */
@@ -2314,4 +2331,14 @@ form .icon {
 .container .logo {
   position: absolute;
 }
+.container h1 {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-family: "Pacifico", cursive;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+
 
