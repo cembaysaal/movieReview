@@ -88,51 +88,18 @@
     <ion-icon name="chevron-up"></ion-icon>
   </a>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const movieForm = document.getElementById('movieForm');
-      const moviesList = document.getElementById('moviesList');
+    
+    function add_movie() {
 
-      movieForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const formData = new FormData(movieForm);
-        
-        fetch('/api/add_movie', { // The URL should be the endpoint of your backend
-          method: 'POST',
-          body: JSON.stringify(Object.fromEntries(formData)),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data); // Handle the response data
-          addMovieToList(data); // Add the new movie to the list
-        })
-        .catch(error => console.error('Error:', error));
-      });
+      var token = localStorage.getItem('jwtToken');
 
-      function addMovieToList(movie) {
-        const movieDiv = document.createElement('div');
-        movieDiv.className = 'movie';
-        movieDiv.innerHTML = `
-          <h3>${movie.name} (${movie.year})</h3>
-          <img src="${movie.photoLink}" alt="${movie.name}" style="width:100px; height:auto;">
-          <p>Duration: ${movie.time}</p>
-          <p>Storyline: ${movie.storyline}</p>
-          <p>Score: ${movie.score}</p>
-        `;
-        moviesList.appendChild(movieDiv);
-      }
+      var url = "http://http://127.0.0.1:5050/admin/add-movie";
 
-      // Fetch and display existing movies
-      fetch('/api/movies') // The URL should be the endpoint of your backend
-        .then(response => response.json())
-        .then(movies => {
-          movies.forEach(addMovieToList);
-        })
-        .catch(error => console.error('Error:', error));
-    });
+    }
+
+
+
+
   </script>
   <script src="./assets/js/script.js"></script>
 

@@ -382,6 +382,25 @@ def admin_remove_comment(movie_id, comment_id):
     except Exception as e:
         return jsonify({"message": f"An Error Occurred: {e}"}), 500
 
+@app.route("/admin/get-users", methods=["GET"])
+@jwt_required()
+def admin_get_users():
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+            
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+    except:
+        return jsonify({"message": "Invalid token"}), 400
+    
+    try:
+        users = db.child("users").get()
+        return jsonify(users.val()), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
 @app.route("/admin/add-movie", methods=["POST"])
 @jwt_required()
 def admin_add_movie():
@@ -400,7 +419,8 @@ def admin_add_movie():
         year = data.get("movie_year")
         photo_url = data.get("movie_image_link")
         duration = data.get("movie_duration")
-        movie_score = data.get("movie_imdb_score")  # We can change this later with like imdb score
+        story_line = data.get("movie_story_line")
+        movie_score = data.get("movie_imdb_score")  #we will use this as star score not imdb
 
         
         if not all([movie_name, year, photo_url, duration]):
@@ -411,7 +431,8 @@ def admin_add_movie():
             "movie_year": year,
             "movie_image_link": photo_url,
             "movie_duration": duration,
-            "movie_imdb_score": movie_score
+            "movie_score": movie_score,
+            "movie_story_line": story_line,
         }
 
         db.child("movies").push(movie_data)

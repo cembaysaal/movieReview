@@ -69,9 +69,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>John</td>
-          <td>Doe</td>
-          <td>johndoe@example.com</td>
+        
         </tr>
       </tbody>
     </table>
@@ -82,51 +80,44 @@
   </a>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.getElementById('userForm');
-  
-      form && form.addEventListener('submit', function(event) {
-        event.preventDefault();
-  
-        fetch('/get_users')
-          .then(response => response.json())
-          .then(data => {
-            const tableBody = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
-  
-            tableBody.innerHTML = '';
-  
-            data.forEach(item => {
-              let row = tableBody.insertRow();
-              row.insertCell(0).innerHTML = item.name;
-              row.insertCell(1).innerHTML = item.last_name;
-              row.insertCell(2).innerHTML = item.email;
-            });
-  
-            const formData = new FormData(form);
-            const users = Array.from(tableBody.querySelectorAll('tr')).map(row => {
-              return {
-                name: row.cells[0].textContent,
-                last_name: row.cells[1].textContent,
-                email: row.cells[2].textContent
-              };
-            });
-  
-            formData.append('users', JSON.stringify(users));
-  
-            fetch('/submit_users', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-              console.log(data);
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
-          });
-      });
-    });
+    
+    function get_users() {
+
+      var token = localStorage.getItem('jwtToken');
+
+      var url = "http://127.0.0.1:5050/admin/get-users";
+
+      fetch(url, 
+            {
+              method : 'GET',
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+              }
+
+            }
+
+      )
+
+      .then(response => response.json())
+      .then(data => {
+          const user_array = Object.values(data);
+          const keys = Object.keys(data);
+
+          keys.forEach(key => {
+            document.getElementById('usersTable').innerHTML += `
+            <tr>
+              <td>${data[key].name}</td>
+              <td>${data[key].surname}</td>
+              <td>${data[key].email}</td>
+    `;})
+       })
+          }
+
+
+    window.onload = get_users;
+
+
   </script>
 
   <script src="./assets/js/script.js"></script>
