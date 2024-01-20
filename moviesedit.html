@@ -53,29 +53,29 @@
   </header>
   <section class="hero">
     <div class="movies-container">
-      <h2>Add New Movie</h2>
-      <br>
+      <h2 class="movie-title">Add New Movie</h2>
       <form id="movieForm">
         <label for="movieName">Movie Name:</label>
         <input type="text" id="movieName" name="movieName" required>
         
         <label for="year">Year:</label>
-        <input type="number" id="year" name="year" required>
-
+        <input type="number" id="year" name="year" min="1900" required>
+        
+  
         <label for="photoLink">Photo URL:</label>
         <input type="url" id="photoLink" name="photoLink" required>
-
+  
         <label for="time">Duration:</label>
         <input type="text" id="time" name="time" required>
-
+  
         <label for="score">Storyline:</label>
         <input type="text" id="storyline" name="storyline" required>
-
        
         <button type="button" onclick="add_movie()">Add Movie</button>  
       </form>
     </div>
   </section>
+  
 
 
   
