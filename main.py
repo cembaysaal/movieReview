@@ -277,7 +277,7 @@ def user_add_star(movie_id):
         average_rating = db.child("movies").child(
             movie_id).child("average_rating").get().val()
 
-        if (average_rating is None):
+        if (average_rating is None) or (average_rating == 0):
             average_rating = new_star_rating
         else:
             average_rating = (
@@ -394,18 +394,19 @@ def admin_remove_comment(movie_id, comment_id):
     except Exception as e:
         return jsonify({"message": f"An Error Occurred: {e}"}), 500
 
+
 @app.route("/admin/get-users", methods=["GET"])
 @jwt_required()
 def admin_get_users():
     try:
         jwt_identity = get_jwt_identity()
         user_type = jwt_identity['type']
-            
+
         if user_type != "admin":
             return jsonify({"message": "Invalid token"}), 400
     except:
         return jsonify({"message": "Invalid token"}), 400
-    
+
     try:
         users = db.child("users").get()
         return jsonify(users.val()), 200
@@ -434,14 +435,13 @@ def admin_get_movies():
 @app.route("/admin/add-movie", methods=["POST"])
 @jwt_required()
 def admin_add_movie():
-    
+
     movie_name = ""
     year = ""
     photo_url = ""
     duration = ""
     story_line = ""
-    
-    
+
     try:
         try:
             jwt_identity = get_jwt_identity()
@@ -458,13 +458,13 @@ def admin_add_movie():
         photo_url = data.get("photoLink")
         duration = data.get("duration")
         story_line = data.get("storyline")
-        
+
         if movie_name == "" or year == "" or photo_url == "" or duration == "" or story_line == "":
             return jsonify({"message": "Please fill all the fields"}), 400
-        
+
         try:
             duration = int(duration)
-        
+
         except:
             return jsonify({"message": "Duration must be integer"}), 400
 

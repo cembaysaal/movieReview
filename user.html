@@ -81,6 +81,8 @@
   <a href="#top" class="go-top" data-go-top>
     <ion-icon name="chevron-up"></ion-icon>
   </a>
+
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
     fetchMovies();
@@ -88,42 +90,43 @@
 });
 
 function fetchMovies() {
-  var token = localStorage.getItem('jwtToken'); 
+    var token = localStorage.getItem('jwtToken'); 
   
-  // Check if token is null
-  if (!token) {
-      alert("You are not authenticated. Please log in.");
-      return;
-  }
-    fetch('http://127.0.0.1:5050/user/all-movies', { // Replace with your actual backend URL
+    // Check if token is null
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return; // Return here to stop further execution of fetchMovies
+    }
+
+    fetch('http://127.0.0.1:5050/user/all-movies', { 
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token 
         }
     })
     .then(response => response.json())
-    .then(movies => {
-        renderMovies(movies);
+    .then(moviesData => {
+        renderMovies(moviesData);
     })
     .catch(error => {
         console.error('Error fetching movies:', error);
     });
 }
 
-function renderMovies(movies) {
+function renderMovies(moviesData) {
     const moviesContainer = document.getElementById('movies-container');
-    moviesContainer.innerHTML = ''; // Clear existing content
+    moviesContainer.innerHTML = '';
 
-    Object.values(movies).forEach(movie => {
-        const movieElement = createMovieCard(movie);
+    Object.entries(moviesData).forEach(([movieId, movie]) => {
+        const movieElement = createMovieCard(movie, movieId);
         moviesContainer.appendChild(movieElement);
     });
 }
 
-function createMovieCard(movie) {
+function createMovieCard(movie, movieId) {
     const li = document.createElement('li');
     li.innerHTML = `
-        <div class="movie-card">
+        <div class="movie-card" onclick="window.location.href='usermoveis.html?id=${movieId}'">
             <figure class="card-banner">
                 <img src="${movie.movie_image_link}" alt="${movie.movie_name} movie poster">
             </figure>
@@ -131,22 +134,13 @@ function createMovieCard(movie) {
                 <h3 class="card-title">${movie.movie_name}</h3>
                 <time datetime="${movie.movie_year}">${movie.movie_year}</time>
             </div>
-            <div class="card-meta">
-                <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-                    <time datetime="PT${movie.movie_duration}M">${movie.movie_duration} min</time>
-                </div>
-                <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-                    <data>${movie.average_rating}</data>
-                </div>
-            </div>
+            <!-- Add other movie details here -->
         </div>`;
-    li.querySelector('.movie-card').addEventListener('click', function() {
-        window.location.href = 'usermovies.html'; // Ensure this URL is correct
-    });
     return li;
 }
+
+
+
 
   </script>
 

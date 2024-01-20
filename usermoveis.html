@@ -114,9 +114,46 @@
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     
       <script>
-        function fetchMovieDetails(movieId) {
-          // Existing code to fetch movie details...
+        document.addEventListener('DOMContentLoaded', function() {
+    const movieId = getMovieIdFromURL();
+    if(movieId) {
+        fetchMovieDetails(movieId);
+    }
+});
+
+        function displayMovieDetails(movie) {
+    document.getElementById('movie-poster').src = movie.movie_image_link;
+    document.getElementById('movie-title').innerText = movie.movie_name;
+    document.getElementById('movie-year').innerText = movie.movie_year;
+    document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
+    // Add more fields as necessary
+}
+        function getMovieIdFromURL() {
+    const queryParams = new URLSearchParams(window.location.search);
+    return queryParams.get('id');
+}
+function fetchMovieDetails(movieId) {
+    var token = localStorage.getItem('jwtToken');
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5050/user/movie/${movieId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
         }
+    })
+    .then(response => response.json())
+    .then(movie => {
+        displayMovieDetails(movie);
+    })
+    .catch(error => {
+        console.error('Error fetching movie details:', error);
+    });
+}
+
 
         fetchMovieDetails('some-movie-id');
 
