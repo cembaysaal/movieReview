@@ -507,5 +507,15 @@ def admin_movie(id):
         return f"An Error Occured: {e}"
 
 
+@app.route("/guest/all-movies", methods=["GET"])
+def guest_all_movies():
+
+    try:
+        movies = db.child("movies").get()
+        return jsonify(movies.val()), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5050, debug=True)
