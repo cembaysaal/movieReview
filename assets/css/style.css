@@ -527,6 +527,15 @@ body.active { overflow: hidden; }
 
 .hero-title > strong { color: var(--citrine); }
 
+.hero h2 {
+  color: var(--white);
+  font-size: var(--fs-1);
+  font-weight: var(--fw-700);
+  line-height: 1.2;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 
 
 
@@ -945,7 +954,7 @@ body.active { overflow: hidden; }
 \*-----------------------------------*/
 
 .movie-detail {
-  background: url("../images/movie-detail-bg.png") no-repeat;
+  background: url("../images/image-1.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   padding-top: 160px;
@@ -1639,13 +1648,13 @@ table {
 }
 
 #usersTable th, #usersTable td {
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 
 #usersTable th {
-  background-color: rgb(163, 164, 102);
-  color: white;
+  background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
+  color: rgb(0, 0, 0);
   position: sticky; /* Optional: Apply sticky to headers if needed */
   top: 0; /* For sticky headers */
 }
@@ -1659,7 +1668,7 @@ table {
 #questionsTable {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  margin-top: 20px;
 }
 
 #questionsTable, th, td {
@@ -1667,13 +1676,13 @@ table {
 }
 
 #questionsTable th, #questionsTable td {
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 
 #questionsTable th {
-  background-color: rgb(163, 164, 102);
-  color: white;
+  background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
+  color: rgb(0, 0, 0);
 }
 
 #questionsTable tr {
@@ -1681,15 +1690,70 @@ table {
 }
 
 
-.movies-container {
-  width: 80%;
-  max-width: 700px;
-  margin: 12rem auto;
-  padding: 1rem;
-  background: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  border-radius: 8px;
+.hero {
+  /* If the hero section requires specific styling */
+  background-color: #f5f5f5; /* Example background color */
+  padding: 50px 0; /* Example padding */
 }
+
+.movies-container {
+  width: 90%; /* Adjust the width as you see fit */
+  max-width: 600px; /* Maximum width of the container */
+  margin: 0 auto; /* Centers the container on the page */
+  background-color: #ffffff00; /* Background color for the movie form */
+  padding: 20px; /* Padding inside the container */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+  border-radius: 8px; /* Rounds the corners */
+}
+
+.movies-container h2 {
+  font-size: 24px; /* Size of the heading */
+  color: #ffffff; /* Color of the heading text */
+  text-align: center; /* Center the heading */
+  margin-bottom: 20px; /* Space after the heading */
+}
+
+.movies-container form {
+  display: flex;
+  flex-direction: column; /* Stack the form items vertically */
+}
+
+.movies-container label {
+  font-size: 16px; /* Size of the input labels */
+  color: #ffffff; /* Color of the input labels */
+  margin-bottom: 5px; /* Space between label and input */
+}
+
+.movies-container input[type="text"],
+.movies-container input[type="number"],
+.movies-container input[type="url"] {
+  padding: 10px; /* Padding inside the inputs */
+  margin-bottom: 15px; /* Space after each input */
+  border: 1px solid #ddd; /* Border color of the inputs */
+  border-radius: 4px; /* Rounds the corners of the inputs */
+}
+
+.movies-container button {
+  padding: 10px 15px; /* Padding inside the button */
+  background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
+  color: #000000; /* Text color of the button */
+  border: none; /* No border for the button */
+  border-radius: 4px; /* Rounds the corners of the button */
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+  transition: background-color 0.3s ease; /* Smooth transition for the button background color */
+}
+
+.movies-container button:hover {
+  background-color: #fdfdfd; /* Darker background color on hover */
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 768px) {
+  .movies-container {
+      width: 95%; /* Full width on smaller screens */
+  }
+}
+
 
 /* Form styling */
 form {
@@ -1791,9 +1855,10 @@ form {
   min-width: 25rem;
 }
 form .title {
-  font-family: "Pacifico", cursive;
-  color: #ffffff;
-  font-size: 2.5rem;
+  font-family: 'Poppins', sans-serif; /* This should match your global font style */
+  color: #ffffff; /* Text color */
+  font-weight: bold;
+  
 }
 form .form-control {
   background-color: #f2f6f8;
@@ -1863,7 +1928,6 @@ form .icon {
 }
 
 .screen {       
-  background: linear-gradient(90deg, #ffffff, #ffffff);       
   position: relative;    
   height: 500px; /* Increased height */
   width: 450px; /* Increased width */
@@ -1962,6 +2026,7 @@ form .icon {
   align-items: center; /* Align items vertically */
   margin-right: 20px; /* Spacing between the 'User' and 'Admin' radio buttons */
   cursor: pointer; /* Indicates the label is clickable */
+  color: #ffffff;
 }
 .login__radio input[type="radio"] {
   appearance: none; /* Hide the default radio button appearance */
@@ -2026,9 +2091,9 @@ form .icon {
 }
 
 .login__submit {
-	background: #fff;
+	background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
 	font-size: 14px;
-	margin-top: 30px;
+	margin-top: 0px;
 	padding: 16px 20px;
 	border-radius: 26px;
 	border: 1px solid #ffffff;
@@ -2036,8 +2101,8 @@ form .icon {
 	font-weight: 700;
 	display: flex;
 	align-items: center;
-	width: 100%;
-	color: #9d4848;
+	width: 70%;
+	color: #000000;
 	box-shadow: 0px 2px 2px #5C5696;
 	cursor: pointer;
 	transition: .2s;
@@ -2101,7 +2166,10 @@ form .icon {
   width: 80%;
   margin: 0 auto;
 }
-
+.weather-container h1 {
+  font-family: 'Poppins', sans-serif; /* This should match your global font style */
+  color: #ffffff; /* Text color */
+}
 .weather-container h2 {
   color: #fff;
   text-align: center;
@@ -2289,7 +2357,6 @@ form .icon {
 
 /* Style for the comments section */
 .comments {
-  background-color: #ffffff0e; /* Light gray background */
   padding: 20px 0; /* Padding around the section */
 }
 .comments .container {
@@ -2302,6 +2369,8 @@ form .icon {
   border-top: 1px solid #dee2e6; /* Light gray border at the top */
   padding-top: 15px;
 }
+
+
 .comment {
   background-color: white; /* White background for each comment */
   border: 1px solid #dee2e6; /* Light gray border */
@@ -2316,11 +2385,7 @@ form .icon {
   line-height: 1.5; /* Line height for readability */
 }
 
-.movies-container h2 {
-  color: #c12b2b;
-  margin-bottom: 20px;
-  text-align: center;
-}
+
 
 .logo img {
   max-width: 100px; /* Sets the maximum width of the logo */
@@ -2347,11 +2412,99 @@ form .icon {
 .container h1 {
   color: #ffffff;
   font-size: 2.5rem;
-  font-family: "Pacifico", cursive;
   margin-bottom: 20px;
   text-align: center;
 }
 
 
 
+.users-container {
+  /* Layout and Box Model */
+  width: 80%; /* Adjust the width as per your layout */
+  margin: 0 auto; /* Centers the container */
+  padding: 20px; /* Padding inside the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow around the container */
 
+  /* Typography */
+  font-family: 'Poppins', sans-serif; /* This should match your global font style */
+  color: #ffffff; /* Text color */
+
+  /* Background */
+  border-radius: 8px; /* Optional: Rounds the corners */
+
+  /* Additional Styles */
+  overflow: hidden; /* Ensures nothing overflows from the container */
+  margin-top: -520px;
+}
+
+/* Styling for the title inside the container */
+.users-container .user-title {
+  font-size: 24px; /* Adjust the size as needed */
+  font-weight: 600; /* Adjust the weight as needed */
+  text-align: center; /* Centers the title */
+  margin-bottom: 15px; /* Space below the title */
+}
+
+/* Styling for the table inside the container */
+.users-container .center-table {
+  width: 100%; /* Table takes the full width of the container */
+  border-collapse: collapse; /* Collapses border spacing */
+}
+
+.users-container .center-table th,
+.users-container .center-table td {
+  padding: 10px; /* Padding inside each cell */
+  text-align: left; /* Aligns text to the left */
+  border-bottom: 1px solid #ddd; /* Adds a bottom border to each cell */
+}
+
+/* Add more specific styles as needed */
+
+
+
+
+
+.question-container {
+  /* Layout and Box Model */
+  width: 80%; /* Adjust the width as per your layout */
+  margin: 0 auto; /* Centers the container */
+  padding: 20px; /* Padding inside the container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow around the container */
+
+  /* Typography */
+  font-family: 'Poppins', sans-serif; /* This should match your global font style */
+  color: #ffffff; /* Text color */
+
+  /* Background */
+  border-radius: 8px; /* Optional: Rounds the corners */
+
+  /* Additional Styles */
+  overflow: hidden; /* Ensures nothing overflows from the container */
+  margin-top: -520px;
+}
+
+/* Styling for the title inside the container */
+.question-container .user-title {
+  font-size: 24px; /* Adjust the size as needed */
+  font-weight: 600; /* Adjust the weight as needed */
+  text-align: center; /* Centers the title */
+  margin-bottom: 15px; /* Space below the title */
+}
+
+/* Styling for the table inside the container */
+.question-container .center-table {
+  width: 100%; /* Table takes the full width of the container */
+  border-collapse: collapse; /* Collapses border spacing */
+}
+
+.question-container .center-table th,
+.question-container .center-table td {
+  padding: 10px; /* Padding inside each cell */
+  text-align: left; /* Aligns text to the left */
+  border-bottom: 1px solid #ddd; /* Adds a bottom border to each cell */
+}
+.social-login__link {
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0px 0px 8px #7875B5;
+}
