@@ -72,12 +72,7 @@
         <label for="score">Storyline:</label>
         <input type="text" id="storyline" name="storyline" required>
 
-        <label for="score">Score:</label>
-        <input type="text" id="score" name="score" required>
-
-
-
-        <input type="submit" value="Add Movie">
+        <button type="button" onclick="add_movie()">Add Movie</button>  
 
       </form>
     </div>
@@ -92,11 +87,56 @@
     function add_movie() {
 
       var token = localStorage.getItem('jwtToken');
-
       var url = "http://http://127.0.0.1:5050/admin/add-movie";
 
-    }
+      if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+      }
 
+      var movieName = document.getElementById("movieName").value;
+      var year = document.getElementById("year").value;
+      var photoLink = document.getElementById("photoLink").value;
+      var duration = document.getElementById("time").value;
+      var storyline = document.getElementById("storyline").value;
+      var score = 0;
+
+      data_to_send = {
+        "movieName": movieName,
+        "year": year,
+        "photoLink": photoLink,
+        "duration": duration,
+        "storyline": storyline,
+        "score": score
+      }
+
+      url = "http://127.0.0.1:5050/admin/add-movie";
+      fetch (url,
+      
+      {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data_to_send),
+    })
+      
+      .then(response => response.json())
+      .then(data => {
+        
+        if (data.message == "movie added successfully") {
+          alert("Movie added successfully");
+          window.location.href = "./admin.html";
+        }
+        else {
+          alert(data.message);
+        }
+
+      })
+      
+
+    }
 
 
 

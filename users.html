@@ -85,6 +85,11 @@
 
       var token = localStorage.getItem('jwtToken');
 
+      if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+      }
+
       var url = "http://127.0.0.1:5050/admin/get-users";
 
       fetch(url, 

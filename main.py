@@ -416,6 +416,14 @@ def admin_get_users():
 @app.route("/admin/add-movie", methods=["POST"])
 @jwt_required()
 def admin_add_movie():
+    
+    movie_name = ""
+    year = ""
+    photo_url = ""
+    duration = ""
+    story_line = ""
+    
+    
     try:
         try:
             jwt_identity = get_jwt_identity()
@@ -427,22 +435,26 @@ def admin_add_movie():
             return jsonify({"message": "Invalid token"}), 400
 
         data = request.get_json()
-        movie_name = data.get("movie_name")
-        year = data.get("movie_year")
-        photo_url = data.get("movie_image_link")
-        duration = data.get("movie_duration")
-        story_line = data.get("movie_story_line")
-        movie_score = data.get("movie_imdb_score")  #we will use this as star score not imdb
-
-        if not all([movie_name, year, photo_url, duration]):
-            return jsonify({"message": "Please provide all movie details"}), 400
+        movie_name = data.get("movieName")
+        year = data.get("year")
+        photo_url = data.get("photoLink")
+        duration = data.get("duration")
+        story_line = data.get("storyline")
+        
+        if movie_name == "" or year == "" or photo_url == "" or duration == "" or story_line == "":
+            return jsonify({"message": "Please fill all the fields"}), 400
+        
+        try:
+            duration = int(duration)
+        
+        except:
+            return jsonify({"message": "Duration must be integer"}), 400
 
         movie_data = {
             "movie_name": movie_name,
             "movie_year": year,
             "movie_image_link": photo_url,
             "movie_duration": duration,
-            "movie_score": movie_score,
             "movie_story_line": story_line,
         }
 
