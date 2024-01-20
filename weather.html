@@ -202,10 +202,11 @@
       .then(data => {
         var weatherDiv = document.getElementById('weatherData');
         weatherDiv.innerHTML = `
-        <div style="text-align: center;">
-          <img src="http://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="${data.weather[0].main}" />
-          <h3>Weather in ${data.name}, ${data.sys.country}</h3>
-        </div>
+        <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+  <img src="http://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="${data.weather[0].main}" />
+  <h3>Weather in ${data.name}, ${data.sys.country}</h3>
+      </div>
+
         <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
         <p><strong>Feels Like:</strong> ${data.main.feels_like}°C</p>
         <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
