@@ -163,7 +163,6 @@ function displayAverageRating(averageRating) {
     }
 }
 
-        fetchMovieDetails('some-movie-id');
 
         document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
     input.addEventListener('change', function() {
@@ -224,29 +223,44 @@ function submitRating(ratingValue, movieId) {
 
 
 
-        function fetchAndDisplayComments() {
-          fetch('/api/comments') // Replace with your actual endpoint to get comments
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return response.json();
-            })
-            .then(comments => {
-              const commentsContainer = document.getElementById('comments-container');
-              commentsContainer.innerHTML = ''; // Clear existing comments
-      
-              comments.forEach(comment => {
+function fetchAndDisplayComments(movieId) {
+    var token = localStorage.getItem('jwtToken');
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5050/user/movie/${movieId}/comments`, { // Corrected URL
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(comments => {
+        const commentsContainer = document.getElementById('comments-container');
+        commentsContainer.innerHTML = ''; // Clear existing comments
+
+        // Assuming comments is an object where each key is a comment ID
+        for (let key in comments) {
+            if (comments.hasOwnProperty(key)) {
+                const comment = comments[key];
                 const commentElement = document.createElement('div');
                 commentElement.classList.add('comment');
                 commentElement.innerHTML = `
-                  <p>${comment.user}: ${comment.text}</p>
+                    <p><strong>${comment.name} ${comment.surname}:</strong> ${comment.comment}</p>
                 `;
                 commentsContainer.appendChild(commentElement);
-              });
-            })
-            .catch(error => console.error('Error fetching comments:', error));
+            }
         }
+    })
+    .catch(error => console.error('Error fetching comments:', error));
+}
       
         // Call the function to load and display comments
         fetchAndDisplayComments();
@@ -291,6 +305,50 @@ document.getElementById('submit-rating').addEventListener('click', function() {
         });
     }
 });
+
+document.getElementById('submit-comment').addEventListener('click', function() {
+    const userComment = document.getElementById('user-comment').value;
+    const movieId = getMovieIdFromURL();
+    if (userComment && movieId) {
+        submitComment(userComment, movieId);
+    } else {
+        console.log("No comment entered or movie ID missing");
+    }
+});
+
+function submitComment(comment, movieId) {
+    var token = localStorage.getItem('jwtToken');
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5050/user/movie/${movieId}/create-comment`, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            comment: comment,
+            name: 'User Name', // Replace with actual user's name
+            surname: 'User Surname' // Replace with actual user's surname
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Comment submitted successfully:", data);
+        fetchAndDisplayComments(movieId); // Refresh the comments display
+    })
+    .catch(error => {
+        console.error('Error submitting comment:', error);
+    });
+}
 
 
       </script>
