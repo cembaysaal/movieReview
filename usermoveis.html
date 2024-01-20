@@ -329,7 +329,8 @@ function submitComment(comment, movieId) {
         alert("You are not authenticated. Please log in.");
         return;
     }
-
+    var name = localStorage.getItem('userName');
+    var surname = localStorage.getItem('userSurname');
     fetch(`http://127.0.0.1:5050/user/movie/${movieId}/create-comment`, {
         method: 'POST',
         headers: {
@@ -338,8 +339,8 @@ function submitComment(comment, movieId) {
         },
         body: JSON.stringify({ 
             comment: comment,
-            name: 'User Name', // Replace with actual user's name
-            surname: 'User Surname' // Replace with actual user's surname
+            name: name, 
+            surname: surname 
         })
     })
     .then(response => {

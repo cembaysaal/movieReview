@@ -104,7 +104,16 @@ def user_login():
             if user.val()['email'] == email and user.val()['password'] == password:
                 access_token = create_access_token(
                     identity={"type": "user", "id": user.key()})
-                return jsonify({"message": "User logged in successfully", "access_token": access_token}), 200
+                user_name = user.val().get('name')
+                user_surname = user.val().get('surname')
+                print(user_name)
+                print(user_surname)
+                return jsonify({
+                    "message": "User logged in successfully",
+                    "access_token": access_token,
+                    "name": user_name,
+                    "surname": user_surname
+                }), 200
 
         return jsonify({"message": "User with this email does not exist"}), 400
     except Exception as e:

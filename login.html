@@ -114,7 +114,9 @@
     if (xhr.readyState === 4 && xhr.status === 200) {
         var response = JSON.parse(xhr.responseText);
         var accessToken = response.access_token || null;
-        handleLoginResponse(true, response.message, accessToken);
+        var userName = response.name || '';
+        var userSurname = response.surname || '';
+        handleLoginResponse(true, response.message, accessToken, userName, userSurname);
     } else if (xhr.readyState === 4) {
         handleLoginResponse(false, "Login failed. Please try again.");
     }
@@ -123,15 +125,17 @@
     xhr.send(requestData);
 }
 
-function handleLoginResponse(success, message, accessToken = null) {
+function handleLoginResponse(success, message, accessToken = null, name = '', surname = '') {
     var feedbackElement = document.getElementById('loginFeedback');
     var role = document.querySelector('input[name="role"]:checked').value;
 
     if (success) {
-        // Save the JWT token in local storage
+        // Save the JWT token and user details in local storage
         if (accessToken) {
             localStorage.setItem('jwtToken', accessToken);
-            console.log('JWT Token saved to local storage');
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userSurname', surname);
+            console.log('JWT Token and user details saved to local storage');
         }
 
         feedbackElement.innerText = message;
@@ -145,6 +149,7 @@ function handleLoginResponse(success, message, accessToken = null) {
         feedbackElement.innerText = message;
     }
 }
+
 
     </script>
 
