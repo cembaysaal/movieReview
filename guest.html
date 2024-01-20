@@ -72,9 +72,16 @@
   </a>
   <script>
    document.addEventListener('DOMContentLoaded', function() {
+    clearUserData(); // Clear user data when the page loads
     fetchMovies();
     setInterval(fetchMovies, 300000); // Refresh every 5 minutes
-});
+  });
+
+  function clearUserData() {
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userSurname');
+  }
 
 function fetchMovies() {
     
