@@ -85,59 +85,8 @@
     <ion-icon name="chevron-up"></ion-icon>
   </a>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      fetchMovies();
-      setInterval(fetchMovies, 300000); // Refresh every 5 minutes (300000 milliseconds)
-  });
+  
 
-    function fetchMovies() {
-        fetch('URL_OF_YOUR_MOVIE_DATA') // Replace with your API URL
-        .then(response => response.json())
-        .then(movies => {
-            renderMovies(movies);
-        })
-        .catch(error => {
-            console.error('Error fetching movies:', error);
-        });
-    }
-
-    function renderMovies(movies) {
-        const moviesContainer = document.getElementById('movies-container');
-        moviesContainer.innerHTML = ''; // Clear existing content
-
-        movies.forEach(movie => {
-            const movieElement = createMovieCard(movie);
-            moviesContainer.appendChild(movieElement);
-        });
-    }
-
-    function createMovieCard(movie) {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <div class="movie-card">
-                <figure class="card-banner">
-                    <img src="${movie.imageUrl}" alt="${movie.title} movie poster">
-                </figure>
-                <div class="title-wrapper">
-                    <h3 class="card-title">${movie.title}</h3>
-                    <time datetime="${movie.year}">${movie.year}</time>
-                </div>
-                <div class="card-meta">
-                    <div class="duration">
-                        <ion-icon name="time-outline"></ion-icon>
-                        <time datetime="PT${movie.duration}M">${movie.duration} min</time>
-                    </div>
-                    <div class="rating">
-                        <ion-icon name="star"></ion-icon>
-                        <data>${movie.rating}</data>
-                    </div>
-                </div>
-            </div>`;
-            li.querySelector('.movie-card').addEventListener('click', function() {
-              window.location.href = 'usermoveis.html';
-          });
-        return li;
-    }
   </script>
   <script src="./assets/js/script.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

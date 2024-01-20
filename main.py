@@ -411,6 +411,24 @@ def admin_get_users():
         return jsonify(users.val()), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+    
+@app.route("/admin/get-movies", methods=["GET"])
+@jwt_required()
+def admin_get_movies():
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+            
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+    except:
+        return jsonify({"message": "Invalid token"}), 400
+    
+    try:
+        movies = db.child("movies").get()
+        return jsonify(movies.val()), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
 
 
 @app.route("/admin/add-movie", methods=["POST"])
@@ -457,6 +475,7 @@ def admin_add_movie():
             "movie_duration": duration,
             "movie_story_line": story_line,
             "movie_score": 0,
+            
         }
 
         db.child("movies").push(movie_data)
