@@ -1832,6 +1832,7 @@ form .icon {
   background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
   background-size: 300% 100%;
   transition: all 0.3s ease-in-out;
+  color: #000;
 }
 
 .btn.btn-primary:hover:enabled {
@@ -1985,15 +1986,23 @@ form .icon {
 }
 
 .login__input {
-	border: none;
-	border-bottom: 2px solid #ffffff;
-	background: none;
-	padding: 10px;
-	padding-left: 24px;
-	font-weight: 700;
-	width: 75%;
-	transition: .2s;
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding inside the input */
+  margin-bottom: 15px; /* Space between the fields */
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 4px; /* Slightly rounded borders for the inputs */
+  font-size: 16px; /* Font size similar for all input types */
 }
+
+/* This targets both text and password fields specifically */
+.login__input[type="text"],
+.login__input[type="password"] {
+  -webkit-appearance: none; /* Removes default styles for webkit browsers */
+  -moz-appearance: none; /* Removes default styles for Mozilla browsers */
+  appearance: none; /* Removes default styles for other browsers */
+  /* Add other properties as needed to match the design */
+}
+
 
 .login__input:active,
 .login__input:focus,
@@ -2305,3 +2314,4 @@ form .icon {
 .container .logo {
   position: absolute;
 }
+
