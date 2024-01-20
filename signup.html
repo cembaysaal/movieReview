@@ -28,10 +28,10 @@
     <div class="container">
       <div class="overlay" data-overlay></div>
       <a href="./guest.html" class="logo">
-        <img src="./assets/images/logo.png" alt="Filmlane logo">
+        <img src="./assets/images/logo.png" alt="Automata logo">
       </a>
       <div class="header-actions">
-        <a href="guest.html" class="btn btn-primary">Sign In</a>
+        <a href="login.html" class="btn btn-primary">Sign In</a>
       </div>
       <button class="menu-open-btn" data-menu-open-btn>
         <ion-icon name="reorder-two"></ion-icon>
@@ -39,7 +39,7 @@
       <nav class="navbar" data-navbar>
         <div class="navbar-top">
           <a href="./guest.html" class="logo">
-            <img src="./assets/images/logo.png" alt="Filmlane logo">
+            <img src="./assets/images/logo.png" alt="Automata logo">
           </a>
           <button class="menu-close-btn" data-menu-close-btn>
             <ion-icon name="close-outline"></ion-icon>
@@ -53,40 +53,44 @@
       </nav>
     </div>
   </header>
-    <div class="login-container">
-        <div class="screen">
-            <div class="screen__content">
-                <form name="signupForm" class="login" method="post" action="backend-endpoint.com/signup" onsubmit="return validateSignupForm()">
-                    <div class="login__field">
+  <section class="hero">
+    <div class="container">
+        <div class="login-container">
+            <div class="screen">
+                <div class="screen__content">
+                    <h1 class="screen__title">Sign Up </h1>
+                    <form name="signupForm" class="login" onsubmit="validateForm(event)">
+                      <div class="login__field">
                         <i class="login__icon fas fa-user"></i>
-                        <input type="text" name="name" class="login__input" placeholder="Name - Surname">
-                    </div>
-                    <div class="login__field">
-                        <i class="login__icon fas fa-user"></i>
-                        <input type="text" name="email" class="login__input" placeholder="Email">
-                    </div>
-                    <div class="login__field">
-                        <i class="login__icon fas fa-lock"></i>
-                        <input type="password" name="password" class="login__input" placeholder="Password">
-                    </div>
-                    <button type="submit" class="button login__submit">
-                        <span class="button__text">Sign Up Now</span>
-                        <i class="button__icon fas fa-chevron-right"></i>
-                    </button>				
-                </form>
-                <div class="social-login">
-					<br>
-					<br>
-                    <a href="login.html" class="social-login__link">Sign In</a>
+                        <input type="text" name="username" class="login__input" placeholder="Name - Surname">
+                    </div>  
+                      <div class="login__field">
+                            <i class="login__icon fas fa-user"></i>
+                            <input type="text" name="username" class="login__input" placeholder="Email">
+                        </div>
+                        <div class="login__field">
+                            <i class="login__icon fas fa-lock"></i>
+                            <input type="password" name="password" class="login__input" placeholder="Password">
+                        </div>
+                        <div class="social-login">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <a href="login.html" class="social-login__link">Log In</a>
+                        </div>
+                        <button type="submit" class="button login__submit">
+                            <span class="button__text">Sign Up Now</span>
+                            <i class="button__icon fas fa-chevron-right"></i>
+                        </button>	
+                    </form>
+
                 </div>
+                <div id="loginFeedback" style="color: red; margin-top: 15px;"></div>	
             </div>
-            <div class="screen__background">
-                <span class="screen__background__shape screen__background__shape4"></span>
-                <span class="screen__background__shape screen__background__shape3"></span>		
-                <span class="screen__background__shape screen__background__shape2"></span>
-                <span class="screen__background__shape screen__background__shape1"></span>
-            </div>		
         </div>
     </div>
+  </section>
 </body>
 </html>
