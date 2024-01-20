@@ -456,6 +456,7 @@ def admin_add_movie():
             "movie_image_link": photo_url,
             "movie_duration": duration,
             "movie_story_line": story_line,
+            "movie_score": 0,
         }
 
         db.child("movies").push(movie_data)

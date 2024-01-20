@@ -99,7 +99,6 @@
       var photoLink = document.getElementById("photoLink").value;
       var duration = document.getElementById("time").value;
       var storyline = document.getElementById("storyline").value;
-      var score = 0;
 
       data_to_send = {
         "movieName": movieName,
@@ -107,10 +106,9 @@
         "photoLink": photoLink,
         "duration": duration,
         "storyline": storyline,
-        "score": score
       }
 
-      url = "http://127.0.0.1:5050/admin/add-movie";
+      url = "https://127.0.0.1:5050/admin/add-movie";
       fetch (url,
       
       {
@@ -127,7 +125,7 @@
         
         if (data.message == "movie added successfully") {
           alert("Movie added successfully");
-          window.location.href = "./admin.html";
+          window.location.href = "admin.html";
         }
         else {
           alert(data.message);
