@@ -187,7 +187,6 @@ def user_movie_comment(id):
 @app.route("/user/movie/<string:id>/comments", methods=["GET"])
 @jwt_required()
 def user_movie_comments(id):
-
     try:
         jwt_identity = get_jwt_identity()
         user_type = jwt_identity['type']
@@ -241,6 +240,7 @@ def user_contact():
 @app.route("/user/movie/<string:movie_id>/add-star", methods=["POST"])
 @jwt_required()
 def user_add_star(movie_id):
+    print("Route hit for movie_id:", movie_id)
     try:
         try:
             jwt_identity = get_jwt_identity()
@@ -266,7 +266,7 @@ def user_add_star(movie_id):
             return jsonify({"message": "Movie not found"}), 404
 
         rating_count = movie.val().get("rating_count")
-        if rating_count is None:
+        if (rating_count is None) or (rating_count == 0):
             rating_count = 1
         else:
             rating_count = rating_count + 1
@@ -456,7 +456,8 @@ def admin_add_movie():
             "movie_image_link": photo_url,
             "movie_duration": duration,
             "movie_story_line": story_line,
-            "movie_score": 0,
+            "average_rating": 0,
+            "rating_count": 0
         }
 
         db.child("movies").push(movie_data)
@@ -465,6 +466,45 @@ def admin_add_movie():
 
     except Exception as e:
         return jsonify({"message": f"An Error Occurred: {e}"}), 500
+
+
+@app.route("/admin/all-movies", methods=["GET"])
+@jwt_required()
+def admin_all_movies():
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+    except:
+        return jsonify({"message": "Invalid token"}), 400
+
+    try:
+        movies = db.child("movies").get()
+        return jsonify(movies.val()), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
+@app.route("/admin/movie/<string:id>", methods=["GET"])
+@jwt_required()
+def admin_movie(id):
+
+    try:
+        jwt_identity = get_jwt_identity()
+        user_type = jwt_identity['type']
+
+        if user_type != "admin":
+            return jsonify({"message": "Invalid token"}), 400
+    except:
+        return jsonify({"message": "Invalid token"}), 400
+
+    try:
+        movie = db.child("movies").child(id).get()
+        return jsonify(movie.val()), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
 
 
 if __name__ == '__main__':

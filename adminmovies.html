@@ -118,104 +118,142 @@
           <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         
           <script>
-            function fetchMovieDetails(movieId) {
-              // Existing code to fetch movie details...
-            }
-    
-            fetchMovieDetails('some-movie-id');
-    
-            document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
-              input.addEventListener('change', function() {
-                let ratingValue = this.value;
-                console.log("Rated: " + ratingValue + " stars"); 
-                document.getElementById('submit-rating').style.display = 'block';
-              });
-            });
-    
-            function submitRating(ratingValue) {
-              // Existing code to submit rating...
-            }
-    
-    // Event listener for submitting rating
-    document.getElementById('submit-rating').addEventListener('click', function() {
-      const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked');
-      
-      if (selectedRating) {
-        console.log("Rating submitted: " + selectedRating.value); // Mock submit action
-        // Here you would call submitRating(selectedRating.value) in a real scenario
-    
-        // Clear the selected star rating
+            document.addEventListener('DOMContentLoaded', function() {
+    const movieId = getMovieIdFromURL();
+    if(movieId) {
+        fetchMovieDetails(movieId);
+    }
+});
+
+        function displayMovieDetails(movie) {
+    document.getElementById('movie-poster').src = movie.movie_image_link;
+    document.getElementById('movie-title').innerText = movie.movie_name;
+    document.getElementById('movie-year').innerText = movie.movie_year;
+    document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
+    // Add more fields as necessary
+}
+        function getMovieIdFromURL() {
+    const queryParams = new URLSearchParams(window.location.search);
+    return queryParams.get('id');
+}
+function fetchMovieDetails(movieId) {
+    var token = localStorage.getItem('jwtToken');
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5050/admin/movie/${movieId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => response.json())
+    .then(movie => {
+        displayMovieDetails(movie);
+    })
+    .catch(error => {
+        console.error('Error fetching movie details:', error);
+    });
+}
+
+
+        fetchMovieDetails('some-movie-id');
+
         document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
-          input.checked = false;
+          input.addEventListener('change', function() {
+            let ratingValue = this.value;
+            console.log("Rated: " + ratingValue + " stars"); 
+            document.getElementById('submit-rating').style.display = 'block';
+          });
         });
-      }
+
+        function submitRating(ratingValue) {
+          // Existing code to submit rating...
+        }
+
+// Event listener for submitting rating
+document.getElementById('submit-rating').addEventListener('click', function() {
+  const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked');
+  
+  if (selectedRating) {
+    console.log("Rating submitted: " + selectedRating.value); // Mock submit action
+    // Here you would call submitRating(selectedRating.value) in a real scenario
+
+    // Clear the selected star rating
+    document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
+      input.checked = false;
     });
-    
-    
-            // Function to submit the comment
-            function submitComment(comment) {
-              fetch('/submit-comment', { // Replace with your actual server endpoint
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  comment: comment
-                  // Include other relevant information like user ID or movie ID if necessary
-                })
-              })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('Server response was not ok');
-                }
-                return response.json();
-              })
-              .then(data => {
-                console.log('Comment submitted successfully:', data);
-                // Provide feedback to the user about the successful submission
-              })
-              .catch(error => {
-                console.error('Error submitting comment:', error);
-                // Inform the user that there was an error submitting their comment
+  }
+});
+
+
+        // Function to submit the comment
+        function submitComment(comment) {
+          fetch('/submit-comment', { // Replace with your actual server endpoint
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              comment: comment
+              // Include other relevant information like user ID or movie ID if necessary
+            })
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Server response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Comment submitted successfully:', data);
+            // Provide feedback to the user about the successful submission
+          })
+          .catch(error => {
+            console.error('Error submitting comment:', error);
+            // Inform the user that there was an error submitting their comment
+          });
+        }
+
+        // Event listener for the submit comment button
+// Event listener for submitting a comment
+document.getElementById('submit-comment').addEventListener('click', function() {
+  const userCommentElement = document.getElementById('user-comment');
+  const userComment = userCommentElement.value;
+  submitComment(userComment);
+  userCommentElement.value = ''; // Clear the comment box after submission
+});
+
+
+        function fetchAndDisplayComments() {
+          fetch('/api/comments') // Replace with your actual endpoint to get comments
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(comments => {
+              const commentsContainer = document.getElementById('comments-container');
+              commentsContainer.innerHTML = ''; // Clear existing comments
+      
+              comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+                commentElement.innerHTML = `
+                  <p>${comment.user}: ${comment.text}</p>
+                `;
+                commentsContainer.appendChild(commentElement);
               });
-            }
-    
-            // Event listener for the submit comment button
-    // Event listener for submitting a comment
-    document.getElementById('submit-comment').addEventListener('click', function() {
-      const userCommentElement = document.getElementById('user-comment');
-      const userComment = userCommentElement.value;
-      submitComment(userComment);
-      userCommentElement.value = ''; // Clear the comment box after submission
-    });
-    
-    
-            function fetchAndDisplayComments() {
-              fetch('/api/comments') // Replace with your actual endpoint to get comments
-                .then(response => {
-                  if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                  }
-                  return response.json();
-                })
-                .then(comments => {
-                  const commentsContainer = document.getElementById('comments-container');
-                  commentsContainer.innerHTML = ''; // Clear existing comments
-          
-                  comments.forEach(comment => {
-                    const commentElement = document.createElement('div');
-                    commentElement.classList.add('comment');
-                    commentElement.innerHTML = `
-                      <p>${comment.user}: ${comment.text}</p>
-                    `;
-                    commentsContainer.appendChild(commentElement);
-                  });
-                })
-                .catch(error => console.error('Error fetching comments:', error));
-            }
-          
-            // Call the function to load and display comments
-            fetchAndDisplayComments();
+            })
+            .catch(error => console.error('Error fetching comments:', error));
+        }
+      
+        // Call the function to load and display comments
+        fetchAndDisplayComments();
+
     
             
           </script>

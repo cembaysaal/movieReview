@@ -66,9 +66,7 @@
           </tr>
         </thead>
         <tbody>
-          <td>John</td>
-          <td>Doe</td>
-          <td>johndoe@example.com</td>
+
         </tbody>
       </table>
     </div>
@@ -81,23 +79,47 @@
   </a>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      fetch('/get_questions')
-        .then(response => response.json())
-        .then(questions => {
-          const tableBody = document.getElementById('questionsTable').getElementsByTagName('tbody')[0];
+    function get_questions() {
 
-          questions.forEach(question => {
-            let row = tableBody.insertRow();
-            row.insertCell(0).textContent = question.user_name; 
-            row.insertCell(1).textContent = question.user_last_name; 
-            row.insertCell(2).textContent = question.question_text; 
-          });
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    });
+      var token = localStorage.getItem('jwtToken');
+
+      if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+      }
+
+      var url = "http://127.0.0.1:5050/admin/messages";
+
+      fetch(url, 
+            {
+              method : 'GET',
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+              }
+
+            }
+
+      )
+
+      .then(response => response.json())
+      .then(data => {
+          const user_array = Object.values(data);
+          const keys = Object.keys(data);
+
+          keys.forEach(key => {
+            document.getElementById('questionsTable').innerHTML += `
+            <tr>
+              <td>${data[key].name}</td>
+              <td>${data[key].surname}</td>
+              <td>${data[key].email}</td>
+    `;})
+       })
+          }
+
+
+    window.onload = get_questions;
+
   </script>
 
   <script src="./assets/js/script.js"></script>

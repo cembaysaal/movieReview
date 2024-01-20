@@ -134,6 +134,14 @@ function createMovieCard(movie, movieId) {
                 <h3 class="card-title">${movie.movie_name}</h3>
                 <time datetime="${movie.movie_year}">${movie.movie_year}</time>
             </div>
+            <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <time datetime="PT${movie.movie_duration}M">${movie.movie_duration} min</time>
+                </div>
+            <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <data>${movie.average_rating}</data>
+                </div>
             <!-- Add other movie details here -->
         </div>`;
     return li;
