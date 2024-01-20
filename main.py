@@ -187,7 +187,6 @@ def user_movie_comment(id):
 @app.route("/user/movie/<string:id>/comments", methods=["GET"])
 @jwt_required()
 def user_movie_comments(id):
-
     try:
         jwt_identity = get_jwt_identity()
         user_type = jwt_identity['type']
@@ -241,6 +240,7 @@ def user_contact():
 @app.route("/user/movie/<string:movie_id>/add-star", methods=["POST"])
 @jwt_required()
 def user_add_star(movie_id):
+    print("Route hit for movie_id:", movie_id)
     try:
         try:
             jwt_identity = get_jwt_identity()

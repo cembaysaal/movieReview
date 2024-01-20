@@ -52,7 +52,7 @@
   <section class="movie-detail">
     <div class="container">
       <figure class="movie-detail-banner">
-        <img id="movie-poster" src="./assets/images/movie-4.png" alt="Movie poster">
+        <img id="movie-poster" src="/assets/images/movie-1.png" alt="Movie poster">
       </figure>
   
       <div class="movie-detail-content">
@@ -120,18 +120,12 @@
         fetchMovieDetails(movieId);
     }
 });
-
-        function displayMovieDetails(movie) {
-    document.getElementById('movie-poster').src = movie.movie_image_link;
-    document.getElementById('movie-title').innerText = movie.movie_name;
-    document.getElementById('movie-year').innerText = movie.movie_year;
-    document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
-    // Add more fields as necessary
-}
-        function getMovieIdFromURL() {
+function getMovieIdFromURL() {
     const queryParams = new URLSearchParams(window.location.search);
     return queryParams.get('id');
 }
+
+
 function fetchMovieDetails(movieId) {
     var token = localStorage.getItem('jwtToken');
     if (!token) {
@@ -148,79 +142,86 @@ function fetchMovieDetails(movieId) {
     .then(response => response.json())
     .then(movie => {
         displayMovieDetails(movie);
+        displayAverageRating(movie.average_rating);
     })
     .catch(error => {
         console.error('Error fetching movie details:', error);
     });
 }
 
+function displayMovieDetails(movie) {
+    document.getElementById('movie-poster').src = movie.movie_image_link;
+    document.getElementById('movie-title').innerText = movie.movie_name;
+    document.getElementById('movie-year').innerText = movie.movie_year;
+    document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
+}
+
+function displayAverageRating(averageRating) {
+    const roundedRating = Math.round(averageRating);
+    for (let i = 1; i <= 5; i++) {
+        document.getElementById('star-' + i).checked = i === roundedRating;
+    }
+}
 
         fetchMovieDetails('some-movie-id');
 
         document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
-          input.addEventListener('change', function() {
-            let ratingValue = this.value;
-            console.log("Rated: " + ratingValue + " stars"); 
-            document.getElementById('submit-rating').style.display = 'block';
-          });
-        });
-
-        function submitRating(ratingValue) {
-          // Existing code to submit rating...
-        }
-
-// Event listener for submitting rating
-document.getElementById('submit-rating').addEventListener('click', function() {
-  const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked');
-  
-  if (selectedRating) {
-    console.log("Rating submitted: " + selectedRating.value); // Mock submit action
-    // Here you would call submitRating(selectedRating.value) in a real scenario
-
-    // Clear the selected star rating
-    document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
-      input.checked = false;
+    input.addEventListener('change', function() {
+        let ratingValue = this.value;
+        console.log("Rated: " + ratingValue + " stars"); 
+        document.getElementById('submit-rating').style.display = 'block';
     });
-  }
 });
 
+document.getElementById('submit-rating').addEventListener('click', function() {
+    const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked');
+    const movieId = getMovieIdFromURL();
 
-        // Function to submit the comment
-        function submitComment(comment) {
-          fetch('/submit-comment', { // Replace with your actual server endpoint
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              comment: comment
-              // Include other relevant information like user ID or movie ID if necessary
-            })
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Server response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Comment submitted successfully:', data);
-            // Provide feedback to the user about the successful submission
-          })
-          .catch(error => {
-            console.error('Error submitting comment:', error);
-            // Inform the user that there was an error submitting their comment
-          });
+    if (selectedRating && movieId) {
+        submitRating(parseInt(selectedRating.value), movieId);
+    } else {
+        console.log("No rating selected or movie ID missing");
+    }
+});
+
+function submitRating(ratingValue, movieId) {
+    var token = localStorage.getItem('jwtToken');
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5050/user/movie/${movieId}/add-star`, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ star_rating: ratingValue })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Rating submitted successfully:", data);
+        displayAverageRating(data.new_average_rating);
+        // Optionally clear the selected star rating after updating the display
+        document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
+            input.checked = false;
+        });
+    })
+    .catch(error => {
+        console.error('Error submitting star rating:', error);
+    });
+}
 
         // Event listener for the submit comment button
 // Event listener for submitting a comment
-document.getElementById('submit-comment').addEventListener('click', function() {
-  const userCommentElement = document.getElementById('user-comment');
-  const userComment = userCommentElement.value;
-  submitComment(userComment);
-  userCommentElement.value = ''; // Clear the comment box after submission
-});
+
+
 
 
         function fetchAndDisplayComments() {
@@ -250,7 +251,48 @@ document.getElementById('submit-comment').addEventListener('click', function() {
         // Call the function to load and display comments
         fetchAndDisplayComments();
 
-        
+        function submitRating(ratingValue, movieId) {
+    var token = localStorage.getItem('jwtToken');
+    if (!token) {
+        alert("You are not authenticated. Please log in.");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5050/user/movie/${movieId}/add-star`, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ star_rating: ratingValue })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Rating submitted successfully:", data);
+        // Update UI or show a message to the user
+    })
+    .catch(error => {
+        console.error('Error submitting star rating:', error);
+        // Inform the user about the error
+    });
+}
+
+// Modify the existing event listener for the submit-rating button
+document.getElementById('submit-rating').addEventListener('click', function() {
+    const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked');
+    const movieId = getMovieIdFromURL(); // Assuming this function retrieves the correct movie ID
+
+    if (selectedRating) {
+        submitRating(parseInt(selectedRating.value), movieId);
+
+        // Clear the selected star rating
+        document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
+            input.checked = false;
+        });
+    }
+});
+
+
       </script>
 
       
