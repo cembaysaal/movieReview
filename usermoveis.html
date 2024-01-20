@@ -103,7 +103,6 @@
     <div class="container">
       <h2 class="h2">Comments</h2>
       <div id="comments-container">
-        <!-- Comments will be dynamically added here -->
       </div>
     </div>
   </section>
@@ -209,7 +208,6 @@ function submitRating(ratingValue, movieId) {
     .then(data => {
         console.log("Rating submitted successfully:", data);
         displayAverageRating(data.new_average_rating);
-        // Optionally clear the selected star rating after updating the display
         document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
             input.checked = false;
         });
@@ -219,11 +217,6 @@ function submitRating(ratingValue, movieId) {
     });
 }
 
-        // Event listener for the submit comment button
-// Event listener for submitting a comment
-
-
-
 
 function fetchAndDisplayComments(movieId) {
     var token = localStorage.getItem('jwtToken');
@@ -232,7 +225,7 @@ function fetchAndDisplayComments(movieId) {
         return;
     }
 
-    fetch(`http://127.0.0.1:5050/user/movie/${movieId}/comments`, { // Corrected URL
+    fetch(`http://127.0.0.1:5050/user/movie/${movieId}/comments`, { 
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token
@@ -246,9 +239,8 @@ function fetchAndDisplayComments(movieId) {
     })
     .then(comments => {
         const commentsContainer = document.getElementById('comments-container');
-        commentsContainer.innerHTML = ''; // Clear existing comments
+        commentsContainer.innerHTML = ''; 
 
-        // Assuming comments is an object where each key is a comment ID
         for (let key in comments) {
             if (comments.hasOwnProperty(key)) {
                 const comment = comments[key];
@@ -264,7 +256,6 @@ function fetchAndDisplayComments(movieId) {
     .catch(error => console.error('Error fetching comments:', error));
 }
       
-        // Call the function to load and display comments
         fetchAndDisplayComments();
 
         function submitRating(ratingValue, movieId) {
@@ -290,7 +281,7 @@ function fetchAndDisplayComments(movieId) {
     })
     .then(data => {
         console.log("Rating submitted successfully:", data);
-        displayAverageRating(data.new_average_rating); // Reset to the new average rating
+        displayAverageRating(data.new_average_rating);
     })
     .catch(error => {
         console.error('Error submitting star rating:', error);
@@ -298,15 +289,13 @@ function fetchAndDisplayComments(movieId) {
 }
 
 
-// Modify the existing event listener for the submit-rating button
 document.getElementById('submit-rating').addEventListener('click', function() {
     const selectedRating = document.querySelector('.star-rating input[type="radio"]:checked');
-    const movieId = getMovieIdFromURL(); // Assuming this function retrieves the correct movie ID
+    const movieId = getMovieIdFromURL(); 
 
     if (selectedRating) {
         submitRating(parseInt(selectedRating.value), movieId);
 
-        // Clear the selected star rating
         document.querySelectorAll('.star-rating input[type="radio"]').forEach(function(input) {
             input.checked = false;
         });
@@ -351,17 +340,14 @@ function submitComment(comment, movieId) {
     })
     .then(data => {
         console.log("Comment submitted successfully:", data);
-        fetchAndDisplayComments(movieId); // Refresh the comments display
+        fetchAndDisplayComments(movieId); 
     })
     .catch(error => {
         console.error('Error submitting comment:', error);
     });
 }
 
-
       </script>
 
-      
-      
     </body>
     </html>

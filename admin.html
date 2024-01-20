@@ -73,7 +73,7 @@
             </div>
           </div>
           <ul class="movies-list has-scrollbar" id="movies-container">
-            <!-- Dynamic movie cards will be inserted here -->
+            
           </ul>
         </div>
       </section>
@@ -87,7 +87,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
     fetchMovies();
-    setInterval(fetchMovies, 300000); // Refresh every 5 minutes
+    setInterval(fetchMovies, 300000); 
 });
 
 function fetchMovies() {
@@ -98,7 +98,7 @@ function fetchMovies() {
         return;
     }
 
-    fetch('http://127.0.0.1:5050/admin/all-movies', {  // Change this URL if the admin has a different endpoint
+    fetch('http://127.0.0.1:5050/admin/all-movies', {  
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token 

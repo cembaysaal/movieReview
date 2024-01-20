@@ -60,7 +60,6 @@
             </label>
             <select id="country" name="country" class="form-control form-control-lg">
               <option value="TR">Turkey</option>
-              <!-- Additional countries if needed -->
             </select>
           </div>
   
@@ -69,7 +68,6 @@
               <i class="icon" data-feather="map-pin"></i>
             </label>
             <select id="city" name="city" class="form-control form-control-lg">
-              <!-- City options here -->
               <option value="Adana">Adana</option>
               <option value="Adıyaman">Adıyaman</option>
               <option value="Afyonkarahisar">Afyonkarahisar</option>
@@ -151,7 +149,6 @@
               <option value="Kilis">Kilis</option>
               <option value="Osmaniye">Osmaniye</option>
               <option value="Düzce">Düzce</option>
-              <!-- Remaining city options... -->
             </select>
           </div>
   
@@ -160,7 +157,6 @@
           </div>
         </form>
         <div id="weatherData">
-        <!-- Weather data will be displayed here -->
       </div>
       </div>
     </div>
@@ -184,7 +180,7 @@
       var country = document.getElementById('country').value;
       var city = document.getElementById('city').value;
     
-      fetch(`http://127.0.0.1:5050/weather`, { // Updated URL to match Flask server
+      fetch(`http://127.0.0.1:5050/weather`, { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

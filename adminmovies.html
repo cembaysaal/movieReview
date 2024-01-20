@@ -84,9 +84,6 @@
         <div class="container">
           <h2 class="h2">Comments</h2>
           <div id="comments-container">
-
-          
-            <!-- Comments will be dynamically added here -->
           </div>
         </div>
       </section>
@@ -115,7 +112,7 @@ function setupDeleteButton(movieId) {
 }
 
 function deleteMovie(movieId) {
-    var token = localStorage.getItem('jwtToken'); // Use the appropriate token
+    var token = localStorage.getItem('jwtToken'); 
     if (!token) {
         alert("You are not authenticated. Please log in.");
         return;
@@ -136,7 +133,6 @@ function deleteMovie(movieId) {
     .then(data => {
         console.log('Movie deleted successfully:', data);
         alert('Movie deleted successfully');
-        // Optionally, redirect to another page after deletion
          window.location.href = '/admin.html';
     })
     .catch(error => {
@@ -153,7 +149,6 @@ function displayMovieDetails(movie) {
         document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
     } else {
         console.error('No movie details available');
-        // Handle the scenario when movie details are not available
     }
 }
 
@@ -170,7 +165,6 @@ function fetchMovieDetails(movieId) {
 
     if (document.getElementById('deleteMovieButton')) {
         document.getElementById('deleteMovieButton').addEventListener('click', function() {
-            // Code to delete the movie
             var movieDetailSection = document.querySelector('.movie-detail');
             movieDetailSection.style.display = 'none';
         });
@@ -185,7 +179,7 @@ function fetchMovieDetails(movieId) {
     .then(response => response.json())
     .then(movie => {
         displayMovieDetails(movie);
-        fetchAndDisplayComments(movieId); // Fetch and display comments for the movie
+        fetchAndDisplayComments(movieId); 
     })
     .catch(error => {
         console.error('Error fetching movie details:', error);
@@ -194,7 +188,6 @@ function fetchMovieDetails(movieId) {
 
 
 function fetchAndDisplayComments(movieId) {
-    // Use the admin token for authentication
     var token = localStorage.getItem('jwtToken');
     if (!token) {
         alert("You are not authenticated. Please log in.");
@@ -210,7 +203,7 @@ function fetchAndDisplayComments(movieId) {
     .then(response => response.json())
     .then(comments => {
         const commentsContainer = document.getElementById('comments-container');
-        commentsContainer.innerHTML = ''; // Clear existing comments
+        commentsContainer.innerHTML = '';
         console.log(comments);
         for (let key in comments) {
             if (comments.hasOwnProperty(key)) {
@@ -246,7 +239,7 @@ function deleteComment(movieId, commentId) {
         if (!response.ok) {
             throw new Error('Error removing comment');
         }
-        fetchAndDisplayComments(movieId); // Refresh comments after deletion
+        fetchAndDisplayComments(movieId); 
     })
     .catch(error => console.error('Error deleting comment:', error));
 }

@@ -70,7 +70,6 @@
             </div>
           </div>
           <ul class="movies-list has-scrollbar" id="movies-container">
-            <!-- Dynamic movie cards will be inserted here -->
           </ul>
         </div>
       </section>
@@ -86,16 +85,15 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
     fetchMovies();
-    setInterval(fetchMovies, 300000); // Refresh every 5 minutes
+    setInterval(fetchMovies, 300000); 
 });
 
 function fetchMovies() {
     var token = localStorage.getItem('jwtToken'); 
   
-    // Check if token is null
     if (!token) {
         alert("You are not authenticated. Please log in.");
-        return; // Return here to stop further execution of fetchMovies
+        return; 
     }
 
     fetch('http://127.0.0.1:5050/user/all-movies', { 

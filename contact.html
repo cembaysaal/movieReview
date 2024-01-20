@@ -101,7 +101,6 @@
           var email = document.getElementById('formEmail').value;
           var message = document.getElementById('formMessage').value;
   
-          // Client-side validation
           if (!name || !email || !message) {
               alert("Please fill all the fields.");
               return;
@@ -109,7 +108,6 @@
           console.log(localStorage);
           var token = localStorage.getItem('jwtToken'); 
   
-          // Check if token is null
           if (!token) {
               alert("You are not authenticated. Please log in.");
               return;

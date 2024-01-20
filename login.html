@@ -130,7 +130,6 @@ function handleLoginResponse(success, message, accessToken = null, name = '', su
     var role = document.querySelector('input[name="role"]:checked').value;
 
     if (success) {
-        // Save the JWT token and user details in local storage
         if (accessToken) {
             localStorage.setItem('jwtToken', accessToken);
             localStorage.setItem('userName', name);
@@ -139,7 +138,6 @@ function handleLoginResponse(success, message, accessToken = null, name = '', su
         }
 
         feedbackElement.innerText = message;
-        // Redirect based on role
         if (role === "admin") {
             window.location.href = 'admin.html';
         } else if (role === "user") {
