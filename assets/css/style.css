@@ -402,6 +402,7 @@ body.active { overflow: hidden; }
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .header-actions { display: none; }
@@ -501,7 +502,7 @@ body.active { overflow: hidden; }
 \*-----------------------------------*/
 
 .hero {
-  background: url("../images/hero-bg.jpg") no-repeat;
+  background: url("../images/image-1.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   min-height: 750px;
@@ -535,7 +536,6 @@ body.active { overflow: hidden; }
 \*-----------------------------------*/
 
 .upcoming {
-  background: url("../images/upcoming-bg.png") no-repeat;
   background-size: cover;
   background-position: center;
   padding-block: var(--section-padding);
@@ -1204,7 +1204,11 @@ body.active { overflow: hidden; }
     gap: 35px;
   }
 
-  .header-actions .btn-primary { display: none; }
+  .header-actions .btn-primary { 
+    display: none; 
+    color: #000;
+  
+  }
 
   .search-btn {
     position: relative;
@@ -1837,25 +1841,37 @@ form .icon {
 }
 
 .login-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
-.screen {		
-	background: linear-gradient(90deg, #5D54A4, #7C78B8);		
-	position: relative;	
-	height: 600px;
-	width: 360px;	
-	box-shadow: 0px 0px 24px #5C5696;
+.screen {       
+  background: linear-gradient(90deg, #ffffff, #ffffff);       
+  position: relative;    
+  height: 500px; /* Increased height */
+  width: 450px; /* Increased width */
 }
 
 .screen__content {
-	z-index: 1;
-	position: relative;	
-	height: 100%;
+  display: flex; /* Enables flexbox */
+  flex-direction: column; /* Stacks children vertically */
+  align-items: center; /* Centers children horizontally */
+  justify-content: center; /* Centers children vertically */
+  height: 100%; /* Takes full height of parent */
+  padding: 20px; /* Optional padding */
+  background-color: rgba(255, 170, 0, 0) /* Semi-transparent background */
 }
+
+.screen__content h1 {
+  font-size: 1.5rem; /* Increased font size */
+  margin-bottom: 10px; /* Optional vertical margin */
+  color: #531616;
+}
+
+
+
 
 .screen__background {		
 	position: absolute;
@@ -1885,7 +1901,7 @@ form .icon {
 .screen__background__shape2 {
 	height: 220px;
 	width: 220px;
-	background: #6C63AC;	
+	background: #ffffff;	
 	top: -172px;
 	right: 0;	
 	border-radius: 32px;
@@ -1894,7 +1910,7 @@ form .icon {
 .screen__background__shape3 {
 	height: 540px;
 	width: 190px;
-	background: linear-gradient(270deg, #5D54A4, #6A679E);
+	background: linear-gradient(270deg, #ffffff, #ffffff);
 	top: -24px;
 	right: 0;	
 	border-radius: 32px;
@@ -1903,7 +1919,7 @@ form .icon {
 .screen__background__shape4 {
 	height: 400px;
 	width: 200px;
-	background: #7E7BB9;	
+	background: #ffffff;	
 	top: 420px;
 	right: 50px;	
 	border-radius: 60px;
@@ -1912,23 +1928,65 @@ form .icon {
 .login {
 	width: 320px;
 	padding: 30px;
-	padding-top: 156px;
+	padding-top: 56px;
 }
 
 .login__field {
-	padding: 20px 0px;	
-	position: relative;	
+  width: 100%; /* Full width of the container */
+  max-width: 300px; /* Maximum width of the fields */
+  margin-bottom: 20px; /* Space between the fields */
 }
 
 .login__icon {
 	position: absolute;
 	top: 30px;
-	color: #7875B5;
+	color: #ffffff;
+}
+.login__radio {
+  display: inline-flex; /* Display label and radio button inline with space between */
+  align-items: center; /* Align items vertically */
+  margin-right: 20px; /* Spacing between the 'User' and 'Admin' radio buttons */
+  cursor: pointer; /* Indicates the label is clickable */
+}
+.login__radio input[type="radio"] {
+  appearance: none; /* Hide the default radio button appearance */
+  -webkit-appearance: none; /* Safari */
+  -moz-appearance: none; /* Firefox */
+  position: relative;
+  width: 20px; /* Width of the custom radio button */
+  height: 20px; /* Height of the custom radio button */
+  border: 2px solid #007bff; /* Border for the custom radio button */
+  border-radius: 50%; /* Round shape for the custom radio button */
+  margin-right: 10px; /* Spacing between the radio button and the label */
+  vertical-align: middle; /* Align radio button to the middle of the text */
+  outline: none; /* Remove the focus outline */
+}
+
+/* Style for when the radio button is checked */
+.login__radio input[type="radio"]:checked::before {
+  content: ""; /* Add content for the pseudo-element */
+  position: absolute;
+  top: 2px; /* Position from the top of the parent */
+  left: 2px; /* Position from the left of the parent */
+  width: 12px; /* Width of the inner circle */
+  height: 12px; /* Height of the inner circle */
+  background: #007bff; /* Background color of the inner circle */
+  border-radius: 50%; /* Round shape for the inner circle */
+}
+
+/* Hover effect for the label */
+.login__radio:hover input[type="radio"] {
+  border-color: #0056b3; /* Darker border on hover */
+}
+
+/* Focus effect for the radio button for accessibility */
+.login__radio input[type="radio"]:focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Glow effect to indicate focus */
 }
 
 .login__input {
 	border: none;
-	border-bottom: 2px solid #D1D1D4;
+	border-bottom: 2px solid #ffffff;
 	background: none;
 	padding: 10px;
 	padding-left: 24px;
@@ -1941,7 +1999,7 @@ form .icon {
 .login__input:focus,
 .login__input:hover {
 	outline: none;
-	border-bottom-color: #6A679E;
+	border-bottom-color: #ffffff;
 }
 
 .login__submit {
@@ -1950,13 +2008,13 @@ form .icon {
 	margin-top: 30px;
 	padding: 16px 20px;
 	border-radius: 26px;
-	border: 1px solid #D4D3E8;
+	border: 1px solid #ffffff;
 	text-transform: uppercase;
 	font-weight: 700;
 	display: flex;
 	align-items: center;
 	width: 100%;
-	color: #4C489D;
+	color: #9d4848;
 	box-shadow: 0px 2px 2px #5C5696;
 	cursor: pointer;
 	transition: .2s;
@@ -1965,14 +2023,14 @@ form .icon {
 .login__submit:active,
 .login__submit:focus,
 .login__submit:hover {
-	border-color: #6A679E;
+	border-color: #ffffff;
 	outline: none;
 }
 
 .button__icon {
 	font-size: 24px;
 	margin-left: auto;
-	color: #7875B5;
+	color: #ffffff;
 }
 
 .social-login {	
@@ -1982,7 +2040,8 @@ form .icon {
 	text-align: center;
 	bottom: 0px;
 	right: 0px;
-	color: #fff;
+	color: rgb(219, 15, 15)ede;
+  
 }
 
 .social-icons {
@@ -2222,7 +2281,6 @@ form .icon {
   color: #c12b2b;
   margin-bottom: 20px;
   text-align: center;
-  position: relative;
 }
 
 .logo img {
@@ -2234,7 +2292,8 @@ form .icon {
 
 /* Additional Styling for the Header Logo */
 .header .logo img {
-  max-width: 120px; /* Slightly larger logo in the header */
+  max-width: 300px; 
+  /* Slightly larger logo in the header */
 }
 
 /* Additional Styling for the Navbar Logo */
@@ -2242,3 +2301,7 @@ form .icon {
   max-width: 80px;
  } /* Slightl
     y smaller logo in the navbar */
+
+.container .logo {
+  position: absolute;
+}
