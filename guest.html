@@ -71,56 +71,62 @@
     <ion-icon name="chevron-up"></ion-icon>
   </a>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      fetchMovies();
-      setInterval(fetchMovies, 300000); // Refresh every 5 minutes (300000 milliseconds)
-  });
+   document.addEventListener('DOMContentLoaded', function() {
+    fetchMovies();
+    setInterval(fetchMovies, 300000); // Refresh every 5 minutes
+});
 
-    function fetchMovies() {
-        fetch('URL_OF_YOUR_MOVIE_DATA') // Replace with your API URL
-        .then(response => response.json())
-        .then(movies => {
-            renderMovies(movies);
-        })
-        .catch(error => {
-            console.error('Error fetching movies:', error);
-        });
-    }
+function fetchMovies() {
+    
+    fetch('http://127.0.0.1:5050/guest/all-movies', { 
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json' 
+        }
+    })
+    .then(response => response.json())
+    .then(moviesData => {
+        renderMovies(moviesData);
+    })
+    .catch(error => {
+        console.error('Error fetching movies:', error);
+    });
+}
 
-    function renderMovies(movies) {
-        const moviesContainer = document.getElementById('movies-container');
-        moviesContainer.innerHTML = ''; // Clear existing content
+function renderMovies(moviesData) {
+    const moviesContainer = document.getElementById('movies-container');
+    moviesContainer.innerHTML = '';
 
-        movies.forEach(movie => {
-            const movieElement = createMovieCard(movie);
-            moviesContainer.appendChild(movieElement);
-        });
-    }
+    Object.entries(moviesData).forEach(([movieId, movie]) => {
+        const movieElement = createMovieCard(movie, movieId);
+        moviesContainer.appendChild(movieElement);
+    });
+}
 
-    function createMovieCard(movie) {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <div class="movie-card">
-                <figure class="card-banner">
-                    <img src="${movie.imageUrl}" alt="${movie.title} movie poster">
-                </figure>
-                <div class="title-wrapper">
-                    <h3 class="card-title">${movie.title}</h3>
-                    <time datetime="${movie.year}">${movie.year}</time>
+function createMovieCard(movie, movieId) {
+    const li = document.createElement('li');
+    li.innerHTML = `
+        <div class="movie-card">
+            <figure class="card-banner">
+                <img src="${movie.movie_image_link}" alt="${movie.movie_name} movie poster">
+            </figure>
+            <div class="title-wrapper">
+                <h3 class="card-title">${movie.movie_name}</h3>
+                <time datetime="${movie.movie_year}">${movie.movie_year}</time>
+            </div>
+            <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <time datetime="PT${movie.movie_duration}M">${movie.movie_duration} min</time>
                 </div>
-                <div class="card-meta">
-                    <div class="duration">
-                        <ion-icon name="time-outline"></ion-icon>
-                        <time datetime="PT${movie.duration}M">${movie.duration} min</time>
-                    </div>
-                    <div class="rating">
-                        <ion-icon name="star"></ion-icon>
-                        <data>${movie.rating}</data>
-                    </div>
+            <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <data>${parseFloat(movie.average_rating).toFixed(2)}</data>
                 </div>
-            </div>`;
-        return li;
-    }
+            <!-- Add other movie details here -->
+        </div>`;
+    return li;
+}
+
   </script>
   <script src="./assets/js/script.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
