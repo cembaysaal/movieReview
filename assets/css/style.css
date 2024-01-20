@@ -1618,12 +1618,32 @@ body.active { overflow: hidden; }
   text-align: center;
   position: relative;
 }
+.user-container {
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center; /* Center the contents horizontally */
+}
+
+.user-container h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+}
+
+/* Center the table within the user-container */
+table {
+  margin: 0 auto; /* Center the table horizontally */
+}
 
 #usersTable {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   position:sticky;
+  
 }
 
 #usersTable, th, td {
