@@ -17,7 +17,7 @@
     <div class="container">
       <div class="overlay" data-overlay></div>
       <a href="./user.html" class="logo">
-        <img src="./assets/images/logo.png" alt="Filmlane logo">
+        <img src="./assets/images/logo.png" alt="Automata logo">
       </a>
       <div class="header-actions">
         <a href="guest.html" class="btn btn-primary">Log Out</a>
@@ -28,7 +28,7 @@
       <nav class="navbar" data-navbar>
         <div class="navbar-top">
           <a href="./user.html" class="logo">
-            <img src="./assets/images/logo.png" alt="Filmlane logo">
+            <img src="./assets/images/logo.png" alt="Automata logo">
           </a>
           <button class="menu-close-btn" data-menu-close-btn>
             <ion-icon name="close-outline"></ion-icon>
@@ -48,33 +48,38 @@
       </nav>
     </div>
   </header>
-    <div class="contact-container d-flex justify-content-center align-items-center">
-      <form id="contactForm">
-            <h1 class="title text-center mb-4">Contact to Us</h1>
-            <div class="form-group position-relative">
-                <label for="formName" class="d-block">
-                    <i class="icon" data-feather="user"></i>
-                </label>
-                <input type="text" id="formName" name="formName" class="form-control form-control-lg" placeholder="Name">
+  <section class="hero">
+    <div class="container">
+      <div class="contact-container d-flex justify-content-center align-items-center">
+        <form id="contactForm">
+              <h1 class="title text-center mb-4">Contact to Us</h1>
+              <div class="form-group position-relative">
+                  <label for="formName" class="d-block">
+                      <i class="icon" data-feather="user"></i>
+                  </label>
+                  <input type="text" id="formName" name="formName" class="form-control form-control-lg" placeholder="Name - Surname">
+              </div>
+  
+              <div class="form-group position-relative">
+                  <label for="formEmail" class="d-block">
+                      <i class="icon" data-feather="mail"></i>
+                  </label>
+                  <input type="email" id="formEmail" name="formEmail" class="form-control form-control-lg" placeholder="E-mail">
+              </div>
+  
+              <div class="form-group message">
+  
+                  <textarea id="formMessage" name="formMessage" class="form-control form-control-lg" rows="7" placeholder="Message"></textarea>
+              </div>
+  
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" tabIndex="-1">Send message</button>
             </div>
-
-            <div class="form-group position-relative">
-                <label for="formEmail" class="d-block">
-                    <i class="icon" data-feather="mail"></i>
-                </label>
-                <input type="email" id="formEmail" name="formEmail" class="form-control form-control-lg" placeholder="E-mail">
-            </div>
-
-            <div class="form-group message">
-
-                <textarea id="formMessage" name="formMessage" class="form-control form-control-lg" rows="7" placeholder="Message"></textarea>
-            </div>
-
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary" tabIndex="-1">Send message</button>
-          </div>
-        </form>
+          </form>
+      </div>
     </div>
+  </section>
+
 
     <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
