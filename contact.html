@@ -60,10 +60,10 @@
                   <input type="text" id="formName" name="formName" class="form-control form-control-lg" placeholder="Name ">
               </div>
               <div class="form-group position-relative">
-                <label for="formName" class="d-block">
+                <label for="formSurname" class="d-block">
                     <i class="icon" data-feather="user"></i>
                 </label>
-                <input type="text" id="formName" name="formName" class="form-control form-control-lg" placeholder="Surname">
+                <input type="text" id="formSurname" name="formSurname" class="form-control form-control-lg" placeholder="Surname">
             </div>
   
               <div class="form-group position-relative">
@@ -96,7 +96,8 @@
           event.preventDefault(); 
   
           var name = document.getElementById('formName').value;
-          var name = document.getElementById('formSurname').value;
+          var surname = document.getElementById('formSurname').value;
+
           var email = document.getElementById('formEmail').value;
           var message = document.getElementById('formMessage').value;
   
@@ -143,9 +144,5 @@
           });
       });
   </script>
-  
-  
-  
-  
 </body>
 </html>
