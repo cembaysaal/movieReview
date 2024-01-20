@@ -141,7 +141,7 @@ function createMovieCard(movie, movieId) {
                 </div>
             <div class="rating">
                     <ion-icon name="star"></ion-icon>
-                    <data>${movie.average_rating}</data>
+                    <data>${parseFloat(movie.average_rating).toFixed(2)}</data>
                 </div>
             <!-- You can add more admin-specific functionalities here -->
         </div>`;
