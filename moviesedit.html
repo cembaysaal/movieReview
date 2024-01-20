@@ -69,10 +69,16 @@
         <label for="time">Duration:</label>
         <input type="text" id="time" name="time" required>
 
+        <label for="score">Storyline:</label>
+        <input type="text" id="storyline" name="storyline" required>
+
         <label for="score">Score:</label>
         <input type="text" id="score" name="score" required>
 
+
+
         <input type="submit" value="Add Movie">
+
       </form>
     </div>
 
@@ -113,6 +119,7 @@
           <h3>${movie.name} (${movie.year})</h3>
           <img src="${movie.photoLink}" alt="${movie.name}" style="width:100px; height:auto;">
           <p>Duration: ${movie.time}</p>
+          <p>Storyline: ${movie.storyline}</p>
           <p>Score: ${movie.score}</p>
         `;
         moviesList.appendChild(movieDiv);
