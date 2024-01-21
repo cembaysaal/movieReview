@@ -1,9 +1,5 @@
 'use strict';
 
-/**
- * navbar variables
- */
-
 const navOpenBtn = document.querySelector("[data-menu-open-btn]");
 const navCloseBtn = document.querySelector("[data-menu-close-btn]");
 const navbar = document.querySelector("[data-navbar]");
@@ -23,12 +19,6 @@ for (let i = 0; i < navElemArr.length; i++) {
 
 }
 
-
-
-/**
- * header sticky
- */
-
 const header = document.querySelector("[data-header]");
 
 window.addEventListener("scroll", function () {
@@ -36,12 +26,6 @@ window.addEventListener("scroll", function () {
   window.scrollY >= 10 ? header.classList.add("active") : header.classList.remove("active");
 
 });
-
-
-
-/**
- * go top
- */
 
 const goTopBtn = document.querySelector("[data-go-top]");
 
