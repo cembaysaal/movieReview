@@ -1644,7 +1644,7 @@ table {
 }
 
 #usersTable, th, td {
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
 }
 
 #usersTable th, #usersTable td {
@@ -1660,7 +1660,7 @@ table {
 }
 
 #usersTable tr {
-  background-color: #f2f2f2;
+  background-color: #00000000;
 }
 
 
@@ -1672,7 +1672,7 @@ table {
 }
 
 #questionsTable, th, td {
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
 }
 
 #questionsTable th, #questionsTable td {
@@ -1686,7 +1686,7 @@ table {
 }
 
 #questionsTable tr {
-  background-color: #f2f2f2;
+  background-color: #00000000;
 }
 
 
@@ -2368,6 +2368,7 @@ form .icon {
   margin-top: 20px;
   border-top: 1px solid #dee2e6; /* Light gray border at the top */
   padding-top: 15px;
+  
 }
 
 
@@ -2529,5 +2530,34 @@ form .icon {
   border: none; /* No border for the button */
   border-radius: 54px; /* Rounds the corners of the button */
   cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+  margin-left: auto; /* Pushes the button to the right */
+
+
   transition: background-color 0.3s ease; /* Smooth transition for the button background color */
+}
+
+
+/* Style for the social login container */
+.social-login {
+  text-align: center;
+}
+
+/* Style for the sign-up button */
+.social-login__button {
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  height: 2.5rem;
+  line-height: 1.5rem;
+  padding: 0 3rem;
+  border: 0;
+  border-radius: 3rem;
+  background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
+  background-size: 300% 100%;
+  transition: all 0.3s ease-in-out;
+  color: #000;
+}
+
+/* Hover effect for the button */
+.social-login__button:hover {
+  background-color: #0056b3; /* Change to the hover color you prefer */
 }
