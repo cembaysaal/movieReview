@@ -147,6 +147,7 @@ function displayMovieDetails(movie) {
         document.getElementById('movie-title').innerText = movie.movie_name;
         document.getElementById('movie-year').innerText = movie.movie_year;
         document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
+        document.getElementById('movie-storyline').innerText = movie.movie_story_line;
     } else {
         console.error('No movie details available');
     }
