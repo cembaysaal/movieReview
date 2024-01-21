@@ -1,9 +1,4 @@
 :root {
-
-  /**
-   * colors
-   */
-
   --rich-black-fogra-29: hsl(225, 25%, 9%);
   --rich-black-fogra-39: hsl(170, 21%, 5%);
   --raisin-black: hsl(228, 13%, 15%);
@@ -18,13 +13,7 @@
   --white: hsl(0, 100%, 100%);
   --black: hsl(0, 0%, 0%);
   --jet: hsl(0, 0%, 20%);
-
-  /**
-   * typography
-   */
-
   --ff-poppins: 'Poppins', sans-serif;
-
   --fs-1: 36px;
   --fs-2: 32px;
   --fs-3: 30px;
@@ -37,101 +26,47 @@
   --fs-10: 13px;
   --fs-11: 12px;
   --fs-12: 11px;
-
   --fw-500: 500;
   --fw-700: 700;
-
-  /**
-   * transition
-   */
-
   --transition-1: 0.15s ease;
   --transition-2: 0.25s ease-in;
-
-  /**
-   * spacing
-   */
-
   --section-padding: 100px;
-
 }
-
-
-
-
-
-/*-----------------------------------*\
- * #RESET
-\*-----------------------------------*/
 
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 
 li { list-style: none; }
-
 a { text-decoration: none; }
-
-a,
-img,
-span,
-input,
-button,
-ion-icon { display: block; }
-
+a, img, span, input, button, ion-icon { display: block; }
 input {
   font: inherit;
   width: 100%;
   border: none;
 }
-
-select,
-button {
+select, button {
   font: inherit;
   background: none;
   border: none;
   cursor: pointer;
 }
-
 html {
   font-family: var(--ff-poppins);
   scroll-behavior: smooth;
 }
-
 body { background: var(--eerie-black); }
-
 body.active { overflow: hidden; }
-
-
-
-
-
-/*-----------------------------------*\
- * #REUSED STYLE
-\*-----------------------------------*/
-
 .container { padding-inline: 15px; }
-
-/**
- * TITLES & SUBTITLES
- */
-
-.h1,
-.h2,
-.h3 {
+.h1, .h2, .h3 {
   color: var(--white);
   line-height: 1.2;
 }
-
 .h1 { font-size: var(--fs-1); }
-
 .h2 { font-size: var(--fs-2); }
-
 .h3 { font-size: var(--fs-6); }
-
 .section-subtitle {
   color: var(--citrine);
   font-size: var(--fs-11);
@@ -141,13 +76,7 @@ body.active { overflow: hidden; }
   margin-bottom: 10px;
   text-align: center;
 }
-
 .section-title { text-align: center; }
-
-/**
- * BADGE
- */
-
 .badge {
   color: var(--white);
   font-size: var(--fs-12);
@@ -155,18 +84,11 @@ body.active { overflow: hidden; }
   border: 2px solid transparent;
   padding: 2px 10px;
 }
-
 .badge-fill {
   background: var(--white);
   color: var(--raisin-black);
 }
-
 .badge-outline { border-color: var(--white); }
-
-/**
- * MOVIE META
- */
-
 .meta-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -175,27 +97,20 @@ body.active { overflow: hidden; }
   gap: 15px 25px;
   margin-bottom: 50px;
 }
-
-.badge-wrapper,
-.ganre-wrapper,
-.date-time {
+.badge-wrapper, .ganre-wrapper, .date-time {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 5px 10px;
 }
-
 .ganre-wrapper > a {
   color: var(--gainsboro);
   font-size: var(--fs-9);
   font-weight: var(--fw-500);
   transition: var(--transition-1);
 }
-
 .ganre-wrapper > a:is(:hover, :focus) { color: var(--citrine); }
-
 .date-time { gap: 15px; }
-
 .date-time > div {
   display: flex;
   align-items: center;
@@ -204,16 +119,10 @@ body.active { overflow: hidden; }
   font-size: var(--fs-9);
   font-weight: var(--fw-500);
 }
-
 .date-time ion-icon {
   --ionicon-stroke-width: 50px;
   color: var(--citrine);
 }
-
-/**
- * BUTTONS
- */
-
 .btn {
   color: var(--white);
   font-size: var(--fs-11);
@@ -228,32 +137,22 @@ body.active { overflow: hidden; }
   border-radius: 50px;
   transition: var(--transition-1);
 }
-
 .btn > ion-icon { font-size: 18px; }
-
 .btn-primary { background: var(--rich-black-fogra-29); }
-
 .btn-primary:is(:hover, :focus) {
   background: var(--citrine);
   color: var(--xiketic);
 }
-
-/**
- * MOVIE CARD
- */
-
 .movies-list {
   display: grid;
   gap: 50px;
 }
-
 .movie-card {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-
 .movie-card .card-banner {
   position: relative;
   background: var(--gunmetal-1);
@@ -263,24 +162,19 @@ body.active { overflow: hidden; }
   margin-bottom: 20px;
   transition: var(--transition-1);
 }
-
 .movie-card .card-banner::after {
   content: "";
   position: absolute;
   inset: 0;
   transition: var(--transition-1);
 }
-
 .movie-card .card-banner:hover { box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.5); }
-
 .movie-card .card-banner:hover::after { background: hsla(0, 0%, 100%, 0.05); }
-
 .movie-card .card-banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .movie-card .title-wrapper {
   display: flex;
   justify-content: space-between;
@@ -288,32 +182,25 @@ body.active { overflow: hidden; }
   gap: 20px;
   margin-bottom: 10px;
 }
-
 .movie-card .card-title {
   color: var(--white);
   font-size: var(--fs-7);
   transition: var(--transition-1);
 }
-
 .movie-card .card-title:is(:hover, :focus) { color: var(--citrine); }
-
 .movie-card .title-wrapper time {
   color: var(--citrine);
   font-size: var(--fs-9);
   font-weight: var(--fw-500);
 }
-
 .movie-card .card-meta {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 15px;
 }
-
 .movie-card .badge { color: var(--citrine); }
-
 .movie-card .duration { margin-left: auto; }
-
 .movie-card :is(.duration, .rating) {
   display: flex;
   align-items: center;
@@ -322,17 +209,11 @@ body.active { overflow: hidden; }
   font-size: var(--fs-11);
   font-weight: var(--fw-500);
 }
-
 .movie-card :is(.duration, .rating) ion-icon {
   font-size: 13px;
   --ionicon-stroke-width: 50px;
   color: var(--citrine);
 }
-
-/**
- * CUSTOM SLIDER & SCROLLBAR
- */
-
 .movies-list.has-scrollbar {
   display: flex;
   justify-content: flex-start;
@@ -341,29 +222,17 @@ body.active { overflow: hidden; }
   scroll-snap-type: inline mandatory;
   padding-bottom: 25px;
 }
-
 .has-scrollbar::-webkit-scrollbar { height: 8px; }
-
 .has-scrollbar::-webkit-scrollbar-track {
   background: transparent;
   box-shadow: 0 0 0 2px var(--citrine);
   border-radius: 10px;
 }
-
 .has-scrollbar::-webkit-scrollbar-thumb {
   background: var(--gainsboro);
   border-radius: 10px;
-  box-shadow: inset 0 1px 0 var(--black),
-              inset 0 -1px 0 var(--black);
+  box-shadow: inset 0 1px 0 var(--black), inset 0 -1px 0 var(--black);
 }
-
-
-
-
-
-/*-----------------------------------*\
- * #HEADER
-\*-----------------------------------*/
 
 .header {
   position: fixed;
@@ -374,8 +243,6 @@ body.active { overflow: hidden; }
   transition: var(--transition-2);
   z-index: 4;
 }
-
-
 
 .header.active {
   background: var(--eerie-black);
@@ -477,14 +344,6 @@ body.active { overflow: hidden; }
   pointer-events: all;
 }
 
-
-
-
-
-/*-----------------------------------*\
- * #HERO
-\*-----------------------------------*/
-
 .hero {
   background: url("../images/image-1.jpg") no-repeat;
   background-size: cover;
@@ -519,24 +378,6 @@ body.active { overflow: hidden; }
   margin-bottom: 20px;
   text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*-----------------------------------*\
- * #MOVIE DETAIL 
-\*-----------------------------------*/
 
 .movie-detail {
   background: url("../images/image-1.jpg") no-repeat;
@@ -641,177 +482,58 @@ body.active { overflow: hidden; }
 
 .details-actions .btn-primary:is(:hover, :focus) { background: var(--citrine); }
 
-.download-btn {
-  max-width: max-content;
-  background: var(--citrine);
-  color: var(--rich-black-fogra-29);
-  font-size: var(--fs-11);
-  font-weight: var(--fw-500);
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 20px 35px;
-  letter-spacing: 5px;
-  border-radius: 6px;
-}
-
-.download-btn ion-icon { font-size: 16px; }
 
 
 
-
-
-/*-----------------------------------*\
- * #MEDIA QUERIES
-\*-----------------------------------*/
-
-/**
- * responsive for large than 550px screen
- */
 
 @media (min-width: 550px) {
-
-  /**
-   * CUSTOM PROPERTY
-   */
-
   :root {
-
-    /**
-     * typography
-     */
-
     --fs-1: 42px;
-
   }
-
-
-
-  /**
-   * REUSED STYLE
-   */
-
   .container {
     max-width: 540px;
     margin-inline: auto;
   }
-
-  /* MOVIE CARD */
-
   .movies-list {
     grid-template-columns: 1fr 1fr;
     gap: 60px 30px;
   }
-
-
-
-  /**
-   * HERO
-   */
-
   .hero { min-height: unset; }
-
   .hero-content { margin-top: 20px; }
-
-
-
-  /**
-   * UPCOMING
-   */
-
   .upcoming .movies-list > li { min-width: calc(50% - 15px); }
-
-
-
-  /**
-   * SERVICE
-   */
-
   .service-list > li:first-child { padding-bottom: 30px; }
-
   .service-card {
     display: flex;
     align-items: center;
     gap: 20px;
   }
-
   .service-card .card-icon { margin-bottom: 0; }
-
   .service-card .card-content { width: calc(100% - 115px); }
-
-
-
-  /**
-   * MOVIE DETAIL
-   */
-
   .detail-subtitle { --fs-5: 22px; }
-
   .detail-title { --fs-1: 46px; }
-
 }
 
-
-
-
-
-/**
- * responsive for large than 768px screen
- */
-
 @media (min-width: 768px) {
-
-  /**
-   * CUSTOM PROPERTY
-   */
-
   :root {
-
-    /**
-     * typography
-     */
-
     --fs-2: 36px;
-
   }
-
-
-
-  /**
-   * REUSED STYLE
-   */
-
   .container { max-width: 720px; }
-
-
-
-  /**
-   * HEADER
-   */
-
   .header .container { gap: 30px; }
-
   .header-actions {
     display: flex;
     margin-left: auto;
     align-items: center;
     gap: 35px;
   }
-
   .header-actions .btn-primary { 
     display: none; 
     color: #000;
-  
   }
-
   .search-btn {
     position: relative;
     color: var(--white);
   }
-
   .search-btn ion-icon { --ionicon-stroke-width: 80px; }
-
   .search-btn::after {
     content: "";
     position: absolute;
@@ -821,95 +543,47 @@ body.active { overflow: hidden; }
     width: 2px;
     height: 14px;
   }
-
   .lang-wrapper {
     display: flex;
     align-items: center;
     gap: 5px;
   }
-
   .lang-wrapper label {
     color: var(--citrine);
     font-size: 20px;
   }
-
   .lang-wrapper select {
     color: var(--white);
     font-size: var(--fs-9);
     font-weight: var(--fw-700);
   }
-
   .lang-wrapper option { color: var(--black); }
-
-
-
-  /**
-   * HERO
-   */
-
   .hero-content { margin-top: 90px; }
-
-
-
-  /**
-   * MOVIE DETAIL
-   */
-
   .detail-subtitle { --fs-5: 26px; }
-
   .detail-title { --fs-1: 50px; }
-
 }
 
-
-
-
-
-/**
- * responsive for large than 992px screen
- */
-
 @media (min-width: 992px) {
-
-  /**
-   * REUSED STYLE
-   */
-
   .container { max-width: 960px; }
-
-  /* MOVIE CARD */
-
   .movies-list { grid-template-columns: repeat(3, 1fr); }
-
-
-
-  /**
-   * HEADER
-   */
-
   .header.active { padding-block: 5px; }
-
   .menu-open-btn,
   .navbar-top,
   .navbar-social-list { display: none; }
-
   .navbar {
     all: unset;
     margin-left: auto;
   }
-
   .header-actions {
     order: 1;
     margin-left: 0;
   }
-
   .navbar-list {
     all: unset;
     display: flex;
     align-items: center;
     gap: 10px;
   }
-
   .navbar-link {
     border-bottom: none;
     font-size: var(--fs-9);
@@ -917,111 +591,53 @@ body.active { overflow: hidden; }
     text-transform: uppercase;
     padding: 30px 15px;
   }
-
   .overlay { display: none; }
-
-
-
-  /**
-   * HERO
-   */
-
   .hero { background-position: right; }
-
   .hero .container { width: 950px; }
-
   .hero-content {
     margin-top: 100px;
     max-width: 600px;
   }
-
-
-
-  /**
-   * UPCOMING
-   */
-
   .upcoming .flex-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-
   .upcoming :is(.section-subtitle, .section-title) { text-align: left; }
-
   .upcoming .section-title { margin-bottom: 0; }
-
   .upcoming .movies-list > li { min-width: calc(33.33% - 20px); }
-
-
-
-  /**
-   * SERVICE
-   */
-
   .service .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 70px;
   }
-
   .service-content {
     padding-inline: 0;
     width: calc(100% - 470px);
   }
-
   .service-banner { margin-bottom: 0; }
-
   .service-btn { right: 111px; }
-
-
-
-
-
-  /**
-   * MOVIE DETAIL
-   */
-
   .movie-detail { padding-bottom: 200px; }
-
   .movie-detail .container {
     position: relative;
     display: flex;
     align-items: center;
     gap: 50px;
   }
-
   .movie-detail-banner,
   .details-actions { margin: 0; }
-
   .download-btn {
     position: absolute;
     left: 15px;
     bottom: -80px;
   }
-
 }
-
-
-
-
-
-/**
- * responsive for large than 1200px screen
- */
 
 @media (min-width: 1200px) {
 
-  /**
-   * CUSTOM PROPERTY
-   */
 
   :root {
-
-    /**
-     * typography
-     */
 
     --fs-1: 60px;
     --fs-4: 26px;
@@ -1029,22 +645,10 @@ body.active { overflow: hidden; }
   }
 
 
-
-  /**
-   * REUSED STYLE
-   */
-
   .container { max-width: 1320px; }
 
-  /* MOVIE CARD */
 
   .movies-list { grid-template-columns: repeat(4, 1fr); }
-
-
-
-  /**
-   * HEADER
-   */
 
   .navbar { margin-inline: auto; }
 
@@ -1056,29 +660,10 @@ body.active { overflow: hidden; }
   }
 
 
-
-  /**
-   * HERO
-   */
-
   .hero .container { width: 1320px; }
-
-
-
-  /**
-   * UPCOMING
-   */
 
   .upcoming .movies-list > li { min-width: calc(25% - 22.5px); }
 
-
-
-  
-
-
-  /**
-   * MOVIE DETAIL
-   */
 
   .movie-detail { padding-bottom: var(--section-padding); }
 
@@ -1109,7 +694,7 @@ body.active { overflow: hidden; }
   margin: 20px 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  text-align: center; /* Center the contents horizontally */
+  text-align: center; 
 }
 
 .user-container h2 {
@@ -1119,10 +704,9 @@ body.active { overflow: hidden; }
   position: relative;
 }
 
-/* Center the table within the user-container */
 table {
-  margin: 0 auto; /* Center the table horizontally */
-  max-width: 90%; /* Optional: Adjust as needed for layout */
+  margin: 0 auto; 
+  max-width: 90%; 
 }
 
 #usersTable {
@@ -1143,8 +727,8 @@ table {
 #usersTable th {
   background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
   color: rgb(0, 0, 0);
-  position: sticky; /* Optional: Apply sticky to headers if needed */
-  top: 0; /* For sticky headers */
+  position: sticky; 
+  top: 0; 
 }
 
 #usersTable tr {
@@ -1179,71 +763,68 @@ table {
 
 
 .hero {
-  /* If the hero section requires specific styling */
-  background-color: #f5f5f5; /* Example background color */
-  padding: 50px 0; /* Example padding */
+  background-color: #f5f5f5; 
+  padding: 50px 0; 
 }
-
 .movies-container {
-  width: 90%; /* Adjust the width as you see fit */
-  max-width: 600px; /* Maximum width of the container */
-  margin: 0 auto; /* Centers the container on the page */
-  background-color: #ffffff00; /* Background color for the movie form */
-  padding: 20px; /* Padding inside the container */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
-  border-radius: 8px; /* Rounds the corners */
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff00;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .movies-container h2 {
-  font-size: 24px; /* Size of the heading */
-  color: #ffffff; /* Color of the heading text */
-  text-align: center; /* Center the heading */
-  margin-bottom: 20px; /* Space after the heading */
+  font-size: 24px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .movies-container form {
   display: flex;
-  flex-direction: column; /* Stack the form items vertically */
+  flex-direction: column;
 }
 
 .movies-container label {
-  font-size: 16px; /* Size of the input labels */
-  color: #ffffff; /* Color of the input labels */
-  margin-bottom: 5px; /* Space between label and input */
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 5px;
 }
 
 .movies-container input[type="text"],
 .movies-container input[type="number"],
 .movies-container input[type="url"] {
-  padding: 10px; /* Padding inside the inputs */
-  margin-bottom: 15px; /* Space after each input */
-  border: 1px solid #ddd; /* Border color of the inputs */
-  border-radius: 4px; /* Rounds the corners of the inputs */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
+
 .movies-container button {
-  padding: 10px 15px; /* Padding inside the button */
+  padding: 10px 15px; 
   background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
-  color: #000000; /* Text color of the button */
-  border: none; /* No border for the button */
-  border-radius: 4px; /* Rounds the corners of the button */
-  cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
-  transition: background-color 0.3s ease; /* Smooth transition for the button background color */
+  color: #000000; 
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
 }
 
 .movies-container button:hover {
-  background-color: #fdfdfd; /* Darker background color on hover */
+  background-color: #fdfdfd; 
 }
 
-/* Responsive adjustments if needed */
 @media (max-width: 768px) {
   .movies-container {
-      width: 95%; /* Full width on smaller screens */
+      width: 95%;
   }
 }
 
 
-/* Form styling */
 form {
   display: flex;
   flex-direction: column;
@@ -1343,8 +924,8 @@ form {
   min-width: 25rem;
 }
 form .title {
-  font-family: 'Poppins', sans-serif; /* This should match your global font style */
-  color: #ffffff; /* Text color */
+  font-family: 'Poppins', sans-serif; 
+  color: #ffffff; 
   font-weight: bold;
   
 }
@@ -1417,28 +998,25 @@ form .icon {
 
 .screen {       
   position: relative;    
-  height: 500px; /* Increased height */
-  width: 450px; /* Increased width */
+  height: 500px;
+  width: 450px;
 }
 
 .screen__content {
-  display: flex; /* Enables flexbox */
-  flex-direction: column; /* Stacks children vertically */
-  align-items: center; /* Centers children horizontally */
-  justify-content: center; /* Centers children vertically */
-  height: 100%; /* Takes full height of parent */
-  padding: 20px; /* Optional padding */
-  background-color: rgba(255, 170, 0, 0) /* Semi-transparent background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+  background-color: rgba(255, 170, 0, 0);
 }
 
 .screen__content h1 {
-  font-size: 1.5rem; /* Increased font size */
-  margin-bottom: 10px; /* Optional vertical margin */
+  font-size: 1.5rem;
+  margin-bottom: 10px;
   color: #531616;
 }
-
-
-
 
 .screen__background {		
 	position: absolute;
@@ -1499,9 +1077,9 @@ form .icon {
 }
 
 .login__field {
-  width: 100%; /* Full width of the container */
-  max-width: 300px; /* Maximum width of the fields */
-  margin-bottom: 20px; /* Space between the fields */
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
 }
 
 .login__icon {
@@ -1510,66 +1088,60 @@ form .icon {
 	color: #ffffff;
 }
 .login__radio {
-  display: inline-flex; /* Display label and radio button inline with space between */
-  align-items: center; /* Align items vertically */
-  margin-right: 20px; /* Spacing between the 'User' and 'Admin' radio buttons */
-  cursor: pointer; /* Indicates the label is clickable */
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+  cursor: pointer;
   color: #ffffff;
 }
 .login__radio input[type="radio"] {
-  appearance: none; /* Hide the default radio button appearance */
-  -webkit-appearance: none; /* Safari */
-  -moz-appearance: none; /* Firefox */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   position: relative;
-  width: 20px; /* Width of the custom radio button */
-  height: 20px; /* Height of the custom radio button */
-  border: 2px solid #007bff; /* Border for the custom radio button */
-  border-radius: 50%; /* Round shape for the custom radio button */
-  margin-right: 10px; /* Spacing between the radio button and the label */
-  vertical-align: middle; /* Align radio button to the middle of the text */
-  outline: none; /* Remove the focus outline */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+  outline: none;
 }
 
-/* Style for when the radio button is checked */
 .login__radio input[type="radio"]:checked::before {
-  content: ""; /* Add content for the pseudo-element */
+  content: "";
   position: absolute;
-  top: 2px; /* Position from the top of the parent */
-  left: 2px; /* Position from the left of the parent */
-  width: 12px; /* Width of the inner circle */
-  height: 12px; /* Height of the inner circle */
-  background: #007bff; /* Background color of the inner circle */
-  border-radius: 50%; /* Round shape for the inner circle */
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: #007bff;
+  border-radius: 50%;
 }
 
-/* Hover effect for the label */
 .login__radio:hover input[type="radio"] {
-  border-color: #0056b3; /* Darker border on hover */
+  border-color: #0056b3;
 }
 
-/* Focus effect for the radio button for accessibility */
 .login__radio input[type="radio"]:focus {
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Glow effect to indicate focus */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
 .login__input {
-  width: 100%; /* Full width */
-  padding: 10px; /* Padding inside the input */
-  margin-bottom: 15px; /* Space between the fields */
-  border: 1px solid #ccc; /* Light grey border */
-  border-radius: 4px; /* Slightly rounded borders for the inputs */
-  font-size: 16px; /* Font size similar for all input types */
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-/* This targets both text and password fields specifically */
 .login__input[type="text"],
 .login__input[type="password"] {
-  -webkit-appearance: none; /* Removes default styles for webkit browsers */
-  -moz-appearance: none; /* Removes default styles for Mozilla browsers */
-  appearance: none; /* Removes default styles for other browsers */
-  /* Add other properties as needed to match the design */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
-
 
 .login__input:active,
 .login__input:focus,
@@ -1617,7 +1189,6 @@ form .icon {
 	bottom: 0px;
 	right: 0px;
 	color: rgb(219, 15, 15)ede;
-  
 }
 
 .social-icons {
@@ -1641,8 +1212,6 @@ form .icon {
   font-family: Arial, sans-serif;
   padding: 20px;
   margin: 120px 0;
-  
-  
 }
 
 .weather-section h2, .weather-data-section h2 {
@@ -1655,8 +1224,8 @@ form .icon {
   margin: 0 auto;
 }
 .weather-container h1 {
-  font-family: 'Poppins', sans-serif; /* This should match your global font style */
-  color: #ffffff; /* Text color */
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
 }
 .weather-container h2 {
   color: #fff;
@@ -1694,110 +1263,100 @@ form .icon {
 }
 
 #weatherData {
-  width: 60%; /* Set the width to your preference */
-  max-width: 500px; /* Optional: Ensures the box doesn't get too wide on larger screens */
+  width: 60%;
+  max-width: 500px;
   text-align: center;
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 15px;
   margin-top: 20px;
-  margin-left: auto; /* Center the box horizontally */
-  margin-right: auto; /* Center the box horizontally */
+  margin-left: auto;
+  margin-right: auto;
   background-color: #f9f9f9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: #333;
   font-size: 1rem;
-  display: block; /* Ensure it's a block level element to honor width and centering */
+  display: block;
 }
 
 #city {
-  width: 100%; /* Full-width */
-  padding: 12px 20px; /* Some padding */
-  margin: 8px 0; /* Some margin */
-  display: inline-block; /* Making sure it's inline-block */
-  border: 1px solid #ccc; /* Gray border */
-  border-radius: 4px; /* Rounded borders */
-  box-sizing: border-box; /* Box sizing to border-box */
-  background-color: white; /* White background color */
-  font-size: 16px; /* Font size */
-  cursor: pointer; /* Change cursor on hover */
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 #city:focus {
-  outline: none; /* Remove outline on focus */
-  border-color: #4CAF50; /* Change border color when focused */
+  outline: none;
+  border-color: #4CAF50;
 }
 
 #city:hover {
-  border-color: #45a049; /* Change border color on hover */
+  border-color: #45a049;
 }
 
-/* If you want to style the dropdown options */
 #city option {
-  padding: 10px; /* Padding for options */
-  background-color: white; /* Background color for options */
-  color: black; /* Text color */
+  padding: 10px;
+  background-color: white;
+  color: black;
 }
 
 #country {
-  width: 100%; /* Full-width */
-  padding: 12px 20px; /* Some padding */
-  margin: 8px 0; /* Some margin */
-  display: inline-block; /* Making sure it's inline-block */
-  border: 1px solid #ccc; /* Gray border */
-  border-radius: 4px; /* Rounded borders */
-  box-sizing: border-box; /* Box sizing to border-box */
-  background-color: white; /* White background color */
-  font-size: 16px; /* Font size */
-  cursor: pointer; /* Change cursor on hover */
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 #country:focus {
-  outline: none; /* Remove outline on focus */
-  border-color: #4CAF50; /* Change border color when focused */
+  outline: none;
+  border-color: #4CAF50;
 }
 
 #country:hover {
-  border-color: #45a049; /* Change border color on hover */
+  border-color: #45a049;
 }
 
-/* If you want to style the dropdown options */
 #country option {
-  padding: 10px; /* Padding for options */
-  background-color: white; /* Background color for options */
-  color: black; /* Text color */
+  padding: 10px;
+  background-color: white;
+  color: black;
 }
-
-
-
-
-
 
 .star-rating {
   display: flex;
   justify-content: flex-end;
-  direction: rtl; /* Right-to-left to flip the order */
+  direction: rtl;
 }
 
 .star-rating .star {
   display: inline-block;
-  width: 40px; /* Size of the star */
-  height: 40px; /* Size of the star */
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  background-color: #ccc; /* Default unfilled star color */
+  background-color: #ccc;
   -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
   clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-
 }
 
-/* The following rule will change the color of the stars to yellow when they are hovered over or selected */
 .star-rating input[type="radio"]:checked ~ label,
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-  background-color: #ffc107; /* Filled star color */
+  background-color: #ffc107;
 }
 
-/* Hide the radio input visually but remain accessible for screen readers */
 .star-rating input[type="radio"] {
   position: absolute;
   opacity: 0;
@@ -1810,8 +1369,7 @@ form .icon {
   height: 100%;
   display: inline-block;
   position: relative;
-  direction: ltr; /* Left-to-right to flip the labels back */
-
+  direction: ltr;
 }
 
 .submit-rating {
@@ -1840,60 +1398,50 @@ form .icon {
 
 #submit-comment {
   margin-top: 1rem;
-  /* Other button styles similar to #submit-rating */
 }
 
-/* Style for the comments section */
 .comments {
-  padding: 20px 0; /* Padding around the section */
+  padding: 20px 0;
 }
 .comments .container {
-  max-width: 800px; /* Adjust the max width as needed */
-  margin: 0 auto; /* Center the container */
-  padding: 0 15px; /* Padding inside the container */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 #comments-container {
   margin-top: 20px;
-  border-top: 1px solid #dee2e6; /* Light gray border at the top */
+  border-top: 1px solid #dee2e6;
   padding-top: 15px;
-  
 }
 
-
 .comment {
-  background-color: white; /* White background for each comment */
-  border: 1px solid #dee2e6; /* Light gray border */
-  border-radius: 5px; /* Rounded corners */
-  padding: 10px 15px; /* Padding inside each comment */
-  margin-bottom: 10px; /* Space between comments */
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
 }
 
 .comment p {
-  margin: 0; /* Remove default margin of <p> */
-  color: #333; /* Dark text color for readability */
-  line-height: 1.5; /* Line height for readability */
+  margin: 0;
+  color: #333;
+  line-height: 1.5;
 }
-
-
 
 .logo img {
-  max-width: 100px; /* Sets the maximum width of the logo */
-  height: auto; /* Ensures the height scales proportionally */
-  display: block; /* Display as a block for proper spacing */
-  margin: 0 auto; /* Center the logo */
+  max-width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-/* Additional Styling for the Header Logo */
 .header .logo img {
-  max-width: 300px; 
-  /* Slightly larger logo in the header */
+  max-width: 300px;
 }
 
-/* Additional Styling for the Navbar Logo */
 .navbar .logo img {
   max-width: 80px;
- } /* Slightl
-    y smaller logo in the navbar */
+}
 
 .container .logo {
   position: absolute;
@@ -1905,132 +1453,99 @@ form .icon {
   text-align: center;
 }
 
-
-
 .users-container {
-  /* Layout and Box Model */
-  width: 80%; /* Adjust the width as per your layout */
-  margin: 0 auto; /* Centers the container */
-  padding: 20px; /* Padding inside the container */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow around the container */
-
-  /* Typography */
-  font-family: 'Poppins', sans-serif; /* This should match your global font style */
-  color: #ffffff; /* Text color */
-
-  /* Background */
-  border-radius: 8px; /* Optional: Rounds the corners */
-
-  /* Additional Styles */
-  overflow: hidden; /* Ensures nothing overflows from the container */
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
   margin-top: -520px;
 }
 
-/* Styling for the title inside the container */
 .users-container .user-title {
-  font-size: 24px; /* Adjust the size as needed */
-  font-weight: 600; /* Adjust the weight as needed */
-  text-align: center; /* Centers the title */
-  margin-bottom: 15px; /* Space below the title */
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-/* Styling for the table inside the container */
 .users-container .center-table {
-  width: 100%; /* Table takes the full width of the container */
-  border-collapse: collapse; /* Collapses border spacing */
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .users-container .center-table th,
 .users-container .center-table td {
-  padding: 10px; /* Padding inside each cell */
-  text-align: left; /* Aligns text to the left */
-  border-bottom: 1px solid #ddd; /* Adds a bottom border to each cell */
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-/* Add more specific styles as needed */
-
-
-
-
-
 .question-container {
-  /* Layout and Box Model */
-  width: 80%; /* Adjust the width as per your layout */
-  margin: 0 auto; /* Centers the container */
-  padding: 20px; /* Padding inside the container */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow around the container */
-
-  /* Typography */
-  font-family: 'Poppins', sans-serif; /* This should match your global font style */
-  color: #ffffff; /* Text color */
-
-  /* Background */
-  border-radius: 8px; /* Optional: Rounds the corners */
-
-  /* Additional Styles */
-  overflow: hidden; /* Ensures nothing overflows from the container */
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
   margin-top: -520px;
 }
 
-/* Styling for the title inside the container */
 .question-container .user-title {
-  font-size: 24px; /* Adjust the size as needed */
-  font-weight: 600; /* Adjust the weight as needed */
-  text-align: center; /* Centers the title */
-  margin-bottom: 15px; /* Space below the title */
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-/* Styling for the table inside the container */
 .question-container .center-table {
-  width: 100%; /* Table takes the full width of the container */
-  border-collapse: collapse; /* Collapses border spacing */
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .question-container .center-table th,
 .question-container .center-table td {
-  padding: 10px; /* Padding inside each cell */
-  text-align: left; /* Aligns text to the left */
-  border-bottom: 1px solid #ddd; /* Adds a bottom border to each cell */
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
+
 .social-login__link {
   color: #fff;
   text-decoration: none;
   text-shadow: 0px 0px 8px #7875B5;
 }
 
-
-
 .delete-film-btn {
-  padding: 10px 15px; /* Padding inside the button */
+  padding: 10px 15px;
   background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
-  color: #000000; /* Text color of the button */
-  border: none; /* No border for the button */
-  border-radius: 54px; /* Rounds the corners of the button */
-  cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
-  transition: background-color 0.3s ease; /* Smooth transition for the button background color */
+  color: #000000;
+  border: none;
+  border-radius: 54px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-
 
 .delete-comment-btn {
-  padding: 10px 15px; /* Padding inside the button */
+  padding: 10px 15px;
   background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
-  color: #000000; /* Text color of the button */
-  border: none; /* No border for the button */
-  border-radius: 54px; /* Rounds the corners of the button */
-  cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
-  margin-left: auto; /* Pushes the button to the right */
-
-
-  transition: background-color 0.3s ease; /* Smooth transition for the button background color */
+  color: #000000;
+  border: none;
+  border-radius: 54px;
+  cursor: pointer;
+  margin-left: auto;
+  transition: background-color 0.3s ease;
 }
 
-
-/* Style for the social login container */
 .social-login {
   text-align: center;
 }
 
-/* Style for the sign-up button */
 .social-login__button {
   font-family: "Quicksand", sans-serif;
   font-weight: bold;
@@ -2045,7 +1560,6 @@ form .icon {
   color: #000;
 }
 
-/* Hover effect for the button */
 .social-login__button:hover {
-  background-color: #0056b3; /* Change to the hover color you prefer */
+  background-color: #0056b3;
 }
