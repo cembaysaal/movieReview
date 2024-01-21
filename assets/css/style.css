@@ -353,7 +353,7 @@ body.active { overflow: hidden; }
   max-height: 10000px;
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   padding-block: var(--section-padding);
 
   
