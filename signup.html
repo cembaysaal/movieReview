@@ -1,98 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Sign Up Form</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+  </head>
+  <body id="top">
     <script>
-      function validateSignupForm() {
+      async function validateSignupForm(event) {
+          event.preventDefault();
+    
           var name = document.forms["signupForm"]["name"].value;
+          var surname = document.forms["signupForm"]["surname"].value;
           var email = document.forms["signupForm"]["email"].value;
           var password = document.forms["signupForm"]["password"].value;
-          if (name == "" || email == "" || password == "") {
+    
+          if (name == "" || surname == "" || email == "" || password == "") {
               alert("All fields must be filled out");
               return false;
           }
-  
-          window.location.href = 'login.html';
-          return false; 
+    
+          var formData = {
+              name: name,
+              surname: surname,
+              email: email,
+              password: password
+          };
+          
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", 'http://127.0.0.1:5050/user/register', true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                  var response = JSON.parse(xhr.responseText);
+                  alert('Registration successful');
+                  window.location.href = 'login.html';
+              } else {
+                  var response = JSON.parse(xhr.responseText);
+                  alert(response.message);
+              }
+          }
+      };
+
+      xhr.send(JSON.stringify(formData));
       }
-  </script>
-  
-</head>
-<body id="top">
-  <header class="header" data-header>
-    <div class="container">
-      <div class="overlay" data-overlay></div>
-      <a href="./guest.html" class="logo">
-        <img src="./assets/images/logo.png" alt="Automata logo">
-      </a>
-      <div class="header-actions">
-        <a href="login.html" class="btn btn-primary">Sign In</a>
+    </script>
+    <header class="header" data-header>
+      <div class="container">
+        <div class="overlay" data-overlay></div>
+        <a href="./guest.html" class="logo">
+          <img src="./assets/images/logo.png" alt="Automata logo" />
+        </a>
+        <div class="header-actions">
+          <a href="login.html" class="btn btn-primary">Sign In</a>
+        </div>
+        <button class="menu-open-btn" data-menu-open-btn>
+          <ion-icon name="reorder-two"></ion-icon>
+        </button>
+        <nav class="navbar" data-navbar>
+          <div class="navbar-top">
+            <a href="./guest.html" class="logo">
+              <img src="./assets/images/logo.png" alt="Automata logo" />
+            </a>
+            <button class="menu-close-btn" data-menu-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </div>
+          <ul class="navbar-list">
+            <li>
+              <a href="./guest.html" class="navbar-link">Home</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <button class="menu-open-btn" data-menu-open-btn>
-        <ion-icon name="reorder-two"></ion-icon>
-      </button>
-      <nav class="navbar" data-navbar>
-        <div class="navbar-top">
-          <a href="./guest.html" class="logo">
-            <img src="./assets/images/logo.png" alt="Automata logo">
-          </a>
-          <button class="menu-close-btn" data-menu-close-btn>
-            <ion-icon name="close-outline"></ion-icon>
-          </button>
-        </div>
-        <ul class="navbar-list">
-          <li>
-            <a href="./guest.html" class="navbar-link">Home</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <section class="hero">
-    <div class="container">
+    </header>
+    <section class="hero">
+      <div class="container">
         <div class="login-container">
-            <div class="screen">
-                <div class="screen__content">
-                    <h1 class="screen__title">Sign Up </h1>
-                    <form name="signupForm" class="login" onsubmit="validateForm(event)">
-                      <div class="login__field">
-                        <i class="login__icon fas fa-user"></i>
-                        <input type="text" name="username" class="login__input" placeholder="Name - Surname">
-                    </div>  
-                      <div class="login__field">
-                            <i class="login__icon fas fa-user"></i>
-                            <input type="text" name="username" class="login__input" placeholder="Email">
-                        </div>
-                        <div class="login__field">
-                            <i class="login__icon fas fa-lock"></i>
-                            <input type="password" name="password" class="login__input" placeholder="Password">
-                        </div>
-                        <button type="submit" class="button login__submit">
-                          <span class="button__text">Sign Up Now</span>
-                          <i class="button__icon fas fa-chevron-right"></i>
-                      </button>	
-                        <div class="social-login">
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                    
-                            <a href="login.html" class="social-login__link">Log In</a>
-                        </div>
+          <div class="screen">
+            <div class="screen__content">
+              <h1 class="screen__title">Sign Up</h1>
+              <form
+                name="signupForm"
+                class="login"
+                onsubmit="return validateSignupForm(event)"
+              >
+              <div class="login__field">
+                <i class="login__icon fas fa-user"></i>
+                <input type="text" name="name" class="login__input" placeholder="Name">
+              </div>
+              <div class="login__field">
+                <i class="login__icon fas fa-user"></i>
+                <input type="text" name="surname" class="login__input" placeholder="Surname">
+              </div>  
+              <div class="login__field">
+                <i class="login__icon fas fa-user"></i>
+                <input type="text" name="email" class="login__input" placeholder="Email">
+              </div>
+              <div class="login__field">
+                <i class="login__icon fas fa-lock"></i>
+                <input type="password" name="password" class="login__input" placeholder="Password">
+              </div></div>
+                <button type="submit" class="button login__submit">
+                  <span class="button__text">Sign Up Now</span>
+                  <i class="button__icon fas fa-chevron-right"></i>
+                </button>
+                <div class="social-login">
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
 
-                    </form>
-
+                  <a href="login.html" class="social-login__link">Log In</a>
                 </div>
-                <div id="loginFeedback" style="color: red; margin-top: 15px;"></div>	
+              </form>
             </div>
+            <div id="loginFeedback" style="color: red; margin-top: 15px"></div>
+          </div>
         </div>
-    </div>
-  </section>
-</body>
+      </div>
+    </section>
+  </body>
 </html>
