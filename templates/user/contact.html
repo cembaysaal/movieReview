@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap'>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,19 +16,19 @@
   <header class="header" data-header>
     <div class="container">
       <div class="overlay" data-overlay></div>
-      <a href="./user.html" class="logo">
-        <img src="./assets/images/logo.png" alt="Automata logo">
+      <a href="user.html" class="logo">
+        <img src="../../assets/images/logo.png" alt="Automata logo">
       </a>
       <div class="header-actions">
-        <a href="guest.html" class="btn btn-primary">Log Out</a>
+        <a href="../../guest.html" class="btn btn-primary">Log Out</a>
       </div>
       <button class="menu-open-btn" data-menu-open-btn>
         <ion-icon name="reorder-two"></ion-icon>
       </button>
       <nav class="navbar" data-navbar>
         <div class="navbar-top">
-          <a href="./user.html" class="logo">
-            <img src="./assets/images/logo.png" alt="Automata logo">
+          <a href="user.html" class="logo">
+            <img src="../../assets/images/logo.png" alt="Automata logo">
           </a>
           <button class="menu-close-btn" data-menu-close-btn>
             <ion-icon name="close-outline"></ion-icon>
@@ -36,18 +36,20 @@
         </div>
         <ul class="navbar-list">
           <li>
-            <a href="./user.html" class="navbar-link">Home</a>
+            <a href="user.html" class="navbar-link">Home</a>
           </li>
           <li>
-            <a href="./weather.html" class="navbar-link">Weather</a>
+            <a href="weather.html" class="navbar-link">Weather</a>
           </li>
           <li>
-            <a href="./contact.html" class="navbar-link">Contact</a>
+            <a href="contact.html" class="navbar-link">Contact</a>
           </li>
         </ul>
       </nav>
     </div>
   </header>
+  
+  
   <section class="hero">
     <div class="container">
       <div class="contact-container d-flex justify-content-center align-items-center">
@@ -93,54 +95,56 @@
     <script src='https://unpkg.com/feather-icons'></script>
     <script>
       document.getElementById('contactForm').addEventListener('submit', function(event) {
-          event.preventDefault(); 
-  
-          var name = document.getElementById('formName').value;
-          var surname = document.getElementById('formSurname').value;
-
-          var email = document.getElementById('formEmail').value;
-          var message = document.getElementById('formMessage').value;
-  
-          if (!name || !email || !message) {
-              alert("Please fill all the fields.");
-              return;
-          }
-          console.log(localStorage);
-          var token = localStorage.getItem('jwtToken'); 
-  
-          if (!token) {
-              alert("You are not authenticated. Please log in.");
-              return;
-          }
-  
-          var data = {
-              name: name,
-              surname: surname,
-              email: email,
-              message: message
-          };
-  
-          fetch('http://127.0.0.1:5050/user/contact', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': 'Bearer ' + token 
-              },
-              body: JSON.stringify(data)
-          })
-          .then(response => response.json().then(data => ({ status: response.status, body: data })))
-          .then(obj => {
-              if (obj.status !== 200) {
-                  throw new Error(`Error ${obj.status}: ${obj.body.message}`);
-              }
-              console.log('Success:', obj.body);
-              alert("Message sent successfully.");
-          })
-          .catch((error) => {
-              console.error('Error:', error.message);
-              alert("Error: " + error.message);
-          });
-      });
+        event.preventDefault(); 
+    
+        var name = document.getElementById('formName').value;
+        var surname = document.getElementById('formSurname').value;
+        var email = document.getElementById('formEmail').value;
+        var message = document.getElementById('formMessage').value;
+    
+        if (!name || !email || !message) {
+            alert("Please fill all the fields.");
+            return;
+        }
+        console.log(localStorage);
+        var token = localStorage.getItem('jwtToken'); 
+    
+        if (!token) {
+            alert("You are not authenticated. Please log in.");
+            return;
+        }
+    
+        var data = {
+            name: name,
+            surname: surname,
+            email: email,
+            message: message
+        };
+    
+        fetch('http://127.0.0.1:5050/user/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token 
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json().then(data => ({ status: response.status, body: data })))
+        .then(obj => {
+            if (obj.status !== 200) {
+                throw new Error(`Error ${obj.status}: ${obj.body.message}`);
+            }
+            console.log('Success:', obj.body);
+            alert("Message sent successfully.");
+            // Reset the form here after successful submission
+            document.getElementById('contactForm').reset();
+        })
+        .catch((error) => {
+            console.error('Error:', error.message);
+            alert("Error: " + error.message);
+        });
+    });
+    
   </script>
 </body>
 </html>

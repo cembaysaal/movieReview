@@ -78,7 +78,7 @@
                         </form>
 
                     </div>
-                    <div id="loginFeedback" style="color: red; margin-top: 15px;"></div>	
+                    <div id="loginFeedback" style="color: rgb(255, 255, 255); margin-top: 15px;"></div>	
                 </div>
             </div>
         </div>
@@ -139,9 +139,9 @@ function handleLoginResponse(success, message, accessToken = null, name = '', su
 
         feedbackElement.innerText = message;
         if (role === "admin") {
-            window.location.href = 'admin.html';
+            window.location.href = './templates/admin/admin.html';
         } else if (role === "user") {
-            window.location.href = 'user.html';
+            window.location.href = './templates/user/user.html';
         }
     } else {
         feedbackElement.innerText = message;

@@ -228,6 +228,7 @@ def user_contact():
     try:
         data = request.get_json()
         name = data["name"]
+        surname = data["surname"]
         email = data["email"]
         message = data["message"]
 
@@ -236,6 +237,7 @@ def user_contact():
 
         db.child("user_messages").push({
             "name": name,
+            "surname": surname,
             "email": email,
             "message": message
         })

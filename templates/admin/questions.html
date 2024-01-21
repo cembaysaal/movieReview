@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automata - Film Studio</title>
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Automata - Film Studio - User Questions</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body id="top">
   <header class="header" data-header>
     <div class="container">
       <div class="overlay" data-overlay></div>
-      <a href="./admin.html" class="logo">
-        <img src="./assets/images/logo.png" alt="Filmlane logo">
+      <a href="admin.html" class="logo">
+        <img src="../../assets/images/logo.png" alt="Automata logo">
       </a>
       <div class="header-actions">
-        <a href="guest.html" class="btn btn-primary">Log Out</a>
+        <a href="../../guest.html" class="btn btn-primary">Log Out</a>
       </div>
       <button class="menu-open-btn" data-menu-open-btn>
         <ion-icon name="reorder-two"></ion-icon>
       </button>
       <nav class="navbar" data-navbar>
         <div class="navbar-top">
-          <a href="./admin.html" class="logo">
-            <img src="./assets/images/logo.png" alt="Filmlane logo">
+          <a href="admin.html" class="logo">
+            <img src="../../assets/images/logo.png" alt="Automata logo">
           </a>
           <button class="menu-close-btn" data-menu-close-btn>
             <ion-icon name="close-outline"></ion-icon>
@@ -36,46 +34,49 @@
         </div>
         <ul class="navbar-list">
           <li>
-            <a href="./admin.html" class="navbar-link">Home</a>
+            <a href="admin.html" class="navbar-link">Home</a>
           </li>
           <li>
-            <a href="./users.html" class="navbar-link">Users</a>
+            <a href="users.html" class="navbar-link">Users</a>
           </li>
           <li>
-            <a href="./moviesedit.html" class="navbar-link">Movie Edit</a>
+            <a href="moviesedit.html" class="navbar-link">Movie Edit</a>
           </li>
           <li>
-            <a href="./questions.html" class="navbar-link">Questions</a>
+            <a href="questions.html" class="navbar-link">Questions</a>
           </li>
         </ul>
       </nav>
     </div>
   </header>
   <section class="hero">
-    <div class="users-container">
-            <h1 class="user-title">Users</h1>
-            <br>
-            <table id="usersTable" class="center-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-      </div>
-    </section>
+    <div class="question-container">
+      <table id="questionsTable" border="1">
+        <h1 class="user-title">Questions</h1>
+        <br>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Questions</th>
+          </tr>
+        </thead>
+        <tbody>
 
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+
+  <a href="#top" class="go-top" data-go-top>
+    <ion-icon name="chevron-up"></ion-icon>
+  </a>
 
   <script>
-    
-    function get_users() {
+    function get_questions() {
 
       var token = localStorage.getItem('jwtToken');
 
@@ -84,7 +85,7 @@
         return;
       }
 
-      var url = "http://127.0.0.1:5050/admin/get-users";
+      var url = "http://127.0.0.1:5050/admin/messages";
 
       fetch(url, 
             {
@@ -104,25 +105,24 @@
           const keys = Object.keys(data);
 
           keys.forEach(key => {
-            document.getElementById('usersTable').innerHTML += `
+            document.getElementById('questionsTable').innerHTML += `
             <tr>
               <td>${data[key].name}</td>
               <td>${data[key].surname}</td>
               <td>${data[key].email}</td>
+              <td>${data[key].message}</td>
     `;})
        })
           }
 
 
-    window.onload = get_users;
-
+    window.onload = get_questions;
 
   </script>
 
-  <script src="./assets/js/script.js"></script>
+  <script src="../../assets/js/script.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
-
 </html>

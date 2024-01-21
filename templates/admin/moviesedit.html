@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Automata - Film Studio</title>
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,19 +16,19 @@
   <header class="header" data-header>
     <div class="container">
       <div class="overlay" data-overlay></div>
-      <a href="./admin.html" class="logo">
-        <img src="./assets/images/logo.png" alt="Automata logo">
+      <a href="admin.html" class="logo">
+        <img src="../../assets/images/logo.png" alt="Automata logo">
       </a>
       <div class="header-actions">
-        <a href="guest.html" class="btn btn-primary">Log Out</a>
+        <a href="../../guest.html" class="btn btn-primary">Log Out</a>
       </div>
       <button class="menu-open-btn" data-menu-open-btn>
         <ion-icon name="reorder-two"></ion-icon>
       </button>
       <nav class="navbar" data-navbar>
         <div class="navbar-top">
-          <a href="./admin.html" class="logo">
-            <img src="./assets/images/logo.png" alt="Automata logo">
+          <a href="admin.html" class="logo">
+            <img src="../../assets/images/logo.png" alt="Automata logo">
           </a>
           <button class="menu-close-btn" data-menu-close-btn>
             <ion-icon name="close-outline"></ion-icon>
@@ -36,16 +36,16 @@
         </div>
         <ul class="navbar-list">
           <li>
-            <a href="./admin.html" class="navbar-link">Home</a>
+            <a href="admin.html" class="navbar-link">Home</a>
           </li>
           <li>
-            <a href="./users.html" class="navbar-link">Users</a>
+            <a href="users.html" class="navbar-link">Users</a>
           </li>
           <li>
-            <a href="./moviesedit.html" class="navbar-link">Movie Edit</a>
+            <a href="moviesedit.html" class="navbar-link">Movie Edit</a>
           </li>
           <li>
-            <a href="./questions.html" class="navbar-link">Questions</a>
+            <a href="questions.html" class="navbar-link">Questions</a>
           </li>
         </ul>
       </nav>
@@ -125,7 +125,7 @@
         
         if (data.message == "movie added successfully") {
           alert("Movie added successfully");
-          window.location.href = "admin.html";
+          window.location.href = "./admin/admin.html";
         }
         else {
           alert(data.message);
