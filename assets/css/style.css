@@ -241,7 +241,7 @@ body.active { overflow: hidden; }
   width: 100%;
   padding-block: 25px;
   transition: var(--transition-2);
-  z-index: 4;
+  z-index: 999;
 }
 
 .header.active {
@@ -350,11 +350,13 @@ body.active { overflow: hidden; }
   background-position: center;
   min-height: 750px;
   height: 100vh;
-  max-height: 1000px;
+  max-height: 10000px;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   padding-block: var(--section-padding);
+
+  
 }
 
 .hero-content { margin-top: 60px; }
@@ -364,6 +366,7 @@ body.active { overflow: hidden; }
   font-size: var(--fs-4);
   font-weight: var(--fw-700);
   margin-bottom: 10px;
+  
 }
 
 .hero-title { margin-bottom: 30px; }
@@ -695,6 +698,8 @@ body.active { overflow: hidden; }
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   text-align: center; 
+  margin-top: 12rem;
+
 }
 
 .user-container h2 {
@@ -713,6 +718,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  
 }
 
 #usersTable, th, td {
@@ -732,7 +738,7 @@ table {
 }
 
 #usersTable tr {
-  background-color: #00000000;
+  background-color: rgba(168, 53, 53, 0.639);
 }
 
 
@@ -740,7 +746,7 @@ table {
 #questionsTable {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  
 }
 
 #questionsTable, th, td {
@@ -758,7 +764,7 @@ table {
 }
 
 #questionsTable tr {
-  background-color: #00000000;
+  background-color: rgba(168, 53, 53, 0.639);
 }
 
 
@@ -774,6 +780,8 @@ table {
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  margin-top: 3rem;
+
 }
 
 .movies-container h2 {
@@ -1464,6 +1472,8 @@ form .icon {
   overflow: hidden;
   /* margin-top: -520px; Remove or adjust this line */
   position: relative; /* Add this line if needed */
+  margin-top: 3rem;
+
 }
 .users-container .user-title {
   font-size: 24px;
@@ -1493,15 +1503,15 @@ form .icon {
   color: #ffffff;
   border-radius: 8px;
   overflow: hidden;
-  /* margin-top: -520px; Remove or adjust this line */
-  position: relative; /* Add this line if needed */
+  position: relative; 
+  margin-top: 3rem;
+
 }
 
 .question-container .user-title {
   font-size: 24px;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 15px;
   top: 0; 
   position: sticky;
   z-index: 10;
