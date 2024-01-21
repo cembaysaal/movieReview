@@ -713,58 +713,90 @@ table {
   margin: 0 auto; 
   max-width: 90%; 
 }
-
+/* Ensures that the border doesn't add any extra space */
 #usersTable {
+  border-collapse: collapse; /* Collapses the border to remove any extra space */
+  max-height: 500px;
+  overflow-y: auto; /* Enables vertical scrolling if the content exceeds 500px in height */
+  display: block;
+  border: 2px dashed #32a1ce;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  
+  overflow-x: auto; /* Hides horizontal scrolling */
+  table-layout: fixed; /* Ensures consistent column sizing */
+  box-sizing: border-box; /* Border and padding are included in the width and height */
 }
 
+/* Styles for table, rows, and cells */
 #usersTable, th, td {
   border: 1px solid #000000;
+  padding: 8px; /* Adjust padding as needed, but it contributes to the element's size */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-#usersTable th, #usersTable td {
-  text-align: center;
-  padding: 8px;
-}
-
+/* Header styles */
 #usersTable th {
   background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
   color: rgb(0, 0, 0);
-  position: sticky; 
-  top: 0; 
+  text-align: center;
 }
 
+/* Row styles */
 #usersTable tr {
   background-color: rgba(168, 53, 53, 0.639);
+  text-align: center; /* Centers text in cells */
+}
+
+#usersTable td {
+  width: 1570px;
 }
 
 
 
+
+
+/* Ensures that the border doesn't add any extra space */
 #questionsTable {
+  border-collapse: collapse; /* Collapses the border to remove any extra space */
+  max-height: 500px;
+  overflow-y: auto; /* Enables vertical scrolling if the content exceeds 500px in height */
+  display: block;
+  border: 2px dashed #32a1ce;
   width: 100%;
-  border-collapse: collapse;
-  
+  overflow-x: auto; /* Hides horizontal scrolling */
+  table-layout: fixed; /* Ensures consistent column sizing */
+  box-sizing: border-box; /* Border and padding are included in the width and height */
 }
 
+/* Styles for table, rows, and cells */
 #questionsTable, th, td {
   border: 1px solid #000000;
+  padding: 8px; /* Adjust padding as needed, but it contributes to the element's size */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-#questionsTable th, #questionsTable td {
-  text-align: center;
-  padding: 8px;
-}
-
+/* Header styles */
 #questionsTable th {
   background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
   color: rgb(0, 0, 0);
+  text-align: center;
 }
 
+/* Row styles */
 #questionsTable tr {
   background-color: rgba(168, 53, 53, 0.639);
+  text-align: center; /* Centers text in cells */
+}
+
+#questionsTable td {
+  width: 1570px;
+}
+
+
+/* Removes any margin that may be inherited from user-agent styles or other CSS */
+body, html, #containerElement { /* Replace #containerElement with the actual ID/class of the table's container */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 
@@ -1495,7 +1527,6 @@ form .icon {
 }
 
 .question-container {
-  width: 80%;
   margin: 0 auto;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -1503,8 +1534,8 @@ form .icon {
   color: #ffffff;
   border-radius: 8px;
   overflow: hidden;
-  position: relative; 
   margin-top: 3rem;
+  width: 100%;
 
 }
 
