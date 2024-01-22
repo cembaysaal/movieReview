@@ -176,8 +176,130 @@ def flask_app():
 
         except Exception as e:
             return f"An Error Occured: {e}"
-
         
+    @web_app.get("/user/movie/<string:id>")
+    @jwt_required()
+    def user_movie(id):
+
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "user":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            movie = db.child("movies").child(id).get()
+            return jsonify(movie.val()), 200
+        except Exception as e:
+            return f"An Error Occured: {e}"
+
+    @web_app.post("/user/movie/<string:id>/create-comment")
+    @jwt_required()
+    def user_movie_comment(id):
+
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "user":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            data = request.get_json()
+            comment = data["comment"]
+            name = data["name"]
+            surname = data["surname"]
+
+            if comment == "" or name == "" or surname == "":
+                return jsonify({"message": "Please fill all the fields"}), 400
+
+            db.child("movies").child(id).child("comments").push({
+                "comment": comment,
+                "name": name,
+                "surname": surname
+            })
+
+            return jsonify({"message": "Comment added successfully"}), 200
+
+        except Exception as e:
+            return f"An Error Occured: {e}"
+
+    @web_app.get("/user/movie/<string:id>/comments")
+    @jwt_required()
+    def user_movie_comments(id):
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "user":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            comments = db.child("movies").child(id).child("comments").get()
+            return jsonify(comments.val()), 200
+        except Exception as e:
+            return f"An Error Occured: {e}"
+
+    @web_app.post("/user/movie/<string:movie_id>/add-star")
+    @jwt_required()
+    def user_add_star(movie_id):
+        print("Route hit for movie_id:", movie_id)
+        try:
+            try:
+                jwt_identity = get_jwt_identity()
+                user_type = jwt_identity['type']
+
+                if user_type != "user":
+                    return jsonify({"message": "Invalid token"}), 400
+
+            except:
+                return jsonify({"message": "Invalid token"}), 400
+
+            data = request.get_json()
+            new_star_rating = data.get("star_rating")
+
+            if new_star_rating is None:
+                return jsonify({"message": "Please provide a star rating"}), 400
+            if not 0 <= new_star_rating <= 5:
+                return jsonify({"message": "Star rating must be between 0 and 5"}), 400
+
+            movie_ref = db.child("movies").child(movie_id)
+            movie = movie_ref.get()
+            if not movie.val():
+                return jsonify({"message": "Movie not found"}), 404
+
+            rating_count = movie.val().get("rating_count")
+            if (rating_count is None) or (rating_count == 0):
+                rating_count = 1
+            else:
+                rating_count = rating_count + 1
+
+            db.child("movies").child(movie_id).update(
+                {"rating_count": rating_count})
+
+            average_rating = db.child("movies").child(
+                movie_id).child("average_rating").get().val()
+
+            if (average_rating is None) or (average_rating == 0):
+                average_rating = new_star_rating
+            else:
+                average_rating = (
+                    average_rating * (rating_count - 1) + new_star_rating) / rating_count
+
+            db.child("movies").child(movie_id).update(
+                {"average_rating": average_rating})
+            return jsonify({"message": "Star rating added successfully", "new_average_rating": average_rating}), 200
+
+        except Exception as e:
+            return jsonify({"message": f"An Error Occurred: {e}"}), 500
+
         
 ########################################################################################################################################################################
 #                                                                       ADMIN ROUTES                                                                                   #
