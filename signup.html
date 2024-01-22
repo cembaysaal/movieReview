@@ -31,9 +31,9 @@
           };
           
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", 'http://127.0.0.1:5050/user/register', true);
+      xhr.open("POST", 'https://pelinmisee--web-group-project-flask-app-dev.modal.run/user/register', true);
       xhr.setRequestHeader("Content-Type", "application/json");
-
+      xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
       xhr.onreadystatechange = function () {
           if (xhr.readyState === 4) {
               if (xhr.status === 200) {
