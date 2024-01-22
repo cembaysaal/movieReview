@@ -10,7 +10,8 @@
   </head>
   <body id="top">
     <script>
-      document.forms["signupForm"].onsubmit = async function(event) {
+     document.addEventListener('DOMContentLoaded', (event) => {
+     document.forms["signupForm"].onsubmit = async function(event) {
           event.preventDefault();
 
           var name = this["name"].value;
@@ -52,6 +53,7 @@
               alert('Registration failed');
           }
       };
+    });
     </script>
     <header class="header" data-header>
       <div class="container">

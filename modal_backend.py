@@ -2,7 +2,7 @@ import pyrebase
 from modal import Stub, wsgi_app, Image
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_jwt_extended import  create_access_token, JWTManager, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 import secrets
 import time
 import requests
@@ -29,10 +29,11 @@ db = firebase.database()
 ########################################################################################################################################################################
 
 stub = Stub("web-group-project",
-             image=Image.debian_slim().pip_install("flask-cors","Flask-JWT-Extended","Flask-Cors","flask", "pyrebase4", "python-dotenv", "python-jose[cryptography]"),
-)
+            image=Image.debian_slim().pip_install("flask-cors", "Flask-JWT-Extended", "Flask-Cors",
+                                                  "flask", "pyrebase4", "python-dotenv", "python-jose[cryptography]"),
+            )
 
-      
+
 @stub.function()
 @wsgi_app()
 def flask_app():
@@ -88,8 +89,7 @@ def flask_app():
             return jsonify({"message": "User registered successfully"}), 200
         except Exception as e:
             return f"An Error Occured: {e}"
-        
-        
+
     @web_app.post("/user/login")
     def user_login():
         email = ""
@@ -122,8 +122,7 @@ def flask_app():
             return jsonify({"message": "User with this email does not exist"}), 400
         except Exception as e:
             return f"An Error Occured: {e}"
-        
-        
+
     @web_app.get("/user/all-movies")
     @jwt_required()
     def user_all_movies():
@@ -141,7 +140,7 @@ def flask_app():
             return jsonify(movies.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
-        
+
     @web_app.post("/user/contact")
     @jwt_required()
     def user_contact():
@@ -176,7 +175,7 @@ def flask_app():
 
         except Exception as e:
             return f"An Error Occured: {e}"
-        
+
     @web_app.get("/user/movie/<string:id>")
     @jwt_required()
     def user_movie(id):
@@ -300,10 +299,12 @@ def flask_app():
         except Exception as e:
             return jsonify({"message": f"An Error Occurred: {e}"}), 500
 
-        
+
 ########################################################################################################################################################################
 #                                                                       ADMIN ROUTES                                                                                   #
-########################################################################################################################################################################    
+########################################################################################################################################################################
+
+
     @web_app.post("/admin/login")
     def admin_login():
         email = ""
@@ -326,7 +327,7 @@ def flask_app():
                     return jsonify({"message": "Admin logged in successfully", "access_token": access_token}), 200
         except:
             return jsonify({"message": "Admin with this email does not exist"}), 400
-        
+
     @web_app.get("/admin/messages")
     @jwt_required()
     def admin_see_messages():
@@ -345,7 +346,7 @@ def flask_app():
             return jsonify(messages.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
-            
+
     @web_app.get("/admin/all-movies")
     @jwt_required()
     def admin_all_movies():
@@ -363,7 +364,7 @@ def flask_app():
             return jsonify(movies.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
-        
+
     @web_app.get("/admin/get-users")
     @jwt_required()
     def admin_get_users():
@@ -381,7 +382,6 @@ def flask_app():
             return jsonify(users.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
-        
 
     @web_app.post("/admin/add-movie")
     @jwt_required()
@@ -435,7 +435,7 @@ def flask_app():
 
         except Exception as e:
             return jsonify({"message": f"An Error Occurred: {e}"}), 500
-        
+
     @web_app.post("/admin/movie/<string:movie_id>/remove-comment/<string:comment_id>")
     @jwt_required()
     def admin_remove_comment(movie_id, comment_id):
@@ -457,7 +457,6 @@ def flask_app():
         except Exception as e:
             return jsonify({"message": f"An Error Occurred: {e}"}), 500
 
-
     @web_app.get("/admin/movie/<string:id>")
     @jwt_required()
     def admin_movie(id):
@@ -476,7 +475,7 @@ def flask_app():
             return jsonify(movie.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
-        
+
     @web_app.get("/admin/movie/<string:id>/comments")
     @jwt_required()
     def admin_movie_comments(id):
@@ -495,7 +494,7 @@ def flask_app():
             return jsonify(comments.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
-        
+
     @web_app.post("/admin/movie/<string:movie_id>/remove")
     @jwt_required()
     def admin_remove_movie(movie_id):
@@ -511,11 +510,11 @@ def flask_app():
 
         except Exception as e:
             return jsonify({"message": f"An Error Occurred: {e}"}), 500
-        
+
 ########################################################################################################################################################################
 #                                                                       GUEST ROUTES                                                                                   #
-########################################################################################################################################################################  
-        
+########################################################################################################################################################################
+
     @web_app.get("/guest/all-movies")
     def guest_all_movies():
         try:
@@ -523,10 +522,10 @@ def flask_app():
             return jsonify(movies.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
-    
+
 ########################################################################################################################################################################
 #                                                             EXTERNAL API CONFIGURATION                                                                               #
-########################################################################################################################################################################    
+########################################################################################################################################################################
     def get_weather(city, country_code):
         api_key = "3536a7b4d62e6be4384cefacde2034c8"
         base_url = "http://api.openweathermap.org/data/2.5/weather"
@@ -534,8 +533,7 @@ def flask_app():
 
         response = requests.get(complete_url)
         return response.json()
-    
-    
+
     @web_app.post("/weather")
     def weather():
         data = request.get_json()
@@ -547,8 +545,5 @@ def flask_app():
 
         weather_data = get_weather(city, country_code)
         return jsonify(weather_data)
-
-        
-
 
     return web_app
