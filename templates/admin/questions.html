@@ -71,48 +71,58 @@
 
 
   <script>
-    function get_questions() {
-
-      var token = localStorage.getItem('jwtToken');
+    async function get_questions() {
+      const token = localStorage.getItem('jwtToken');
 
       if (!token) {
         alert("You are not authenticated. Please log in.");
         return;
       }
 
-      var url = "https://pelinmisee--web-group-project-flask-app.modal.run/admin/messages";
+      const url = "https://pelinmisee--web-group-project-flask-app.modal.run/admin/messages";
 
-      fetch(url, 
-            {
-              method : 'GET',
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-              }
-
-            }
-
-      )
-
-      .then(response => response.json())
-      .then(data => {
-          const user_array = Object.values(data);
-          const keys = Object.keys(data);
-
-          keys.forEach(key => {
-            document.getElementById('questionsTable').innerHTML += `
-            <tr>
-              <td>${data[key].name}</td>
-              <td>${data[key].surname}</td>
-              <td>${data[key].email}</td>
-              <td>${data[key].message}</td>
-    `;})
-       })
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
           }
+        });
 
+        handleErrors(response);
+
+        const data = await response.json();
+        displayQuestions(data);
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
+    }
+
+    function displayQuestions(data) {
+      const table = document.getElementById('questionsTable');
+      const keys = Object.keys(data);
+
+      keys.forEach(key => {
+        table.innerHTML += `
+          <tr>
+            <td>${data[key].name}</td>
+            <td>${data[key].surname}</td>
+            <td>${data[key].email}</td>
+            <td>${data[key].message}</td>
+          </tr>
+        `;
+      });
+    }
+
+    function handleErrors(response) {
+      if (!response.ok) {
+        alert(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    }
 
     window.onload = get_questions;
-
   </script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
