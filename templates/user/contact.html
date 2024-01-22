@@ -93,56 +93,55 @@
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
     <script src='https://unpkg.com/feather-icons'></script>
     <script>
-      document.getElementById('contactForm').addEventListener('submit', function(event) {
+      document.getElementById('contactForm').addEventListener('submit', async function(event) {
         event.preventDefault(); 
-    
-        var name = document.getElementById('formName').value;
-        var surname = document.getElementById('formSurname').value;
-        var email = document.getElementById('formEmail').value;
-        var message = document.getElementById('formMessage').value;
-    
+  
+        const name = document.getElementById('formName').value;
+        const surname = document.getElementById('formSurname').value;
+        const email = document.getElementById('formEmail').value;
+        const message = document.getElementById('formMessage').value;
+  
         if (!name || !email || !message) {
             alert("Please fill all the fields.");
             return;
         }
-        var token = localStorage.getItem('jwtToken'); 
-    
+        const token = localStorage.getItem('jwtToken'); 
+  
         if (!token) {
             alert("You are not authenticated. Please log in.");
             return;
         }
-    
-        var data = {
+  
+        const data = {
             name: name,
             surname: surname,
             email: email,
             message: message
         };
-    
-        fetch('https://pelinmisee--web-group-project-flask-app.modal.run/user/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token 
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json().then(data => ({ status: response.status, body: data })))
-        .then(obj => {
-            if (obj.status !== 200) {
-                throw new Error(`Error ${obj.status}: ${obj.body.message}`);
+  
+        try {
+            const response = await fetch('https://pelinmisee--web-group-project-flask-app.modal.run/user/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token 
+                },
+                body: JSON.stringify(data)
+            });
+  
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            console.log('Success:', obj.body);
+  
+            const responseData = await response.json();
+            console.log('Success:', responseData);
             alert("Message sent successfully.");
-            // Reset the form here after successful submission
             document.getElementById('contactForm').reset();
-        })
-        .catch((error) => {
-            console.error('Error:', error.message);
+        } catch (error) {
+            console.error('Error:', error);
             alert("Error: " + error.message);
-        });
-    });
-    
-  </script>
+        }
+      });
+    </script>
 </body>
 </html>
