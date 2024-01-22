@@ -713,37 +713,33 @@ table {
   margin: 0 auto; 
   max-width: 90%; 
 }
-/* Ensures that the border doesn't add any extra space */
 #usersTable {
-  border-collapse: collapse; /* Collapses the border to remove any extra space */
+  border-collapse: collapse; 
   max-height: 500px;
-  overflow-y: auto; /* Enables vertical scrolling if the content exceeds 500px in height */
+  overflow-y: auto; 
   display: block;
   border: 2px dashed #32a1ce;
   width: 100%;
-  overflow-x: auto; /* Hides horizontal scrolling */
-  table-layout: fixed; /* Ensures consistent column sizing */
-  box-sizing: border-box; /* Border and padding are included in the width and height */
+  overflow-x: auto; 
+  table-layout: fixed; 
+  box-sizing: border-box; 
 }
 
-/* Styles for table, rows, and cells */
 #usersTable, th, td {
   border: 1px solid #000000;
-  padding: 8px; /* Adjust padding as needed, but it contributes to the element's size */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  padding: 8px; 
+  box-sizing: border-box; 
 }
 
-/* Header styles */
 #usersTable th {
   background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
   color: rgb(0, 0, 0);
   text-align: center;
 }
 
-/* Row styles */
 #usersTable tr {
   background-color: rgba(168, 53, 53, 0.639);
-  text-align: center; /* Centers text in cells */
+  text-align: center; 
 }
 
 #usersTable td {
@@ -754,37 +750,34 @@ table {
 
 
 
-/* Ensures that the border doesn't add any extra space */
 #questionsTable {
-  border-collapse: collapse; /* Collapses the border to remove any extra space */
+  border-collapse: collapse; 
   max-height: 500px;
-  overflow-y: auto; /* Enables vertical scrolling if the content exceeds 500px in height */
+  overflow-y: auto; 
   display: block;
   border: 2px dashed #32a1ce;
   width: 100%;
-  overflow-x: auto; /* Hides horizontal scrolling */
-  table-layout: fixed; /* Ensures consistent column sizing */
-  box-sizing: border-box; /* Border and padding are included in the width and height */
+  overflow-x: auto; 
+  table-layout: fixed; 
+  box-sizing: border-box; 
 }
 
-/* Styles for table, rows, and cells */
 #questionsTable, th, td {
   border: 1px solid #000000;
-  padding: 8px; /* Adjust padding as needed, but it contributes to the element's size */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  padding: 8px; 
+  box-sizing: border-box; 
 }
 
-/* Header styles */
 #questionsTable th {
   background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
   color: rgb(0, 0, 0);
   text-align: center;
 }
 
-/* Row styles */
+
 #questionsTable tr {
   background-color: rgba(168, 53, 53, 0.639);
-  text-align: center; /* Centers text in cells */
+  text-align: center; 
 }
 
 #questionsTable td {
@@ -792,8 +785,7 @@ table {
 }
 
 
-/* Removes any margin that may be inherited from user-agent styles or other CSS */
-body, html, #containerElement { /* Replace #containerElement with the actual ID/class of the table's container */
+body, html, #containerElement { 
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -804,65 +796,7 @@ body, html, #containerElement { /* Replace #containerElement with the actual ID/
   background-color: #f5f5f5; 
   padding: 50px 0; 
 }
-.movies-container {
-  width: 90%;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #ffffff00;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin-top: 3rem;
 
-}
-
-.movies-container h2 {
-  font-size: 24px;
-  color: #ffffff;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.movies-container form {
-  display: flex;
-  flex-direction: column;
-}
-
-.movies-container label {
-  font-size: 16px;
-  color: #ffffff;
-  margin-bottom: 5px;
-}
-
-.movies-container input[type="text"],
-.movies-container input[type="number"],
-.movies-container input[type="url"] {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-
-.movies-container button {
-  padding: 10px 15px; 
-  background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
-  color: #000000; 
-  border: none; 
-  border-radius: 4px; 
-  cursor: pointer; 
-  transition: background-color 0.3s ease; 
-}
-
-.movies-container button:hover {
-  background-color: #fdfdfd; 
-}
-
-@media (max-width: 768px) {
-  .movies-container {
-      width: 95%;
-  }
-}
 
 
 form {
@@ -897,7 +831,6 @@ input[type="submit"]:hover {
   background-color: #45a049;
 }
 
-/* Movie list styling */
 #moviesList {
   display: flex;
   flex-direction: column;
@@ -1607,4 +1540,154 @@ form .icon {
 
 .social-login__button:hover {
   background-color: #0056b3;
+}
+
+.movies-container {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff00; 
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.movies-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+}
+
+.movies-container label {
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.movies-container input[type="text"],
+.movies-container input[type="number"],
+.movies-container input[type="url"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  width: 100%; 
+}
+
+.movies-container button {
+  padding: 10px 15px;
+  background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
+  color: #000000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto; 
+}
+
+.movies-container button:hover {
+  background-color: #fdfdfd;
+}
+
+@media (max-width: 1024px) {
+  .movies-container h2 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .movies-container {
+    width: 95%;
+  }
+
+  .movies-container h2 {
+    font-size: 20px;
+  }
+
+  .movies-container form {
+    width: 100%;
+  }
+
+  .movies-container label {
+    font-size: 14px;
+  }
+
+  .movies-container input[type="text"],
+  .movies-container input[type="number"],
+  .movies-container input[type="url"] {
+    font-size: 14px;
+  }
+
+  .movies-container button {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .movies-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .movies-container h2 {
+    font-size: 18px;
+  }
+
+  .movies-container label {
+    font-size: 12px;
+  }
+
+  .movies-container input[type="text"],
+  .movies-container input[type="number"],
+  .movies-container input[type="url"] {
+    font-size: 12px;
+  }
+
+  .movies-container button {
+    font-size: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .movies-container {
+      width: 100%;
+      padding: 15px;
+  }
+
+  .movies-container h2 {
+    font-size: 18px;
+  }
+
+  .movies-container form {
+    flex-direction: column;
+  }
+
+  .movies-container label {
+    font-size: 12px;
+  }
+
+  .movies-container input[type="text"],
+  .movies-container input[type="number"],
+  .movies-container input[type="url"] {
+    font-size: 12px;
+  }
+
+  .movies-container button {
+    font-size: 12px;
+  }
+}
+
+.movies-container .movie-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  top: 0; 
+  position: sticky;
+  z-index: 10;
 }
