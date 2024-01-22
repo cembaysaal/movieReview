@@ -432,11 +432,12 @@ body.active { overflow: hidden; }
 .movie-detail .meta-wrapper { margin-bottom: 30px; }
 
 .storyline {
-  color: var(--gray-x);
+  color: white;
   font-size: var(--fs-9);
   font-weight: var(--fw-500);
   line-height: 1.8;
   margin-bottom: 40px;
+  background-color: #cf3434b6;
 }
 
 .details-actions {
