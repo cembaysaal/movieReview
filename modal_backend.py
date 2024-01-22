@@ -90,7 +90,83 @@ def flask_app():
             return f"An Error Occured: {e}"
         
         
+    @web_app.post("/user/login")
+    def user_login():
+        email = ""
+        password = ""
+
+        try:
+            data = request.get_json()
+            email = data["email"]
+            password = data["password"]
+
+            if email == "" or password == "":
+                return jsonify({"message": "Please fill all the fields"}), 400
+
+            users = db.child("users").get()
+            for user in users.each():
+                if user.val()['email'] == email and user.val()['password'] == password:
+                    access_token = create_access_token(
+                        identity={"type": "user", "id": user.key()})
+                    user_name = user.val().get('name')
+                    user_surname = user.val().get('surname')
+                    print(user_name)
+                    print(user_surname)
+                    return jsonify({
+                        "message": "User logged in successfully",
+                        "access_token": access_token,
+                        "name": user_name,
+                        "surname": user_surname
+                    }), 200
+
+            return jsonify({"message": "User with this email does not exist"}), 400
+        except Exception as e:
+            return f"An Error Occured: {e}"
         
         
+    @web_app.get("/user/all-movies")
+    @jwt_required()
+    def user_all_movies():
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "user":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            movies = db.child("movies").get()
+            return jsonify(movies.val()), 200
+        except Exception as e:
+            return f"An Error Occured: {e}"
+        
+        
+########################################################################################################################################################################
+#                                                                       ADMIN ROUTES                                                                                   #
+########################################################################################################################################################################    
+    @web_app.post("/admin/login")
+    def admin_login():
+        email = ""
+        password = ""
+
+        try:
+            data = request.get_json()
+            email = data["email"]
+            password = data["password"]
+
+            if email == "" or password == "":
+                return jsonify({"message": "Please fill all the fields"}), 400
+
+            admins = db.child("admin").get()
+
+            for admin in admins.each():
+                if admin.val()['email'] == email and admin.val()['password'] == password:
+                    access_token = create_access_token(
+                        identity={"type": "admin", "id": admin.key()})
+                    return jsonify({"message": "Admin logged in successfully", "access_token": access_token}), 200
+        except:
+            return jsonify({"message": "Admin with this email does not exist"}), 400
     
     return web_app
