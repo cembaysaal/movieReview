@@ -99,7 +99,7 @@
 
     document.getElementById('loginFeedback').innerText = 'Logging in...';
     
-    var loginEndpoint = role === "admin" ? "http://127.0.0.1:5050/admin/login" : "http://127.0.0.1:5050/user/login";
+    var loginEndpoint = role === "admin" ? "https://pelinmisee--web-group-project-flask-app.modal.run/admin/login" : "https://pelinmisee--web-group-project-flask-app.modal.run/user/login";
 
     var requestData = JSON.stringify({
         email: username,
@@ -109,6 +109,7 @@
     var xhr = new XMLHttpRequest();
     xhr.open("POST", loginEndpoint, true);
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
     
     xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -147,8 +148,6 @@ function handleLoginResponse(success, message, accessToken = null, name = '', su
         feedbackElement.innerText = message;
     }
 }
-
-
     </script>
 
 </body>

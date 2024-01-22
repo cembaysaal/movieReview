@@ -76,14 +76,15 @@
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('userName');
     localStorage.removeItem('userSurname');
+    localStorage.removeItem('user_id');
   }
 
 function fetchMovies() {
     
-    fetch('http://127.0.0.1:5050/guest/all-movies', { 
+    fetch('https://pelinmisee--web-group-project-flask-app.modal.run/guest/all-movies', { 
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json' 
+          'Content-Type': 'application/json' ,
         }
     })
     .then(response => response.json())

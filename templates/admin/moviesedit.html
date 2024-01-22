@@ -114,7 +114,7 @@
     function add_movie() {
 
       var token = localStorage.getItem('jwtToken');
-      var url = "http://127.0.0.1:5050/admin/add-movie";
+      var url = "https://pelinmisee--web-group-project-flask-app.modal.run/admin/add-movie";
 
       if (!token) {
         alert("You are not authenticated. Please log in.");
@@ -135,7 +135,6 @@
         "storyline": storyline,
       }
 
-      url = "http://127.0.0.1:5050/admin/add-movie";
       fetch (url,
       
       {

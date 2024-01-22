@@ -118,8 +118,8 @@ function deleteMovie(movieId) {
         return;
     }
 
-    fetch(`http://127.0.0.1:5050/admin/movie/${movieId}/remove`, {
-        method: 'DELETE',
+    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}/remove`, {
+        method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token
         }
@@ -171,7 +171,7 @@ function fetchMovieDetails(movieId) {
         });
     }
 
-    fetch(`http://127.0.0.1:5050/admin/movie/${movieId}`, {
+    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token
@@ -195,7 +195,7 @@ function fetchAndDisplayComments(movieId) {
         return;
     }
     console.log('Fetching comments for movie:', movieId);
-    fetch(`http://127.0.0.1:5050/admin/movie/${movieId}/comments`, {
+    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}/comments`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token
@@ -230,8 +230,8 @@ function deleteComment(movieId, commentId) {
         return;
     }
 
-    fetch(`http://127.0.0.1:5050/admin/movie/${movieId}/remove-comment/${commentId}`, {
-        method: 'DELETE',
+    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}/remove-comment/${commentId}`, {
+        method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token
         }
@@ -244,14 +244,8 @@ function deleteComment(movieId, commentId) {
     })
     .catch(error => console.error('Error deleting comment:', error));
 }
-
-
-
-    
             
           </script>
-    
-          
-          
+
         </body>
         </html>
