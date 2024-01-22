@@ -217,4 +217,31 @@ def flask_app():
         except Exception as e:
             return f"An Error Occured: {e}"
     
+########################################################################################################################################################################
+#                                                             EXTERNAL API CONFIGURATION                                                                               #
+########################################################################################################################################################################    
+    def get_weather(city, country_code):
+        api_key = "3536a7b4d62e6be4384cefacde2034c8"
+        base_url = "http://api.openweathermap.org/data/2.5/weather"
+        complete_url = f"{base_url}?q={city},{country_code}&appid={api_key}&units=metric"
+
+        response = requests.get(complete_url)
+        return response.json()
+    
+    
+    @web_app.post("/weather")
+    def weather():
+        data = request.get_json()
+        city = data.get('city')
+        country_code = data.get('country_code')
+
+        if not city or not country_code:
+            return jsonify({"error": "Missing city or country code"}), 400
+
+        weather_data = get_weather(city, country_code)
+        return jsonify(weather_data)
+
+        
+
+
     return web_app
