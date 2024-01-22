@@ -435,7 +435,82 @@ def flask_app():
 
         except Exception as e:
             return jsonify({"message": f"An Error Occurred: {e}"}), 500
+        
+    @web_app.post("/admin/movie/<string:movie_id>/remove-comment/<string:comment_id>")
+    @jwt_required()
+    def admin_remove_comment(movie_id, comment_id):
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
 
+            if user_type != "admin":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            db.child("movies").child(movie_id).child(
+                "comments").child(comment_id).remove()
+
+            return jsonify({"message": "Comment removed successfully"}), 200
+
+        except Exception as e:
+            return jsonify({"message": f"An Error Occurred: {e}"}), 500
+
+
+    @web_app.get("/admin/movie/<string:id>")
+    @jwt_required()
+    def admin_movie(id):
+
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "admin":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            movie = db.child("movies").child(id).get()
+            return jsonify(movie.val()), 200
+        except Exception as e:
+            return f"An Error Occured: {e}"
+        
+    @web_app.get("/admin/movie/<string:id>/comments")
+    @jwt_required()
+    def admin_movie_comments(id):
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "admin":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            comments = db.child("movies").child(id).child("comments").get()
+            print(comments.val())
+            return jsonify(comments.val()), 200
+        except Exception as e:
+            return f"An Error Occured: {e}"
+        
+    @web_app.post("/admin/movie/<string:movie_id>/remove")
+    @jwt_required()
+    def admin_remove_movie(movie_id):
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "admin":
+                return jsonify({"message": "Invalid token"}), 400
+
+            db.child("movies").child(movie_id).remove()
+            return jsonify({"message": "Movie removed successfully"}), 200
+
+        except Exception as e:
+            return jsonify({"message": f"An Error Occurred: {e}"}), 500
         
 ########################################################################################################################################################################
 #                                                                       GUEST ROUTES                                                                                   #
