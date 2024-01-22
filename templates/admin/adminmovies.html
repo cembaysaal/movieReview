@@ -86,166 +86,171 @@
           <div id="comments-container">
           </div>
         </div>
-      </section>
+        <script>
+          document.addEventListener('DOMContentLoaded', async function() {
+              const movieId = getMovieIdFromURL();
+              if (movieId) {
+                  try {
+                      await fetchMovieDetails(movieId);
+                      await fetchAndDisplayComments(movieId);
+                      setupDeleteButton(movieId);
+                  } catch (error) {
+                      console.error('Error during DOMContentLoaded:', error);
+                  }
+              }
+          });
       
-          
+          function setupDeleteButton(movieId) {
+              const deleteButton = document.getElementById('deleteMovieButton');
+              if (deleteButton) {
+                  deleteButton.addEventListener('click', async () => {
+                      try {
+                          await deleteMovie(movieId);
+                      } catch (error) {
+                          console.error('Error deleting movie:', error);
+                      }
+                  });
+              }
+          }
       
-          <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-          <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        
-          <script>
-            document.addEventListener('DOMContentLoaded', function() {
-    const movieId = getMovieIdFromURL();
-    if (movieId) {
-        fetchMovieDetails(movieId);
-        setupDeleteButton(movieId);
-    }
-});
-
-function setupDeleteButton(movieId) {
-    const deleteButton = document.getElementById('deleteMovieButton');
-    if (deleteButton) {
-        deleteButton.addEventListener('click', function() {
-            deleteMovie(movieId);
-        });
-    }
-}
-
-function deleteMovie(movieId) {
-    var token = localStorage.getItem('jwtToken'); 
-    if (!token) {
-        alert("You are not authenticated. Please log in.");
-        return;
-    }
-
-    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}/remove`, {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error deleting movie');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Movie deleted successfully:', data);
-        alert('Movie deleted successfully');
-         window.location.href = 'admin.html';
-    })
-    .catch(error => {
-        console.error('Error deleting movie:', error);
-        alert('Error deleting movie');
-    });
-}
-
-function displayMovieDetails(movie) {
-    if (movie) {
-        document.getElementById('movie-poster').src = movie.movie_image_link;
-        document.getElementById('movie-title').innerText = movie.movie_name;
-        document.getElementById('movie-year').innerText = movie.movie_year;
-        document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
-        document.getElementById('movie-storyline').innerText = movie.movie_story_line;
-    } else {
-        console.error('No movie details available');
-    }
-}
-
-        function getMovieIdFromURL() {
-    const queryParams = new URLSearchParams(window.location.search);
-    return queryParams.get('id');
-}
-function fetchMovieDetails(movieId) {
-    var token = localStorage.getItem('jwtToken');
-    if (!token) {
-        alert("You are not authenticated. Please log in.");
-        return;
-    }
-
-    if (document.getElementById('deleteMovieButton')) {
-        document.getElementById('deleteMovieButton').addEventListener('click', function() {
-            var movieDetailSection = document.querySelector('.movie-detail');
-            movieDetailSection.style.display = 'none';
-        });
-    }
-
-    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    })
-    .then(response => response.json())
-    .then(movie => {
-        displayMovieDetails(movie);
-        fetchAndDisplayComments(movieId); 
-    })
-    .catch(error => {
-        console.error('Error fetching movie details:', error);
-    });
-}
-
-
-function fetchAndDisplayComments(movieId) {
-    var token = localStorage.getItem('jwtToken');
-    if (!token) {
-        alert("You are not authenticated. Please log in.");
-        return;
-    }
-    console.log('Fetching comments for movie:', movieId);
-    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}/comments`, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    })
-    .then(response => response.json())
-    .then(comments => {
-        const commentsContainer = document.getElementById('comments-container');
-        commentsContainer.innerHTML = '';
-        console.log(comments);
-        for (let key in comments) {
-            if (comments.hasOwnProperty(key)) {
-                const comment = comments[key];
-                const commentElement = document.createElement('div');
-                commentElement.classList.add('comment');
-                commentElement.innerHTML = `
-                    <p><strong>${comment.name} ${comment.surname}:</strong> ${comment.comment}</p>
-                    <button type="button" class="delete-comment-btn" onclick="deleteComment('${movieId}', '${key}')">Delete Comment</button>
-                `;
-                commentsContainer.appendChild(commentElement);
-            }
-        }
-    })
-    .catch(error => console.error('Error fetching comments:', error));
-}
-
-
-function deleteComment(movieId, commentId) {
-    var token = localStorage.getItem('jwtToken');
-    if (!token) {
-        alert("You are not authenticated. Please log in.");
-        return;
-    }
-
-    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}/remove-comment/${commentId}`, {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error removing comment');
-        }
-        fetchAndDisplayComments(movieId); 
-    })
-    .catch(error => console.error('Error deleting comment:', error));
-}
-            
-          </script>
+          async function deleteMovie(movieId) {
+              var token = localStorage.getItem('jwtToken');
+              if (!token) {
+                  alert("You are not authenticated. Please log in.");
+                  return;
+              }
+      
+              try {
+                  const response = await fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}/remove`, {
+                      method: 'POST',
+                      headers: {
+                          'Authorization': 'Bearer ' + token
+                      }
+                  });
+      
+                  handleErrors(response);
+      
+                  console.log('Movie deleted successfully');
+                  alert('Movie deleted successfully');
+                  window.location.href = 'admin.html';
+              } catch (error) {
+                  console.error('Error deleting movie:', error);
+                  alert('Error deleting movie');
+              }
+          }
+      
+          function getMovieIdFromURL() {
+              const queryParams = new URLSearchParams(window.location.search);
+              return queryParams.get('id');
+          }
+      
+          async function fetchMovieDetails(movieId) {
+              var token = localStorage.getItem('jwtToken');
+              if (!token) {
+                  alert("You are not authenticated. Please log in.");
+                  return;
+              }
+      
+              try {
+                  const response = await fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}`, {
+                      method: 'GET',
+                      headers: {
+                          'Authorization': 'Bearer ' + token
+                      }
+                  });
+      
+                  handleErrors(response);
+      
+                  const movie = await response.json();
+                  displayMovieDetails(movie);
+              } catch (error) {
+                  console.error('Error fetching movie details:', error);
+              }
+          }
+      
+          function displayMovieDetails(movie) {
+              if (movie) {
+                  document.getElementById('movie-poster').src = movie.movie_image_link;
+                  document.getElementById('movie-title').innerText = movie.movie_name;
+                  document.getElementById('movie-year').innerText = movie.movie_year;
+                  document.getElementById('movie-duration').innerText = movie.movie_duration + ' min';
+                  document.getElementById('movie-storyline').innerText = movie.movie_story_line;
+              } else {
+                  console.error('No movie details available');
+              }
+          }
+      
+          async function fetchAndDisplayComments(movieId) {
+              var token = localStorage.getItem('jwtToken');
+              if (!token) {
+                  alert("You are not authenticated. Please log in.");
+                  return;
+              }
+      
+              try {
+                  const response = await fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}/comments`, {
+                      method: 'GET',
+                      headers: {
+                          'Authorization': 'Bearer ' + token
+                      }
+                  });
+      
+                  handleErrors(response);
+      
+                  const comments = await response.json();
+                  displayComments(comments, movieId);
+              } catch (error) {
+                  console.error('Error fetching comments:', error);
+              }
+          }
+      
+          function displayComments(comments, movieId) {
+              const commentsContainer = document.getElementById('comments-container');
+              commentsContainer.innerHTML = '';
+      
+              for (let key in comments) {
+                  if (comments.hasOwnProperty(key)) {
+                      const comment = comments[key];
+                      const commentElement = document.createElement('div');
+                      commentElement.classList.add('comment');
+                      commentElement.innerHTML = `
+                          <p><strong>${comment.name} ${comment.surname}:</strong> ${comment.comment}</p>
+                          <button type="button" class="delete-comment-btn" onclick="deleteComment('${movieId}', '${key}')">Delete Comment</button>
+                      `;
+                      commentsContainer.appendChild(commentElement);
+                  }
+              }
+          }
+      
+          async function deleteComment(movieId, commentId) {
+              var token = localStorage.getItem('jwtToken');
+              if (!token) {
+                  alert("You are not authenticated. Please log in.");
+                  return;
+              }
+      
+              try {
+                  const response = await fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/movie/${movieId}/remove-comment/${commentId}`, {
+                      method: 'POST',
+                      headers: {
+                          'Authorization': 'Bearer ' + token
+                      }
+                  });
+      
+                  handleErrors(response);
+      
+                  await fetchAndDisplayComments(movieId);
+              } catch (error) {
+                  console.error('Error deleting comment:', error);
+              }
+          }
+      
+          function handleErrors(response) {
+              if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+          }
+      </script>
 
         </body>
         </html>
