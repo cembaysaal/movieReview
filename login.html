@@ -135,6 +135,7 @@ function handleLoginResponse(success, message, accessToken = null, name = '', su
             localStorage.setItem('jwtToken', accessToken);
             localStorage.setItem('userName', name);
             localStorage.setItem('userSurname', surname);
+            
             console.log('JWT Token and user details saved to local storage');
         }
 
