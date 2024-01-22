@@ -364,6 +364,24 @@ def flask_app():
         except Exception as e:
             return f"An Error Occured: {e}"
         
+    @web_app.get("/admin/get-users")
+    @jwt_required()
+    def admin_get_users():
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "admin":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            users = db.child("users").get()
+            return jsonify(users.val()), 200
+        except Exception as e:
+            return f"An Error Occured: {e}"
+        
 ########################################################################################################################################################################
 #                                                                       GUEST ROUTES                                                                                   #
 ########################################################################################################################################################################  
