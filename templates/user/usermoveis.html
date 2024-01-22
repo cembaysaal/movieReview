@@ -305,22 +305,24 @@ document.getElementById('submit-rating').addEventListener('click', function() {
 
 document.getElementById('submit-comment').addEventListener('click', function() {
     const userComment = document.getElementById('user-comment').value;
+    const name = localStorage.getItem('userName');
+    const surname = localStorage.getItem('userSurname');
+
     const movieId = getMovieIdFromURL();
     if (userComment && movieId) {
-        submitComment(userComment, movieId);
+        submitComment(userComment,name, surname, movieId);
     } else {
         console.log("No comment entered or movie ID missing");
     }
 });
 
-function submitComment(comment, movieId) {
+function submitComment(comment,name,surname, movieId) {
     var token = localStorage.getItem('jwtToken');
+    console.log(token);
     if (!token) {
         alert("You are not authenticated. Please log in.");
         return;
     }
-    var name = localStorage.getItem('userName');
-    var surname = localStorage.getItem('userSurname');
     fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/user/movie/${movieId}/create-comment`, {
         method: 'POST',
         headers: {
