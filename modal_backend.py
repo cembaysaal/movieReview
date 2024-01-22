@@ -382,6 +382,61 @@ def flask_app():
         except Exception as e:
             return f"An Error Occured: {e}"
         
+
+    @web_app.post("/admin/add-movie")
+    @jwt_required()
+    def admin_add_movie():
+
+        movie_name = ""
+        year = ""
+        photo_url = ""
+        duration = ""
+        story_line = ""
+
+        try:
+            try:
+                jwt_identity = get_jwt_identity()
+                user_type = jwt_identity['type']
+
+                if user_type != "admin":
+                    return jsonify({"message": "Invalid token"}), 400
+            except:
+                return jsonify({"message": "Invalid token"}), 400
+
+            data = request.get_json()
+            movie_name = data.get("movieName")
+            year = data.get("year")
+            photo_url = data.get("photoLink")
+            duration = data.get("duration")
+            story_line = data.get("storyline")
+
+            if movie_name == "" or year == "" or photo_url == "" or duration == "" or story_line == "":
+                return jsonify({"message": "Please fill all the fields"}), 400
+
+            try:
+                duration = int(duration)
+
+            except:
+                return jsonify({"message": "Duration must be integer"}), 400
+
+            movie_data = {
+                "movie_name": movie_name,
+                "movie_year": year,
+                "movie_image_link": photo_url,
+                "movie_duration": duration,
+                "movie_story_line": story_line,
+                "average_rating": 0,
+                "rating_count": 0
+            }
+
+            db.child("movies").push(movie_data)
+
+            return jsonify({"message": "movie added successfully"}), 201
+
+        except Exception as e:
+            return jsonify({"message": f"An Error Occurred: {e}"}), 500
+
+        
 ########################################################################################################################################################################
 #                                                                       GUEST ROUTES                                                                                   #
 ########################################################################################################################################################################  
