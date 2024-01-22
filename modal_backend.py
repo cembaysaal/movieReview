@@ -141,6 +141,7 @@ def flask_app():
             return jsonify(movies.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
+
         
         
 ########################################################################################################################################################################
@@ -168,5 +169,17 @@ def flask_app():
                     return jsonify({"message": "Admin logged in successfully", "access_token": access_token}), 200
         except:
             return jsonify({"message": "Admin with this email does not exist"}), 400
+        
+########################################################################################################################################################################
+#                                                                       GUEST ROUTES                                                                                   #
+########################################################################################################################################################################  
+        
+    @web_app.get("/guest/all-movies")
+    def guest_all_movies():
+        try:
+            movies = db.child("movies").get()
+            return jsonify(movies.val()), 200
+        except Exception as e:
+            return f"An Error Occured: {e}"
     
     return web_app
