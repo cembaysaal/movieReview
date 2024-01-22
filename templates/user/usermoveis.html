@@ -131,7 +131,7 @@ function fetchMovieDetails(movieId) {
         return;
     }
 
-    fetch(`https://pelinmisee--web-group-project-flask-app-dev.modal.run/user/movie/${movieId}`, {
+    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/login/user/movie/${movieId}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -192,7 +192,7 @@ function submitRating(ratingValue, movieId) {
         return;
     }
 
-    fetch(`https://pelinmisee--web-group-project-flask-app-dev.modal.run/user/movie/${movieId}/add-star`, {
+    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/login/user/movie/${movieId}/add-star`, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -226,7 +226,7 @@ function fetchAndDisplayComments(movieId) {
         return;
     }
 
-    fetch(`https://pelinmisee--web-group-project-flask-app-dev.modal.run/user/movie/${movieId}/comments`, { 
+    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/login/user/movie/${movieId}/comments`, { 
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token
@@ -266,7 +266,7 @@ function fetchAndDisplayComments(movieId) {
         return;
     }
 
-    fetch(`https://pelinmisee--web-group-project-flask-app-dev.modal.run/user/movie/${movieId}/add-star`, {
+    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/login/user/movie/${movieId}/add-star`, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -321,7 +321,7 @@ function submitComment(comment, movieId) {
     }
     var name = localStorage.getItem('userName');
     var surname = localStorage.getItem('userSurname');
-    fetch(`https://pelinmisee--web-group-project-flask-app-dev.modal.run/user/movie/${movieId}/create-comment`, {
+    fetch(`https://pelinmisee--web-group-project-flask-app.modal.run/admin/login/user/movie/${movieId}/create-comment`, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token,
