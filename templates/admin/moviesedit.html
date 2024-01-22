@@ -110,24 +110,22 @@
   
   
   <script>
-    
-    function add_movie() {
-
-      var token = localStorage.getItem('jwtToken');
-      var url = "https://pelinmisee--web-group-project-flask-app.modal.run/admin/add-movie";
+    async function add_movie() {
+      const token = localStorage.getItem('jwtToken');
+      const url = "https://pelinmisee--web-group-project-flask-app.modal.run/admin/add-movie";
 
       if (!token) {
         alert("You are not authenticated. Please log in.");
         return;
       }
 
-      var movieName = document.getElementById("movieName").value;
-      var year = document.getElementById("year").value;
-      var photoLink = document.getElementById("photoLink").value;
-      var duration = document.getElementById("time").value;
-      var storyline = document.getElementById("storyline").value;
+      const movieName = document.getElementById("movieName").value;
+      const year = document.getElementById("year").value;
+      const photoLink = document.getElementById("photoLink").value;
+      const duration = document.getElementById("time").value;
+      const storyline = document.getElementById("storyline").value;
 
-      data_to_send = {
+      const dataToSend = {
         "movieName": movieName,
         "year": year,
         "photoLink": photoLink,
@@ -135,35 +133,30 @@
         "storyline": storyline,
       }
 
-      fetch (url,
-      
-      {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify(data_to_send),
-    })
-      
-      .then(response => response.json())
-      .then(data => {
-        
-        if (data.message == "movie added successfully") {
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify(dataToSend),
+        });
+
+        const data = await response.json();
+
+        if (data.message === "movie added successfully") {
           alert("Movie added successfully");
           window.location.href = "admin.html";
-        }
-        else {
+        } else {
           alert(data.message);
         }
 
-      })
-      
-
+      } catch (error) {
+        console.error('Error adding movie:', error);
+        alert('Failed to add the movie. Please try again.');
+      }
     }
-
-
-
   </script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
