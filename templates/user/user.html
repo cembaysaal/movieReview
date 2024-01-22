@@ -78,71 +78,78 @@
   </main>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    fetchMovies();
-    setInterval(fetchMovies, 300000); 
-});
+    document.addEventListener('DOMContentLoaded', async function() {
+      try {
+        await fetchMovies();
+        setInterval(fetchMovies, 300000); // Fetch movies every 5 minutes
+      } catch (error) {
+        console.error('Error during DOMContentLoaded:', error);
+      }
+    });
 
-function fetchMovies() {
-    var token = localStorage.getItem('jwtToken'); 
-  
-    if (!token) {
-        alert("You are not authenticated. Please log in.");
-        return; 
+    async function fetchMovies() {
+      const token = localStorage.getItem('jwtToken'); 
+      if (!token) {
+          alert("You are not authenticated. Please log in.");
+          return; 
+      }
+
+      try {
+        const response = await fetch('https://pelinmisee--web-group-project-flask-app.modal.run/user/all-movies', { 
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token 
+            }
+        });
+
+        handleErrors(response);
+        const moviesData = await response.json();
+        renderMovies(moviesData);
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
     }
 
-    fetch('https://pelinmisee--web-group-project-flask-app.modal.run/user/all-movies', { 
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + token 
-        }
-    })
-    .then(response => response.json())
-    .then(moviesData => {
-        renderMovies(moviesData);
-    })
-    .catch(error => {
-        console.error('Error fetching movies:', error);
-    });
-}
+    function renderMovies(moviesData) {
+      const moviesContainer = document.getElementById('movies-container');
+      moviesContainer.innerHTML = '';
 
-function renderMovies(moviesData) {
-    const moviesContainer = document.getElementById('movies-container');
-    moviesContainer.innerHTML = '';
+      Object.entries(moviesData).forEach(([movieId, movie]) => {
+          const movieElement = createMovieCard(movie, movieId);
+          moviesContainer.appendChild(movieElement);
+      });
+    }
 
-    Object.entries(moviesData).forEach(([movieId, movie]) => {
-        const movieElement = createMovieCard(movie, movieId);
-        moviesContainer.appendChild(movieElement);
-    });
-}
+    function createMovieCard(movie, movieId) {
+      const li = document.createElement('li');
+      li.innerHTML = `
+          <div class="movie-card" onclick="window.location.href='./usermoveis.html?id=${movieId}'">
+              <figure class="card-banner">
+                  <img src="${movie.movie_image_link}" alt="${movie.movie_name} movie poster">
+              </figure>
+              <div class="title-wrapper">
+                  <h3 class="card-title">${movie.movie_name}</h3>
+                  <time datetime="${movie.movie_year}">${movie.movie_year}</time>
+              </div>
+              <div class="duration">
+                      <ion-icon name="time-outline"></ion-icon>
+                      <time datetime="PT${movie.movie_duration}M">${movie.movie_duration} min</time>
+                  </div>
+              <div class="rating">
+                      <ion-icon name="star"></ion-icon>
+                      <data>${parseFloat(movie.average_rating).toFixed(2)}</data>
+                  </div>
+              <!-- Add other movie details here -->
+          </div>`;
+      return li;
+    }
 
-function createMovieCard(movie, movieId) {
-    const li = document.createElement('li');
-    li.innerHTML = `
-        <div class="movie-card" onclick="window.location.href='./usermoveis.html?id=${movieId}'">
-            <figure class="card-banner">
-                <img src="${movie.movie_image_link}" alt="${movie.movie_name} movie poster">
-            </figure>
-            <div class="title-wrapper">
-                <h3 class="card-title">${movie.movie_name}</h3>
-                <time datetime="${movie.movie_year}">${movie.movie_year}</time>
-            </div>
-            <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-                    <time datetime="PT${movie.movie_duration}M">${movie.movie_duration} min</time>
-                </div>
-            <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-                    <data>${parseFloat(movie.average_rating).toFixed(2)}</data>
-                </div>
-            <!-- Add other movie details here -->
-        </div>`;
-    return li;
-}
-
-
-
-
+    function handleErrors(response) {
+      if (!response.ok) {
+          alert(`HTTP error! Status: ${response.status}`);
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    }
   </script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
