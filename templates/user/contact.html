@@ -105,7 +105,6 @@
             alert("Please fill all the fields.");
             return;
         }
-        console.log(localStorage);
         var token = localStorage.getItem('jwtToken'); 
     
         if (!token) {
@@ -120,7 +119,7 @@
             message: message
         };
     
-        fetch('http://127.0.0.1:5050/user/contact', {
+        fetch('https://pelinmisee--web-group-project-flask-app-dev.modal.run/user/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -141,6 +141,41 @@ def flask_app():
             return jsonify(movies.val()), 200
         except Exception as e:
             return f"An Error Occured: {e}"
+        
+    @web_app.post("/user/contact")
+    @jwt_required()
+    def user_contact():
+
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "user":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            data = request.get_json()
+            name = data["name"]
+            surname = data["surname"]
+            email = data["email"]
+            message = data["message"]
+
+            if name == "" or email == "" or message == "":
+                return jsonify({"message": "Please fill all the fields"}), 400
+
+            db.child("user_messages").push({
+                "name": name,
+                "surname": surname,
+                "email": email,
+                "message": message
+            })
+
+            return jsonify({"message": "Message sent successfully"}), 200
+
+        except Exception as e:
+            return f"An Error Occured: {e}"
 
         
         
