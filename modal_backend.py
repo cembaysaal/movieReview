@@ -327,6 +327,43 @@ def flask_app():
         except:
             return jsonify({"message": "Admin with this email does not exist"}), 400
         
+    @web_app.get("/admin/messages")
+    @jwt_required()
+    def admin_see_messages():
+
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "admin":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            messages = db.child("user_messages").get()
+            return jsonify(messages.val()), 200
+        except Exception as e:
+            return f"An Error Occured: {e}"
+            
+    @web_app.get("/admin/all-movies")
+    @jwt_required()
+    def admin_all_movies():
+        try:
+            jwt_identity = get_jwt_identity()
+            user_type = jwt_identity['type']
+
+            if user_type != "admin":
+                return jsonify({"message": "Invalid token"}), 400
+        except:
+            return jsonify({"message": "Invalid token"}), 400
+
+        try:
+            movies = db.child("movies").get()
+            return jsonify(movies.val()), 200
+        except Exception as e:
+            return f"An Error Occured: {e}"
+        
 ########################################################################################################################################################################
 #                                                                       GUEST ROUTES                                                                                   #
 ########################################################################################################################################################################  
