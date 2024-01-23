@@ -20,8 +20,8 @@ These instructions will get you a copy of the project up and running on your loc
     git clone https://github.com/cembaysaal/movieReview.git
     ```
 
-2. Open the project in Xcode:
-3. Run the app on the desired simulator or physical device.
+2. Open the project in VSCode:
+3. Run the app.
 
 
 ## Contributing 🤝
