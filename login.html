@@ -1,159 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Login Form</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    
-</head>
-<body id="top">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body id="top">
     <header class="header" data-header>
-        <div class="container">
-          <div class="overlay" data-overlay></div>
-          <a href="./guest.html" class="logo">
-            <img src="./assets/images/logo.png" alt="Automata logo">
-          </a>
-          <div class="header-actions">
-            <a href="guest.html" class="btn btn-primary">Sign In</a>
+      <div class="container">
+        <div class="overlay" data-overlay></div>
+        <a href="./guest.html" class="logo">
+          <img src="./assets/images/logo.png" alt="Automata logo" />
+        </a>
+        <div class="header-actions"></div>
+        <button class="menu-open-btn" data-menu-open-btn>
+          <ion-icon name="reorder-two"></ion-icon>
+        </button>
+        <nav class="navbar" data-navbar>
+          <div class="navbar-top">
+            <a href="./guest.html" class="logo">
+              <img src="./assets/images/logo.png" alt="Automata logo" />
+            </a>
+            <button class="menu-close-btn" data-menu-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
           </div>
-          <button class="menu-open-btn" data-menu-open-btn>
-            <ion-icon name="reorder-two"></ion-icon>
-          </button>
-          <nav class="navbar" data-navbar>
-            <div class="navbar-top">
-              <a href="./guest.html" class="logo">
-                <img src="./assets/images/logo.png" alt="Automata logo">
-              </a>
-              <button class="menu-close-btn" data-menu-close-btn>
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-            </div>
-            <ul class="navbar-list">
-              <li>
-                <a href="./guest.html" class="navbar-link">Home</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-      <section class="hero">
-        <div class="container">
-            <div class="login-container">
-                <div class="screen">
-                    <div class="screen__content">
-                        <h1 class="screen__title">Log In </h1>
-                        <form name="loginForm" class="login" onsubmit="validateForm(event)">
-                            <div class="login__field">
-                                <i class="login__icon fas fa-user"></i>
-                                <input type="text" name="username" class="login__input" placeholder="Email">
-                            </div>
-                            <div class="login__field">
-                                <i class="login__icon fas fa-lock"></i>
-                                <input type="password" name="password" class="login__input" placeholder="Password">
-                            </div>
-                            <div class="login__field">
-                                <label class="login__radio">
-                                    <input type="radio" name="role" value="user" checked> User
-                                </label>
-                                <label class="login__radio">
-                                    <input type="radio" name="role" value="admin"> Admin
-                                </label>
-                            </div>
-                            <div class="social-login">
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <button type="button" class="social-login__button" onclick="window.location.href='signup.html'">Sign Up</button>
-                            </div>
-                            <button type="submit" class="button login__submit">
-                                <span class="button__text">Log In Now</span>
-                                <i class="button__icon fas fa-chevron-right"></i>
-                            </button>	
-                        </form>
-
-                    </div>
-                    <div id="loginFeedback" style="color: rgb(255, 255, 255); margin-top: 15px;"></div>	
+          <ul class="navbar-list">
+            <li>
+              <a href="./guest.html" class="navbar-link">Home</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <section class="hero">
+      <div class="container">
+        <div class="login-container">
+          <div class="screen">
+            <div class="screen__content">
+              <h1 class="screen__title">Log In</h1>
+              <form
+                name="loginForm"
+                class="login"
+                onsubmit="validateForm(event)"
+              >
+                <div class="login__field">
+                  <i class="login__icon fas fa-user"></i>
+                  <input
+                    type="text"
+                    name="username"
+                    class="login__input"
+                    placeholder="Email"
+                  />
                 </div>
+                <div class="login__field">
+                  <i class="login__icon fas fa-lock"></i>
+                  <input
+                    type="password"
+                    name="password"
+                    class="login__input"
+                    placeholder="Password"
+                  />
+                </div>
+                <div class="login__field">
+                  <label class="login__radio">
+                    <input type="radio" name="role" value="user" checked /> User
+                  </label>
+                  <label class="login__radio">
+                    <input type="radio" name="role" value="admin" /> Admin
+                  </label>
+                </div>
+                <div class="social-login">
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <button
+                    type="button"
+                    class="social-login__button"
+                    onclick="window.location.href='signup.html'"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+                <button type="submit" class="button login__submit">
+                  <span class="button__text">Log In Now</span>
+                  <i class="button__icon fas fa-chevron-right"></i>
+                </button>
+              </form>
             </div>
+            <div
+              id="loginFeedback"
+              style="color: rgb(255, 255, 255); margin-top: 15px"
+            ></div>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <script>
-        async function validateForm(event) {
-            event.preventDefault(); 
+    <script>
+      async function validateForm(event) {
+        event.preventDefault();
 
-            var username = document.forms["loginForm"]["username"].value;
-            var password = document.forms["loginForm"]["password"].value;
-            var role = document.querySelector('input[name="role"]:checked').value;
+        var username = document.forms["loginForm"]["username"].value;
+        var password = document.forms["loginForm"]["password"].value;
+        var role = document.querySelector('input[name="role"]:checked').value;
 
-            if (username == "" || password == "") {
-                alert("Both username and password must be filled out");
-                return false;
-            }
-
-            document.getElementById('loginFeedback').innerText = 'Logging in...';
-            
-            var loginEndpoint = role === "admin" ? "https://pelinmisee--web-group-project-flask-app.modal.run/admin/login" : "https://pelinmisee--web-group-project-flask-app.modal.run/user/login";
-
-            var requestData = JSON.stringify({
-                email: username,
-                password: password
-            });
-
-            try {
-                const response = await fetch(loginEndpoint, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*"
-                    },
-                    body: requestData
-                });
-
-                if (!response.ok) {
-                    throw new Error("Login failed. Please try again.");
-                }
-
-                const responseData = await response.json();
-                const accessToken = responseData.access_token || null;
-                const userName = responseData.name || '';
-                const userSurname = responseData.surname || '';
-                handleLoginResponse(true, responseData.message, accessToken, userName, userSurname);
-            } catch (error) {
-                handleLoginResponse(false, error.message);
-            }
+        if (username == "" || password == "") {
+          alert("Both username and password must be filled out");
+          return false;
         }
 
-        function handleLoginResponse(success, message, accessToken = null, name = '', surname = '') {
-            var feedbackElement = document.getElementById('loginFeedback');
-            var role = document.querySelector('input[name="role"]:checked').value;
+        document.getElementById("loginFeedback").innerText = "Logging in...";
 
-            if (success) {
-                if (accessToken) {
-                    localStorage.setItem('jwtToken', accessToken);
-                    localStorage.setItem('userName', name);
-                    localStorage.setItem('userSurname', surname);
-                    
-                    console.log('JWT Token and user details saved to local storage');
-                }
+        var loginEndpoint =
+          role === "admin"
+            ? "https://pelinmisee--web-group-project-flask-app.modal.run/admin/login"
+            : "https://pelinmisee--web-group-project-flask-app.modal.run/user/login";
 
-                feedbackElement.innerText = message;
-                if (role === "admin") {
-                    window.location.href = './templates/admin/admin.html';
-                } else if (role === "user") {
-                    window.location.href = './templates/user/user.html';
-                }
-            } else {
-                feedbackElement.innerText = message;
-            }
+        var requestData = JSON.stringify({
+          email: username,
+          password: password,
+        });
+
+        try {
+          const response = await fetch(loginEndpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+            body: requestData,
+          });
+
+          if (!response.ok) {
+            throw new Error("Login failed. Please try again.");
+          }
+
+          const responseData = await response.json();
+          const accessToken = responseData.access_token || null;
+          const userName = responseData.name || "";
+          const userSurname = responseData.surname || "";
+          handleLoginResponse(
+            true,
+            responseData.message,
+            accessToken,
+            userName,
+            userSurname
+          );
+        } catch (error) {
+          handleLoginResponse(false, error.message);
         }
+      }
+
+      function handleLoginResponse(
+        success,
+        message,
+        accessToken = null,
+        name = "",
+        surname = ""
+      ) {
+        var feedbackElement = document.getElementById("loginFeedback");
+        var role = document.querySelector('input[name="role"]:checked').value;
+
+        if (success) {
+          if (accessToken) {
+            localStorage.setItem("jwtToken", accessToken);
+            localStorage.setItem("userName", name);
+            localStorage.setItem("userSurname", surname);
+
+            console.log("JWT Token and user details saved to local storage");
+          }
+
+          feedbackElement.innerText = message;
+          if (role === "admin") {
+            window.location.href = "./templates/admin/admin.html";
+          } else if (role === "user") {
+            window.location.href = "./templates/user/user.html";
+          }
+        } else {
+          feedbackElement.innerText = message;
+        }
+      }
     </script>
-
-</body>
+  </body>
 </html>
